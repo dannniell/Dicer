@@ -2,20 +2,21 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Dicer.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
         }
 
         [HttpGet]
@@ -30,11 +31,11 @@ namespace Dicer.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
-                var result = await userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("index", "home");
                 }
                 
@@ -43,7 +44,12 @@ namespace Dicer.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            /*var userData = await GetCurrentUserAsync();
+            var userPekerjaan = userData.Pekerjaan;*/
             return View(model);
+            
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
