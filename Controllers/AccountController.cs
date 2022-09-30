@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Dicer.Controllers
 {
@@ -17,9 +16,9 @@ namespace Dicer.Controllers
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._roleManager = roleManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -44,7 +43,7 @@ namespace Dicer.Controllers
                         {
                             if (result.Succeeded)
                             {
-                                var role = await _roleManager.FindByIdAsync("4e0544fd-c65f-4a81-bc93-eaaf6a510042");
+                                var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdClient);
                                 await _userManager.AddToRoleAsync(user, role.Name);
                                 await _signInManager.SignInAsync(user, isPersistent: false);
                                 // redirect to client home page
@@ -58,7 +57,7 @@ namespace Dicer.Controllers
                         {
                             if (result.Succeeded)
                             {
-                                var role = await _roleManager.FindByIdAsync("8054b692-c227-4c5f-9837-40b2346fa8d3");
+                                var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdCreator);
                                 await _userManager.AddToRoleAsync(user, role.Name);
                                 await _signInManager.SignInAsync(user, isPersistent: false);
                                 //redirect to creator home page
