@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
