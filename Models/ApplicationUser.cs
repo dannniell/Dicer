@@ -12,5 +12,9 @@ namespace Dicer.Models
         public string? Provinsi { get; set; }
         public string? Pekerjaan { get; set; }
         public string? Minat { get; set; }
+        public string? UserNameIg { get; set; }
+        public int? JumlahFollowers { get; set; }
+        public int? ER { get; set; }
+        public string? LinkInstagram { get; set; }
     }
 }

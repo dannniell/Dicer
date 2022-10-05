@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dicer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220925073840_Extend_IdentityUser")]
-    partial class Extend_IdentityUser
+    [Migration("20221005141833_InitApplicationUser")]
+    partial class InitApplicationUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace Dicer.Migrations
                     b.Property<DateTime?>("DoB")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ER")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -50,7 +53,13 @@ namespace Dicer.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<int?>("JumlahFollowers")
+                        .HasColumnType("int");
+
                     b.Property<string>("Kota")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkInstagram")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -101,6 +110,9 @@ namespace Dicer.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("UserNameIg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

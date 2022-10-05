@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dicer.Migrations
 {
-    public partial class Extend_IdentityUser : Migration
+    public partial class InitApplicationUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,6 +36,10 @@ namespace Dicer.Migrations
                     Provinsi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pekerjaan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Minat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserNameIg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JumlahFollowers = table.Column<int>(type: "int", nullable: true),
+                    ER = table.Column<int>(type: "int", nullable: true),
+                    LinkInstagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

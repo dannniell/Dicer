@@ -37,6 +37,9 @@ namespace Dicer.Migrations
                     b.Property<DateTime?>("DoB")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ER")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -48,7 +51,13 @@ namespace Dicer.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<int?>("JumlahFollowers")
+                        .HasColumnType("int");
+
                     b.Property<string>("Kota")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkInstagram")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -99,6 +108,9 @@ namespace Dicer.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("UserNameIg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
