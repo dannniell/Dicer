@@ -31,6 +31,10 @@ namespace Dicer.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(Register model, string submit)
         {
+            /*String client = "Client";
+            String creator = "Creator";
+            var roleResult1 = await _roleManager.CreateAsync(new IdentityRole(client));
+            var roleResult2 = await _roleManager.CreateAsync(new IdentityRole(creator));*/
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name };

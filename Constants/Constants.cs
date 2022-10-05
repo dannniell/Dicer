@@ -2,7 +2,7 @@
 {
     public sealed class Constants
     {
-        public const string roleIdClient = "4e0544fd-c65f-4a81-bc93-eaaf6a510042";
-        public const string roleIdCreator = "8054b692-c227-4c5f-9837-40b2346fa8d3";
+        public const string roleIdClient = "2329f4a9-beb0-4c61-90f0-e98f2941dc38";
+        public const string roleIdCreator = "f306c174-b808-4256-a23a-99a932193477";
     }
 }
