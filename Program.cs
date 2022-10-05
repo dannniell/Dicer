@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Dicer.Models;
 
+//test
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
