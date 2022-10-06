@@ -24,6 +24,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @if(signInManager.IsSignedIn(User)){
                     <ul class="navbar-nav flex-grow-1">
@@ -41,17 +42,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">My Campaign</a>
                         </li>
                         }
-
-                        <ul class="navbar-nav m-lg-auto">
+                    </ul>
+                    }
+                </div>
+                <div>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <ul class="navbar-nav">
                             <li class="nav-item">
                                 <form method="post" asp-action="profile" asp-controller="Account">
-                                    <button type="submit" class="nav-link btn-link py-0" style="width:auto">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">
                                         @user.Name
                                     </button>
                                 </form>
                             </li>
+                            <li class="nav-item">
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
                         </ul>
-                    </ul>
                     }
                 </div>
             </div>
