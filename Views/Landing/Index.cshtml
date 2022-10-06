@@ -13,19 +13,19 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-floating">
                 <input asp-for="Email" class="form-control" />
-                <label asp-for="Email"></label>
+                <label asp-for="Email" class="form-label"></label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input asp-for="Password" class="form-control" />
-                <label asp-for="Password"></label>
+                <label asp-for="Password" class="form-label"></label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <hr />
             <button type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-            <div class="d-inline">
-                belum punya akun? <a asp-action="register" asp-controller="Account" class="nav-link">Sign Up</a>
+            <div class="d-flex">
+                belum punya akun?<a asp-action="register" asp-controller="Account" >Sign Up</a>
             </div>
-            <br />
         </form>
     </div>
 </div>
