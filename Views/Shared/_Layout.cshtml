@@ -15,35 +15,35 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Dicer.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body style="height:1500px" >
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dicer</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow bgHeader mb-3">
+            <div class="container">
+                <a class="navbar-brand text-white ml-auto headTitle" asp-area="" asp-controller="Home" asp-action="Index">Dicer</a>
+                <button class="navbar-toggler custom-toggler " type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if(signInManager.IsSignedIn(User)){
+                    @*@if(signInManager.IsSignedIn(User)){*@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        @if(User.IsInRole("Client")){
+                        @*@if(User.IsInRole("Client")){*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">My Job</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Job</a>
                         </li>
-                        }
-                        @if(User.IsInRole("Creator")){
+                        @*}
+                        @if(User.IsInRole("Creator")){*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">My Campaign</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Campaign</a>
                         </li>
-                        }
+                        @*}*@
                     </ul>
-                    }
+                    @*}*@
                 </div>
                 <div>
                     @if (signInManager.IsSignedIn(User))
@@ -73,10 +73,24 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Dicer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="border-top footer">
+        <nav class="navbar navbar-expand-sm navbar-dark box-shadow bgHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-auto">
+                        <a class="navbar-brand text-white footTitle my-0" asp-area="" asp-controller="Home" asp-action="Index">Dicer</a>
+                        <h5 class="text-white"><em>Digital Creator Platform</em></h5>
+                    </div>
+                    <div class="col-md-auto">
+                        <h5 class="text-white">Information</h5>
+                    </div>
+                    <div class="col-md-auto">
+                        <h5 class="text-white">Social Media</h5>
+                    </div>
+                @*&copy; 2022 - Dicer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                </div>
+            </div>
+        </nav>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
