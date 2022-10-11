@@ -1,4 +1,4 @@
-﻿@model Register
+﻿@model RegisterCreator
 
 @{
     ViewData["Title"] = "Register";
@@ -14,7 +14,7 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-floating">
-                <input asp-for="Name" class="form-control" autocomplete="username" aria-required="true" />
+                <input asp-for="Name" class="form-control" aria-required="true" />
                 <label asp-for="Name"></label>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -22,6 +22,21 @@
                 <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Email"></label>
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="UsernameIg" class="form-control" aria-required="true" />
+                <label asp-for="UsernameIg"></label>
+                <span asp-validation-for="UsernameIg" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Kota" class="form-control" aria-required="true" />
+                <label asp-for="Kota"></label>
+                <span asp-validation-for="Kota" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Provinsi" class="form-control" aria-required="true" />
+                <label asp-for="Provinsi"></label>
+                <span asp-validation-for="Provinsi" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
