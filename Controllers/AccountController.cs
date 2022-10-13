@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Dicer.Interfaces;
+using Dicer.Repositories;
+using System.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dicer.Controllers
 {
@@ -11,14 +15,17 @@ namespace Dicer.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IProvinsiService provinsiService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager)
+                                RoleManager<IdentityRole> roleManager,
+                                IProvinsiService provinsiService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            this.provinsiService = provinsiService;
         }
 
         #region Register Client
@@ -54,6 +61,7 @@ namespace Dicer.Controllers
         #endregion Register Client
 
         #region Register Creator
+
         [HttpGet]
         public IActionResult RegisterCreator()
         {
@@ -65,8 +73,10 @@ namespace Dicer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, UserNameIg = model.UsernameIg, 
-                                                    Kota = model.Kota, Provinsi = model.Provinsi};
+                
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, UserNameIg = model.UsernameIg,
+                                                Provinsi = model.Provinsi, Kota = model.Kota};
+                //Kota = model.Kota, Provinsi = model.Provinsi};
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -85,6 +95,7 @@ namespace Dicer.Controllers
             }
             return View(model);
         }
+
         #endregion Register Creator
 
         [HttpPost]
@@ -94,7 +105,9 @@ namespace Dicer.Controllers
             return RedirectToAction("Index", "Landing");
         }
 
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
 
         /*[HttpPost]
        public async Task<IActionResult> Register(Register model, string submit)

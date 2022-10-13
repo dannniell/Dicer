@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Dicer.Models;
+using Dicer.Repositories;
+using Dicer.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
@@ -13,6 +15,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+#region Dependancy
+//scope
+builder.Services.AddScoped<IProvinsiService, ProvinsiRepository>();
+builder.Services.AddScoped<IKotaService, KotaRepository>();
+
+//singletone
+
+
+//transient
+
+#endregion Dependancy
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

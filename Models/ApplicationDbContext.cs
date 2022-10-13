@@ -12,6 +12,15 @@ namespace Dicer.Models
         {
         }
 
+        public DbSet<Kota> kotas { get; set; }
+
+        public DbSet<Provinsi> provinsis { get; set; }
+/*        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=tcp:dicerdb.database.windows.net,1433;Initial Catalog=DiCerDb;Persist Security Info=False;User ID=dicerhost;Password=d1cerhost@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False");
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -20,7 +29,7 @@ namespace Dicer.Models
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-        }
+        }*/
     }
 
     internal class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>

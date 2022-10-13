@@ -20,11 +20,11 @@ namespace Dicer.Models
 
         [Required]
         [Display(Name = "Kota")]
-        public string Kota { get; set; }
+        public int Kota { get; set; }
 
         [Required]
         [Display(Name = "Provinsi")]
-        public string Provinsi { get; set; }
+        public int Provinsi { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
