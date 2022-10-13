@@ -4,58 +4,55 @@
     ViewData["Title"] = "Register";
 }
 
-
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Name" class="form-control" aria-required="true" />
-                <label asp-for="Name"></label>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Email"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="UsernameIg" class="form-control" aria-required="true" />
-                <label asp-for="UsernameIg"></label>
-                <span asp-validation-for="UsernameIg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Provinsi" class="control-label">Provinsi</label>
-                @*<select class="form-control" id="ddlprovinsi"> <option value=""></option> </select>*@
-                <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                <span asp-validation-for="Provinsi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Kota" class="control-label">Kota</label>
-                <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                <span asp-validation-for="Kota" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Password"></label>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="ConfirmPassword"></label>
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-            <br />
-        </form>
+<div class="container registerCreatorContent">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form id="registerForm" method="post">
+                <h2>Create a new account.</h2>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" aria-required="true" />
+                    <label asp-for="Name"></label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="UsernameIg" class="form-control" aria-required="true" />
+                    <label asp-for="UsernameIg"></label>
+                    <span asp-validation-for="UsernameIg" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Provinsi" class="control-label">Provinsi</label>
+                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                    <span asp-validation-for="Provinsi" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Kota" class="control-label">Kota</label>
+                    <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                    <span asp-validation-for="Kota" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="ConfirmPassword"></label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <hr />
+                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Register</button>
+                <br />
+            </form>
+        </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     <script src="~/js/listProvinsiKota.js" asp-append-version="true"></script>
