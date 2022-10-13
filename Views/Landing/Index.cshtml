@@ -4,31 +4,36 @@
     ViewData["Title"] = "DiCer";
 }
 
-
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <h2>Digital <br> Creator Platform</h2>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Email" class="form-control" />
-                <label asp-for="Email" class="form-label"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Password" class="form-control" />
-                <label asp-for="Password" class="form-label"></label>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <hr />
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-            <div class="d-flex">
-                belum punya akun?<a asp-action="register" asp-controller="Account" >Sign Up</a>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-8">
-        <img src=""></img>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-6 ">
+            <form method="post">
+                <spanc class="landingTitle">Digital Creator Platform</spanc>
+                <hr/>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" />
+                    <label asp-for="Email" class="form-label"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" />
+                    <label asp-for="Password" class="form-label"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <hr/>
+                <button type="submit" class="align-self-center w-100 btn btn-lg btn-primary bgColor">Login</button>
+                <div class="d-flex justify-content-center my-2">
+                    Belum punya akun?&nbsp;&nbsp;
+                    <a asp-action="register" asp-controller="Account" >Sign Up as Client</a>&nbsp;&nbsp;
+                    <a asp-action="registerCreator" asp-controller="Account" >Sign Up as Creator</a>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img src="../Img/System/LandingPagePic.png" class="rounded mx-auto d-block">
+        </div>
     </div>
 </div>
+
