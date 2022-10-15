@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Dicer.Models;
 using Dicer.Repositories;
 using Dicer.Interfaces;
+using Dicer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IKotaService, KotaRepository>();
 
 
 //transient
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 #endregion Dependancy
 

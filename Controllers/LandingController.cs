@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Dicer.Interfaces;
 
 namespace Dicer.Controllers
 {
@@ -11,14 +12,17 @@ namespace Dicer.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService emailService;
 
         public LandingController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager)
+                                RoleManager<IdentityRole> roleManager,
+                                IEmailService emailService)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
+            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -36,6 +40,8 @@ namespace Dicer.Controllers
 
                 if (result.Succeeded)
                 {
+                    string body = "<th><a href=\"google.com\">Masuk ke Dicer</a></th>";
+                    emailService.SendEmail("danielalferian9@gmail.com", "testing", body);
                     // redirect to client home page
                     return RedirectToAction("index", "home");
                 }
