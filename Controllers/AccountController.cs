@@ -16,16 +16,19 @@ namespace Dicer.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IProvinsiService provinsiService;
+        private readonly IEmailService emailService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
-                                IProvinsiService provinsiService)
+                                IProvinsiService provinsiService,
+                                IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             this.provinsiService = provinsiService;
+            this.emailService = emailService;
         }
 
         #region Register Client
@@ -44,11 +47,17 @@ namespace Dicer.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme);
+                    
                     var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdClient);
                     await _userManager.AddToRoleAsync(user, role.Name);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    // redirect to client home page
-                    return RedirectToAction("index", "home");
+
+                    string body = String.Format("<th><a href={0}>Klik Disini Untuk Konfirmasi Email Anda</a></th>", confirmationLink);
+                    emailService.SendEmail(model.Email, "Dicer Konfirmasi Email", body);
+
+                    return RedirectToAction("RegistrationSuccess", "Account");
                 }
 
                 foreach (var error in result.Errors)
@@ -81,11 +90,17 @@ namespace Dicer.Controllers
 
                 if (result.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme);
+
                     var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdCreator);
                     await _userManager.AddToRoleAsync(user, role.Name);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //redirect to creator home page
-                    return RedirectToAction("index", "home");
+
+                    string body = String.Format("<th><a href={0}>Klik Disini Untuk Konfirmasi Email Anda</a></th>", confirmationLink);
+                    emailService.SendEmail(model.Email, "Dicer Konfirmasi Email", body);
+
+                    return RedirectToAction("RegistrationSuccess", "Account");
                 }
                 
                 foreach (var error in result.Errors)
@@ -97,6 +112,44 @@ namespace Dicer.Controllers
         }
 
         #endregion Register Creator
+
+        [HttpGet]
+        public IActionResult RegistrationSuccess()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ErrorView()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if(userId == null || token == null)
+            {
+                return RedirectToAction("index", "landing");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                ViewBag.ErrorMessage = "Invalid User";
+                return RedirectToAction("ErrorView", "Account");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                return View();
+            }
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return RedirectToAction("ErrorView", "Account");
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()

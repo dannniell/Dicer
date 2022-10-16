@@ -11,18 +11,12 @@ namespace Dicer.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IEmailService emailService;
 
         public LandingController(UserManager<ApplicationUser> userManager,
-                                SignInManager<ApplicationUser> signInManager,
-                                RoleManager<IdentityRole> roleManager,
-                                IEmailService emailService)
+                                SignInManager<ApplicationUser> signInManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
-            this._roleManager = roleManager;
-            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -36,17 +30,29 @@ namespace Dicer.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, model.Password)))
+                {
+                    ModelState.AddModelError(string.Empty, "Konfimasi Email");
+                    return View(model);
+                }
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
                 if (result.Succeeded)
                 {
-                    string body = "<th><a href=\"google.com\">Masuk ke Dicer</a></th>";
-                    emailService.SendEmail("danielalferian9@gmail.com", "testing", body);
-                    // redirect to client home page
-                    return RedirectToAction("index", "home");
+                    if(await _userManager.IsInRoleAsync(user, Constants.Constants.roleIdClient))
+                    {
+                        //client
+                        return RedirectToAction("index", "home");
+                    }
+                    else
+                    {
+                        //creator
+                        return RedirectToAction("index", "home");
+                    }                 
                 }
 
-                ModelState.AddModelError(string.Empty, "Gagal Login");
+                ModelState.AddModelError(string.Empty, "Email atau Password Salah");
             }
             return View(model);
         }
