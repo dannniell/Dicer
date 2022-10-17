@@ -25,17 +25,31 @@ body {
 }
 
 .container .landingContent {
-    padding-top: 15vh;
+    padding-top: 20vh;
+    padding-bottom:10vh;
 }
 
 .container .registerClientContent {
-    padding-top: 15vh;
+    padding-top: 18vh;
+    padding-bottom: 10vh;
 }
 
 .container .registerCreatorContent {
     padding-top: 15vh;
     padding-bottom:10vh;
 }
+
+.container .forgetContent {
+    padding-top: 20vh;
+    padding-bottom:10vh;
+}
+
+.container .notifContent {
+    padding-top: 15vh;
+    padding-bottom: 10vh;
+}
+
+
 
 
 .row {
@@ -210,11 +224,15 @@ ul {
     padding-left: 28px;
 }
 
+.forgetPasswordSuccessIndent {
+    padding-left: 40px;
+}
+
 /*specific page setting*/
 .landingTitle {
     font-size: 40px;
     /*font-weight: bold;*/
     color: black;
-     margin-top: 71px;
+    /*margin-top: 71px;*/
 }
 

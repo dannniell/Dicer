@@ -6,35 +6,35 @@
 
 <div class="container registerClientContent">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <form id="registerForm" method="post">
-                <span class="landingTitle">Create a New Account Client</span>
+                <span class="landingTitle">Register Client Account</span>
                 <hr/>
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Name" class="form-control" autocomplete="username" aria-required="true" />
+                <div class="form-group mb-3">
                     <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+                <div class="form-group mb-3">
                     <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <div class="form-group mb-3">
                     <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <div class="form-group mb-3">
                     <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <hr/>
                 <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Register</button>
                 <div class="d-flex justify-content-center my-2">
-                    Sudah punya akun?&nbsp;&nbsp;<a asp-action="index" asp-controller="Landing" >Sign In</a>
+                    Already have account?&nbsp;<a asp-action="index" asp-controller="Landing" >Sign In</a>
                 </div>
             </form>
         </div>

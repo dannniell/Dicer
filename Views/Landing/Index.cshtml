@@ -11,24 +11,24 @@
                 <span class="landingTitle">Digital Creator Platform</span>
                 <hr/>
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" />
+                <div class="form-group mb-3">
                     <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" />
+                <div class="form-group mb-3">
                     <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <hr/>
                 <button type="submit" class="align-self-center w-100 btn btn-lg btn-primary bgColor">Login</button>
                 <div class="d-flex justify-content-center my-2">
-                    Lupa Password?&nbsp;&nbsp;
-                    <a asp-action="forgotPassword" asp-controller="Account" >Sign Up as Client</a>
+                    Forget password?&nbsp;
+                    <a asp-action="forgotPassword" asp-controller="Account">Click here</a>
                 </div>
                 <div class="d-flex justify-content-center my-2">
-                    Belum punya akun?&nbsp;&nbsp;
+                    Don't have account?&nbsp;
                     <a asp-action="register" asp-controller="Account" >Sign Up as Client</a>&nbsp;&nbsp;
                     <a asp-action="registerCreator" asp-controller="Account" >Sign Up as Creator</a>
                 </div>
