@@ -174,28 +174,31 @@ ul {
     color: white
 }
 
+.headSubTitle {
+    font-size: 15px;
+    font-style: italic;
+    color: white;
+    margin-top: 10px;
+
+}
+
 .footTitle {
     font-size: 50px;
     font-weight: bold;
     color: white;
 }
 
-.footSubTitle {
-    font-size: 20px;
-    font-style: italic;
-    color: white
-}
-
 .footSubDescTitle {
-    font-size: 20px;
+    font-size: 14px;
     font-style: italic;
     font-weight: bold;
     color: white;
-    padding-left: 25px;
+    padding-left: 50px;
+    margin-top: 50px;
 }
 
 .footSubDesc {
-    font-size: 16px;
+    font-size: 10px;
     color: white
 }
 
@@ -204,7 +207,7 @@ ul {
 }
 
 .footDescIndent {
-    padding-left: 33px;
+    padding-left: 28px;
 }
 
 /*specific page setting*/
