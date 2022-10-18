@@ -22,6 +22,19 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender" id="ddlgender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="DoB" class="control-label"></label>
+                    <input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="DoB" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
                     <label asp-for="UsernameIg"></label>
                     <input asp-for="UsernameIg" class="form-control" aria-required="true" />
                     <span asp-validation-for="UsernameIg" class="text-danger"></span>
@@ -56,8 +69,15 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
     <script src="~/js/listProvinsiKota.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
 }

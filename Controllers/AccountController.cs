@@ -82,8 +82,8 @@ namespace Dicer.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, UserNameIg = model.UsernameIg,
+
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name,Gender = model.Gender, DoB = model.DoB, UserNameIg = model.UsernameIg,
                                                 Provinsi = model.Provinsi, Kota = model.Kota};
                 //Kota = model.Kota, Provinsi = model.Provinsi};
                 var result = await _userManager.CreateAsync(user, model.Password);

@@ -15,6 +15,14 @@ namespace Dicer.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
+
+        [Required]
+        [Display(Name = "Date of Birth")]
+        public DateTime? DoB { get; set; }
+
+        [Required]
         [Display(Name = "Username Instagram")]
         public string UsernameIg { get; set; }
 
