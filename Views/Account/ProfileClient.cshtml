@@ -1,0 +1,48 @@
+﻿@model ProfileClientViewModel
+@inject UserManager<ApplicationUser> userManager;
+
+@{
+    ViewData["Title"] = "Profile";
+    var user = await userManager.GetUserAsync(User);
+    var photoPath = "~/Img/Profile/" + (user.ProfileImg ?? "noimage.jpg");
+}
+<div class="container registerCreatorContent">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <form enctype="multipart/form-data" asp-action="ProfileClient" asp-controller="Account" method="post">
+                <span class="landingTitle">Profile Account</span>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                 <div class="form-group mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" disabled/>
+                </div>
+                <div class="form-group mb-3">
+                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+                    <label asp-for="ProfileImg"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control custom-file-input" />
+                    </div>
+                    <span asp-validation-for="ProfileImg" class="text-danger"></span>
+                </div>
+                <hr />
+                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
+                <hr />
+                <a asp-action="ProfileClient" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
+                <br />
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/DatePicker.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}

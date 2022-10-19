@@ -1,0 +1,120 @@
+﻿@model ProfileCreatorViewModel
+@inject UserManager<ApplicationUser> userManager;
+
+@{
+    ViewData["Title"] = "Profile";
+    var InitDate = Model.DoB?.ToString("yyyy-MM-dd") ?? "N/A";
+
+    var user = await userManager.GetUserAsync(User);
+    var photoPath = "~/Img/Profile/" + (user.ProfileImg ?? "noimage.jpg");
+}
+<input id="InitProvinsi" value="@Model.Provinsi"/>
+<input id="InitKota" value="@Model.Kota"/>
+<div class="container registerCreatorContent">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <form enctype="multipart/form-data" asp-action="ProfileCreator" asp-controller="Account" method="post">
+                <span class="landingTitle">Profile Account</span>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                 <div class="form-group mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" disabled/>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender" id="ddlgender" class="form-control">
+                        @if (Model.Gender == "Male")
+                        {
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                        }
+                        @if(Model.Gender == "Female")
+                        {
+                            <option value="Female" selected>Female</option>
+                            <option value="Male" selected>Male</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    @*<label asp-for="DoB" class="control-label"></label>
+                    <div class="input-group date" id="datepicker" value="@InitDate">
+                        <input asp-for="DoB" type="text" class="form-control">
+                            <span class="input-group-append">
+                                <span class="input-group-text bg-white">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </span>
+                        </div>
+                    <span asp-validation-for="DoB" class="text-danger"></span>*@
+
+
+                    @*<input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-light d-block">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                    <span asp-validation-for="DoB" class="text-danger"></span>  *@
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Provinsi" class="control-label">Province</label>
+                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"><option value="volvo">Volvo</option></select>
+                    <span asp-validation-for="Provinsi" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Kota" class="control-label">City</label>
+                    <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                    <span asp-validation-for="Kota" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+                    <label asp-for="ProfileImg"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control custom-file-input" />
+                    </div>
+                    <span asp-validation-for="ProfileImg" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="UserNameIg"></label>
+                    <input asp-for="UserNameIg" class="form-control" aria-required="true" />
+                    <span asp-validation-for="UserNameIg" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="JumlahFollowers"></label>
+                    <input asp-for="JumlahFollowers" disabled class="form-control" aria-required="true" />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="ER"></label>
+                    <input asp-for="ER" disabled class="form-control" aria-required="true" />
+                </div>
+                <hr />
+                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Register</button>
+                <hr />
+                <a asp-action="ProfileCreator" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
+                <br />
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/UpdatelistProvinsiKota.js" asp-append-version="true"></script>
+    <script src="~/js/DatePicker.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>*@
+}

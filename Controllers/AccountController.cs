@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dicer.Controllers
 {
-    [AllowAnonymous]
+    
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -17,33 +17,39 @@ namespace Dicer.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IProvinsiService provinsiService;
         private readonly IEmailService emailService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
                                 IProvinsiService provinsiService,
-                                IEmailService emailService)
+                                IEmailService emailService,
+                                IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             this.provinsiService = provinsiService;
             this.emailService = emailService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         #region Register Client
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(Register model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name };
+                var defaultImg = Constants.Constants.DefaultProfileImg;
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, ProfileImg = defaultImg};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -70,21 +76,22 @@ namespace Dicer.Controllers
         #endregion Register Client
 
         #region Register Creator
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult RegisterCreator()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> RegisterCreator(RegisterCreator model)
         {
             if (ModelState.IsValid)
             {
-
+                var defaultImg = Constants.Constants.DefaultProfileImg;
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name,Gender = model.Gender, DoB = model.DoB, UserNameIg = model.UsernameIg,
-                                                Provinsi = model.Provinsi, Kota = model.Kota};
+                                                Provinsi = model.Provinsi, Kota = model.Kota, ProfileImg = defaultImg};
                 //Kota = model.Kota, Provinsi = model.Provinsi};
                 var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -113,6 +120,153 @@ namespace Dicer.Controllers
 
         #endregion Register Creator
 
+        #region Profile Creator
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpGet]
+        public async Task<IActionResult> ProfileCreator()
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+            var model = new ProfileCreatorViewModel
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Gender = user.Gender,
+                DoB = user.DoB,
+                Kota = user.Kota,
+                Provinsi = user.Provinsi,
+                UserNameIg = user.UserNameIg,
+                JumlahFollowers = user.JumlahFollowers,
+                ER = user.ER
+            };
+            return View(model);
+        }
+
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
+        public async Task<IActionResult> ProfileCreator(ProfileCreatorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await GetCurrentUserAsync();
+                string? uniqueFileName = null;
+                if (user == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    if (model.ProfileImg != null)
+                    {
+                        var extension = Path.GetExtension(model.ProfileImg.FileName);
+                        if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                        {
+                            string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "Profile");
+                            uniqueFileName = user.Id + extension;
+                            string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                            FileStream fs = new FileStream(filePath, FileMode.Create);
+                            model.ProfileImg.CopyTo(fs);
+                            fs.Close();
+                            user.ProfileImg = uniqueFileName;
+                        }
+                    }
+                    user.Name = model.Name;
+                    user.Gender = model.Gender;
+                    user.DoB = model.DoB;
+                    user.Kota = model.Kota;
+                    user.Provinsi = model.Provinsi;
+                    user.UserNameIg = model.UserNameIg;
+
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        RedirectToAction("ProfileCreator", "Account");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        #endregion Profile Creator
+
+        #region Profile Client
+
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [HttpGet]
+        public async Task<IActionResult> ProfileClient()
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+            var model = new ProfileClientViewModel
+            {
+                Name = user.Name,
+                Email = user.Email
+            };
+            return View(model);
+        }
+
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [HttpPost]
+        public async Task<IActionResult> ProfileClient(ProfileClientViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await GetCurrentUserAsync();
+                string? uniqueFileName = null;
+                if (user == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    if (model.ProfileImg != null)
+                    {
+                        var extension = Path.GetExtension(model.ProfileImg.FileName);
+                        if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                        {
+                            string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "Profile");
+                            uniqueFileName = user.Id + extension;
+                            string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                            FileStream fs = new FileStream(filePath, FileMode.Create);
+                            model.ProfileImg.CopyTo(fs);
+                            fs.Close();
+                            user.ProfileImg = uniqueFileName;
+                        }
+                    }
+                    user.Name = model.Name;
+
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        RedirectToAction("ProfileClient", "Account");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        #endregion Profile Client
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ResetPassword(string token, string email)
         {
@@ -123,6 +277,7 @@ namespace Dicer.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -155,18 +310,21 @@ namespace Dicer.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ResetPasswordSuccess()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -193,24 +351,28 @@ namespace Dicer.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ForgotPasswordSuccess()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult RegistrationSuccess()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ErrorView()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
@@ -237,6 +399,7 @@ namespace Dicer.Controllers
             return RedirectToAction("ErrorView", "Account");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

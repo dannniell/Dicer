@@ -46,11 +46,18 @@
                         }
                     }
                     @if (signInManager.IsSignedIn(User)) {
-                        <li class="nav-item">
-                            <form method="post" asp-action="profile" asp-controller="Account">
-                                <button type="submit" class="nav-link btn btn-link text-white">Profile</button>
-                            </form>
-                        </li>
+                        @if (User.IsInRole("Client"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ProfileClient">Profile</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Creator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <form id="logoutForm" class="form-inline" asp-action="Logout" asp-controller="Account">
                                 <button id="logout" type="submit" class="nav-link btn btn-link text-white">Logout</button>
