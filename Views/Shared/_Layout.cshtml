@@ -28,7 +28,7 @@
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-row-reverse justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav @*flex-grow-1*@">
                     @if(signInManager.IsSignedIn(User)) {
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -36,12 +36,12 @@
 
                         @if(User.IsInRole("Client")){
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Job</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Campaign</a>
                             </li>
                         }
                         @if(User.IsInRole("Creator")){
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Campaign</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">My Job</a>
                             </li>
                         }
                     }

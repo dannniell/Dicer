@@ -39,9 +39,24 @@ body {
     padding-bottom:10vh;
 }
 
+.container .profileClientContent {
+    padding-top: 15vh;
+    padding-bottom: 10vh;
+}
+
+.container .profileCreatorContent {
+    padding-top: 15vh;
+    padding-bottom: 10vh;
+}
+
+.resetContent {
+    padding-top: 25vh;
+    padding-bottom: 10vh;
+}
+
 .container .forgetContent {
-    padding-top: 20vh;
-    padding-bottom:10vh;
+    padding-top: 30vh;
+    padding-bottom: 10vh;
 }
 
 .container .notifContent {
@@ -234,5 +249,17 @@ ul {
     /*font-weight: bold;*/
     color: black;
     /*margin-top: 71px;*/
+}
+
+.notifTitle {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    /*margin-top: 71px;*/
+}
+
+.notifLink {
+    font-size: 30px;
+    font-weight: bold;
 }
 

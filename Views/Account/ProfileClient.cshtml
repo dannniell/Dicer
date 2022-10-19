@@ -6,7 +6,7 @@
     var user = await userManager.GetUserAsync(User);
     var photoPath = "~/Img/Profile/" + (user.ProfileImg ?? "noimage.jpg");
 }
-<div class="container registerCreatorContent">
+<div class="container profileClientContent">
     <div class="row justify-content-center">
         <div class="col-md-5">
             <form enctype="multipart/form-data" asp-action="ProfileClient" asp-controller="Account" method="post">
