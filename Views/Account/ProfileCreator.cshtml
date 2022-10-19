@@ -24,7 +24,7 @@
                 </div>
                  <div class="form-group mb-3">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" disabled/>
+                    <input asp-for="Email" class="form-control" disabled aria-required="true" />
                 </div>
                 <div class="form-group mb-3">
                     <label asp-for="Gender"></label>
@@ -43,8 +43,8 @@
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
-                    @*<label asp-for="DoB" class="control-label"></label>
-                    <div class="input-group date" id="datepicker" value="@InitDate">
+                    <label asp-for="DoB" class="control-label"></label>
+                    @*<div class="input-group date" id="datepicker" value="@InitDate">
                         <input asp-for="DoB" type="text" class="form-control">
                             <span class="input-group-append">
                                 <span class="input-group-text bg-white">
@@ -55,13 +55,13 @@
                     <span asp-validation-for="DoB" class="text-danger"></span>*@
 
 
-                    @*<input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
+                    <input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
                     <span class="input-group-append">
                         <span class="input-group-text bg-light d-block">
                             <i class="fa fa-calendar"></i>
                         </span>
                     </span>
-                    <span asp-validation-for="DoB" class="text-danger"></span>  *@
+                    <span asp-validation-for="DoB" class="text-danger"></span>  
                 </div>
                 <div class="form-group mb-3">
                     <label asp-for="Provinsi" class="control-label">Province</label>
@@ -95,7 +95,7 @@
                     <input asp-for="ER" disabled class="form-control" aria-required="true" />
                 </div>
                 <hr />
-                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Register</button>
+                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
                 <hr />
                 <a asp-action="ProfileCreator" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
                 <br />

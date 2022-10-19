@@ -7,7 +7,7 @@ namespace Dicer.Models
         [Required]
         public string Name { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         public string Gender { get; set; }
@@ -25,7 +25,7 @@ namespace Dicer.Models
         [Required]
         public string? UserNameIg { get; set; }
         public int? JumlahFollowers { get; set; }
-        public int? ER { get; set; }
+        public decimal? ER { get; set; }
         /*public string? LinkInstagram { get; set; }*/
     }
 }

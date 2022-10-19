@@ -15,6 +15,8 @@ namespace Dicer.Models
         public DbSet<Kota> kotas { get; set; }
 
         public DbSet<Provinsi> provinsis { get; set; }
+
+        public DbSet<ApiIGModel> apiIGModels { get; set; }
 /*        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

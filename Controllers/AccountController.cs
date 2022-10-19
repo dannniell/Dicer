@@ -18,13 +18,15 @@ namespace Dicer.Controllers
         private readonly IProvinsiService provinsiService;
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IApiIgService apiIgService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
                                 IProvinsiService provinsiService,
                                 IEmailService emailService,
-                                IWebHostEnvironment webHostEnvironment)
+                                IWebHostEnvironment webHostEnvironment,
+                                IApiIgService apiIgService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,6 +34,7 @@ namespace Dicer.Controllers
             this.provinsiService = provinsiService;
             this.emailService = emailService;
             this.webHostEnvironment = webHostEnvironment;
+            this.apiIgService = apiIgService;
         }
 
         #region Register Client
@@ -90,8 +93,12 @@ namespace Dicer.Controllers
             if (ModelState.IsValid)
             {
                 var defaultImg = Constants.Constants.DefaultProfileImg;
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name,Gender = model.Gender, DoB = model.DoB, UserNameIg = model.UsernameIg,
-                                                Provinsi = model.Provinsi, Kota = model.Kota, ProfileImg = defaultImg};
+                var dataIg = await apiIgService.GetDataIg();
+                var userDetailIg = dataIg.FirstOrDefault();
+
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name,Gender = model.Gender, DoB = model.DoB, 
+                                                UserNameIg = model.UsernameIg, Provinsi = model.Provinsi, Kota = model.Kota, ProfileImg = defaultImg,
+                                                JumlahFollowers = userDetailIg.JumlahFollowers, ER = userDetailIg.ER};
                 //Kota = model.Kota, Provinsi = model.Provinsi};
                 var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -183,9 +190,13 @@ namespace Dicer.Controllers
 
                     var result = await _userManager.UpdateAsync(user);
 
+                    user.Email = model.Email;
+                    user.JumlahFollowers = model.JumlahFollowers;
+                    user.ER = model.ER;
+
                     if (result.Succeeded)
                     {
-                        RedirectToAction("ProfileCreator", "Account");
+                        return View(model);
                     }
 
                     foreach (var error in result.Errors)

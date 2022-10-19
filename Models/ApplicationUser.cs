@@ -14,7 +14,7 @@ namespace Dicer.Models
         public string? Minat { get; set; }
         public string? UserNameIg { get; set; }
         public int? JumlahFollowers { get; set; }
-        public int? ER { get; set; }
+        public decimal? ER { get; set; }
         public string? LinkInstagram { get; set; }
     }
 }

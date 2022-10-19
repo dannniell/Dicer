@@ -22,6 +22,7 @@
         #region SP
         public const string getProvinsi = "exec GET_PROVINSI";
         public const string getKota = "exec GET_KOTA @ProvinsiId";
+        public const string getDataIg = "exec GET_DataIg";
         #endregion SP
     }
 }
