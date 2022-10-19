@@ -190,13 +190,9 @@ namespace Dicer.Controllers
 
                     var result = await _userManager.UpdateAsync(user);
 
-                    user.Email = model.Email;
-                    user.JumlahFollowers = model.JumlahFollowers;
-                    user.ER = model.ER;
-
                     if (result.Succeeded)
                     {
-                        return View(model);
+                        return RedirectToAction("ProfileCreator", "Account");
                     }
 
                     foreach (var error in result.Errors)
@@ -258,13 +254,12 @@ namespace Dicer.Controllers
                             user.ProfileImg = uniqueFileName;
                         }
                     }
-                    user.Name = model.Name;
 
                     var result = await _userManager.UpdateAsync(user);
 
                     if (result.Succeeded)
                     {
-                        RedirectToAction("ProfileClient", "Account");
+                        return RedirectToAction("ProfileCreator", "Account");
                     }
 
                     foreach (var error in result.Errors)
