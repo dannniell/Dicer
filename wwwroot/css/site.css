@@ -211,6 +211,11 @@ ul {
 
 }
 
+.welcomeTitle {
+    color: white; 
+    font-style: italic;
+}
+
 .footTitle {
     font-size: 50px;
     font-weight: bold;

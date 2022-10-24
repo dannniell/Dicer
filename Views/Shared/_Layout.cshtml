@@ -29,7 +29,12 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-row-reverse justify-content-between">
                     <ul class="navbar-nav @*flex-grow-1*@">
+
                     @if(signInManager.IsSignedIn(User)) {
+                        <li class="nav-item">
+                            <span class="nav-link text-white welcomeTitle">Welcome, User</span>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -58,11 +63,11 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <form id="logoutForm" class="form-inline" asp-action="Logout" asp-controller="Account">
-                                <button id="logout" type="submit" class="nav-link btn btn-link text-white">Logout</button>
-                            </form>
-                        </li>
+                            <li class="nav-item">
+                                <form id="logoutForm" class="form-inline" asp-action="Logout" asp-controller="Account">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                                </form>
+                            </li>
                     }
                     </ul>
                 </div>
