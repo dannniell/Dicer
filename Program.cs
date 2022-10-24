@@ -64,5 +64,4 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Landing}/{action=Index}");
-//app.MapRazorPages();
 app.Run();

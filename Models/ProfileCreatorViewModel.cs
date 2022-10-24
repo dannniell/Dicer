@@ -14,6 +14,7 @@ namespace Dicer.Models
         public IFormFile? ProfileImg { get; set; }
 
         [Required]
+        [Display(Name = "Date of Birth")]
         public DateTime? DoB { get; set; }
 
         [Required]
@@ -23,9 +24,13 @@ namespace Dicer.Models
         public int? Provinsi { get; set; }
 
         [Required]
+        [Display(Name = "Username Instagram")]
         public string? UserNameIg { get; set; }
+
+        [Display(Name = "Followers")]
         public int? JumlahFollowers { get; set; }
+
+        [Display(Name = "Engagement Rate")]
         public decimal? ER { get; set; }
-        /*public string? LinkInstagram { get; set; }*/
     }
 }

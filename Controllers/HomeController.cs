@@ -2,28 +2,55 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Dicer.Models;
+using Dicer.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dicer.Controllers
 {
-    [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(UserManager<ApplicationUser> userManager)
         {
-            _logger = logger;
+            this._userManager = userManager;
         }
 
-        public IActionResult Index()
+        #region Home Creator
+        //[Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult HomeCreator()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
+        public async Task<IActionResult> HomeCreator(HomeModel model)
+        {
+            return View(model);
+        }
+        #endregion Home Creator
+
+
+        #region Home Client
+        //[Authorize(Roles = Constants.Constants.roleIdClient)]
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult HomeClient()
         {
             return View();
         }
+
+        [Authorize(Roles = Constants.Constants.roleIdClient)]
+        [HttpPost]
+        public async Task<IActionResult> HomeClient(HomeModel model)
+        {
+            return View(model);
+        }
+        #endregion Home Client
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

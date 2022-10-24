@@ -43,12 +43,12 @@ namespace Dicer.Controllers
                     if(await _userManager.IsInRoleAsync(user, Constants.Constants.roleIdClient))
                     {
                         //client
-                        return RedirectToAction("index", "home");
+                        return RedirectToAction("HomeClient", "home");
                     }
                     else
                     {
                         //creator
-                        return RedirectToAction("index", "home");
+                        return RedirectToAction("HomeCreator", "home");
                     }                 
                 }
 
