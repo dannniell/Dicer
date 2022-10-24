@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Dicer.Models;
 using Dicer.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,8 +17,7 @@ namespace Dicer.Controllers
         }
 
         #region Home Creator
-        //[Authorize(Roles = Constants.Constants.roleNameCreator)]
-        [AllowAnonymous]
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
         [HttpGet]
         public IActionResult HomeCreator()
         {
@@ -36,8 +34,7 @@ namespace Dicer.Controllers
 
 
         #region Home Client
-        //[Authorize(Roles = Constants.Constants.roleIdClient)]
-        [AllowAnonymous]
+        [Authorize(Roles = Constants.Constants.roleIdClient)]
         [HttpGet]
         public IActionResult HomeClient()
         {
