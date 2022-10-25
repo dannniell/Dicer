@@ -5,7 +5,7 @@
   
     self.getInitProvinsi = function (initProvinsi) {
         var ajaxTypesObj = {
-            url: "/Api/GetProvinsi",
+            url: "/Api/location/GetProvinsi",
             method: "GET",
             dataType: "json",
             success: function (data) {
@@ -73,7 +73,7 @@ var globalDataProvinsiKota = new dataProvinsiKota();
 
 function getListKota(provinsiId) {
     $.ajax({
-        url: '/api/getkota/' + provinsiId,
+        url: '/api/location/getkota/' + provinsiId,
         data: { provinsiId: provinsiId },
         dataType: "json",
         type: "GET",
