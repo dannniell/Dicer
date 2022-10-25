@@ -64,6 +64,11 @@ body {
     padding-bottom: 10vh;
 }
 
+.container .homeClientContent {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
 
 
 
@@ -227,7 +232,7 @@ ul {
     font-style: italic;
     font-weight: bold;
     color: white;
-    padding-left: 50px;
+    padding-left: 40px;
     margin-top: 50px;
 }
 
@@ -267,4 +272,33 @@ ul {
     font-size: 30px;
     font-weight: bold;
 }
+
+/*Style Homepage*/
+.carousel-item {
+    height: 600px;
+}
+
+.carousel-item img{
+    /*margin-top: -100px;*/
+}
+
+.carousel-item .display-4 {
+    margin-top: -400px;
+}
+
+.carousel-item hr {
+    border-color: #001A72;
+    width: 70px;
+    border-width: 3px;
+}
+
+.carousel-item .btn {
+    background-color: #001A72;
+    border: none;
+    border-radius: 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    margin-top: 40px;
+}
+
 

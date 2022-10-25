@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HomeModel
+
 @{
+    ViewData["Title"] = "Home Client";
 }
+
+<div class="container homeClientContent">
+    <div class="row">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="../Img/System/lofi.jpg" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="display-4">FIND UR BEST <br> <span class="font-weight-bold">CONTENT CREATOR</span></h1>
+                        <hr class="my-4">
+                        <p class="lead">Make campaign and find content creator that suits you the best!</p>
+                        <a class="btn btn-primary btn-lg font-weight-bold" href="#" role="button">CREATE</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="../Img/System/lofi.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="../Img/System/lofi.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-center ">
+        <div class="col-md-6 ">
+                <span class="landingTitle">Digital Creator Platform</span>
+                <hr/>
+                <div class="form-group mb-3">
+                    <label class="form-label"></label>
+                    <input class="form-control" />
+                    <span class="text-danger"></span>
+                </div>
+                <hr/>
+                <button type="submit" class="align-self-center w-100 btn btn-lg btn-primary bgColor">Login</button>
+                <div class="d-flex justify-content-center my-2">
+                    Forget password?&nbsp;
+                    <a asp-action="forgotPassword" asp-controller="Account">Click here</a>
+                </div>
+                <div class="d-flex justify-content-center my-2">
+                    Don't have account?&nbsp;
+                    <a asp-action="register" asp-controller="Account" >Sign Up as Client</a>&nbsp;&nbsp;
+                    <a asp-action="registerCreator" asp-controller="Account" >Sign Up as Creator</a>
+                </div>
+        </div>
+        <div class="col-md-6">
+            <img src="../Img/System/LandingPagePic.png" class="rounded mx-auto d-block">
+        </div>
+    </div>
+</div>
+    
+
+
+
