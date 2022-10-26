@@ -23,6 +23,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 builder.Services.AddScoped<IProvinsiService, ProvinsiRepository>();
 builder.Services.AddScoped<IKotaService, KotaRepository>();
 builder.Services.AddScoped<IApiIgService, ApiIgRepository>();
+builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
 
 //singletone
 

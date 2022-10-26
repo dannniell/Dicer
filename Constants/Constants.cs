@@ -8,6 +8,7 @@
         public const string roleNameCreator = "Creator";
 
         public const string DefaultProfileImg = "default_profile.jpg";
+        public const string DefaultCampaignImg = "Default.jpg";
 
         #region SMTP Email
         public const string fromMail = "dicerhostmail@gmail.com";
@@ -23,6 +24,7 @@
         public const string getProvinsi = "exec GET_PROVINSI";
         public const string getKota = "exec GET_KOTA @ProvinsiId";
         public const string getDataIg = "exec GET_DataIg";
+        public const string upsertCampaign = "exec UPSERT_CAMPAIGN";
         #endregion SP
     }
 }
