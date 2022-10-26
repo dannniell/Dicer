@@ -37,7 +37,7 @@
 
     self.getInitKota = function (initKota, initProvinsi) {
         var ajaxTypesObj = {
-            url: '/Api/GetKota/' + initProvinsi,
+            url: '/Api/location/GetKota/' + initProvinsi,
             data: { provinsiId: initProvinsi },
             type: "GET",
             dataType: "json",

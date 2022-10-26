@@ -40,7 +40,7 @@ namespace Dicer.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(await _userManager.IsInRoleAsync(user, Constants.Constants.roleIdClient))
+                    if(await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient))
                     {
                         //client
                         return RedirectToAction("HomeClient", "home");

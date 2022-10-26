@@ -1,15 +1,15 @@
 ﻿@model CreateCampaignViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Create Campaign";
     var photoPath = "~/Img/Campaign/Default.jpg";
 }
 
 <div class="container profileCreatorContent">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <form id="createCampaignForm" method="post">
-                <span class="landingTitle">Creator Campaign</span>
+            <form enctype="multipart/form-data" asp-action="Index" asp-controller="CreateCampaign" method="post">
+                <span class="landingTitle">Create Campaign</span>
                 <hr />
                 <div class="form-group mb-3">
                     <label asp-for="CampaignName"></label>
@@ -25,7 +25,7 @@
                     <span asp-validation-for="ContentType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Description">Description</label>
+                    <label asp-for="Description"></label>
                     <textarea asp-for="Description" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
                     <span asp-validation-for="CampaignName" class="text-danger"></span>
                 </div>
@@ -35,14 +35,14 @@
                     <span asp-validation-for="Commission" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Task">Description</label>
+                    <label asp-for="Task"></label>
                     <textarea asp-for="Task" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
                     <span asp-validation-for="Task" class="text-danger"></span>
                 </div>
                  <div class="form-group mb-3">
                     <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
-                    <div class="custom-file">
-                        <input asp-for="CampaignImg" type="file" accept=".jpg,.png,.jpeg" class="form-control custom-file-input" />
+                    <div class="form-label">
+                        <input asp-for="CampaignImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                     </div>
                     <span asp-validation-for="CampaignImg" class="text-danger"></span>
                 </div>
@@ -53,11 +53,10 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
-                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
                     <label asp-for="Provinsi" class="control-label">Province</label>
-                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"><option value="volvo">Volvo</option></select>
+                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
                     <span asp-validation-for="Provinsi" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">
@@ -90,12 +89,5 @@
 @section Scripts {
     <script src="~/js/listProvinsiKota.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-    </script>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 }
