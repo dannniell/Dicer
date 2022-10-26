@@ -278,8 +278,9 @@ ul {
     height: 600px;
 }
 
-.carousel-item img{
+.carousel-item img {
     /*margin-top: -100px;*/
+    /*border-radius: 10px;*/
 }
 
 .carousel-item .display-4 {
@@ -287,9 +288,9 @@ ul {
 }
 
 .carousel-item hr {
-    border-color: #001A72;
-    width: 70px;
-    border-width: 3px;
+    border-color: white;
+    /*width: 70px;
+    border-width: 3px;*/
 }
 
 .carousel-item .btn {

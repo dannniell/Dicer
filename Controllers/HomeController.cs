@@ -34,7 +34,8 @@ namespace Dicer.Controllers
 
 
         #region Home Client
-        [Authorize(Roles = Constants.Constants.roleIdClient)]
+        /*[Authorize(Roles = Constants.Constants.roleIdClient)]*/
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult HomeClient()
         {
