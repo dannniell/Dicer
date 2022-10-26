@@ -41,10 +41,31 @@
         </div>
         </div>
     </div>
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-3 align-align-self-center">
+            <span class="homeTitle">My Campaign</span>
+            @*<h4>My Campaign</h4>*@
+        </div>
+        <div class="col-md-3 ">          
+                <button type="submit" class="w-100 btn btn-sm btn-primary bgColor btnCreateCampaign">Create New Campaign</button>
+        </div>
+    </div>
     <div class="row align-items-center ">
-        <div class="col-md-6 ">
-                <span class="landingTitle">Digital Creator Platform</span>
-                <hr/>
+        <div class="col-md-12 ">          
+             <hr class="@*lineHome*@">
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-md-4 ">
+            <div class="card bg-light border-light" style="width: 20.5rem;">
+                <img class="card-img-top" src="../Img/System/headphone.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">HEADPHONE BOSE</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
+                @*<span class="landingTitle">Digital Creator Platform</span>
                 <div class="form-group mb-3">
                     <label class="form-label"></label>
                     <input class="form-control" />
@@ -60,10 +81,27 @@
                     Don't have account?&nbsp;
                     <a asp-action="register" asp-controller="Account" >Sign Up as Client</a>&nbsp;&nbsp;
                     <a asp-action="registerCreator" asp-controller="Account" >Sign Up as Creator</a>
-                </div>
+                </div>*@
         </div>
-        <div class="col-md-6">
-            <img src="../Img/System/LandingPagePic.png" class="rounded mx-auto d-block">
+        <div class="col-md-4">
+            <div class="card bg-light border-light" style="width: 20.5rem;">
+                <img class="card-img-top" src="../Img/System/kamera.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">DSLR NIKON</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light border-light" style="width: 20.5rem;">
+                <img class="card-img-top" src="../Img/System/speaker.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">SPEAKER SONOS</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
         </div>
     </div>
 </div>

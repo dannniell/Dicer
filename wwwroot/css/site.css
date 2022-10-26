@@ -253,6 +253,10 @@ ul {
     padding-left: 40px;
 }
 
+.btnCreateCampaign {
+    border-radius: 10px;
+}
+
 /*specific page setting*/
 .landingTitle {
     font-size: 40px;
@@ -273,6 +277,12 @@ ul {
     font-weight: bold;
 }
 
+.homeTitle {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
 /*Style Homepage*/
 .carousel-item {
     height: 600px;
@@ -280,7 +290,7 @@ ul {
 
 .carousel-item img {
     /*margin-top: -100px;*/
-    /*border-radius: 10px;*/
+    border-radius: 10px;
 }
 
 .carousel-item .display-4 {
@@ -302,4 +312,11 @@ ul {
     margin-top: 40px;
 }
 
+.lineHome {
+    margin-top: 0px;
+}
+
+.card {
+    box-shadow: 2px 3px lightGrey;
+}
 
