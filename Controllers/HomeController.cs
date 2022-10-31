@@ -34,7 +34,7 @@ namespace Dicer.Controllers
 
 
         #region Home Client
-        /*[Authorize(Roles = Constants.Constants.roleIdClient)]*/
+        /*[Authorize(Roles = Constants.Constants.roleNameClient)]*/
         [AllowAnonymous]
         [HttpGet]
         public IActionResult HomeClient()
@@ -42,7 +42,7 @@ namespace Dicer.Controllers
             return View();
         }
 
-        [Authorize(Roles = Constants.Constants.roleIdClient)]
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpPost]
         public async Task<IActionResult> HomeClient(HomeModel model)
         {

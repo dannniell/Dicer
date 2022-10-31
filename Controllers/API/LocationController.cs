@@ -23,11 +23,12 @@ namespace Dicer.Controllers.API
 
         [Route("GetProvinsi")]
         [HttpGet]
-        public async Task<JsonResult> GetAllProvinsiAsync()
+        public async Task<IActionResult> GetAllProvinsiAsync()
         {
             var data = await provinsiService.GetAllProvinsi();
             var provinsi = data.Select(x => new SelectListItem() { Value = x.ProvinsiId.ToString(), Text = x.NamaProvinsi }).ToList();
-            return new JsonResult(provinsi);
+            return Ok(provinsi);
+            /*return new JsonResult(provinsi);*/
             /*return Json(provinsi);
             var data = await provinsiService.GetAllProvinsi();
             return Json(new { data });*/
@@ -38,7 +39,7 @@ namespace Dicer.Controllers.API
         {
             var data = await kotaService.GetAllKota(provinsiId);
             var kota = data.Select(x => new SelectListItem() { Value = x.KotaId.ToString(), Text = x.NamaKota }).ToList();
-            return new JsonResult(kota);
+            return Ok(kota);
         }
     }
 }
