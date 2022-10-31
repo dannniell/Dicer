@@ -285,16 +285,16 @@ ul {
 
 /*Style Homepage*/
 .carousel-item {
-    height: 600px;
+    height: 300px;
 }
 
 .carousel-item img {
     /*margin-top: -100px;*/
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 .carousel-item .display-4 {
-    margin-top: -400px;
+    margin-top: -50px;
 }
 
 .carousel-item hr {
@@ -317,6 +317,28 @@ ul {
 }
 
 .card {
-    box-shadow: 2px 3px lightGrey;
+    box-shadow: 3px 3px lightGrey;
 }
+
+.createBtn {
+    background-color: #001A72;
+    border: none;
+    border-radius: 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    margin-left: 45px;
+}
+
+.contentType {
+    color: #00599F;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.contentPrice {
+    color: #00599F;
+    font-weight: bold;
+}
+
+
 
