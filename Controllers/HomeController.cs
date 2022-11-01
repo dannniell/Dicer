@@ -4,24 +4,38 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Dicer.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Dicer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dicer.Controllers
 {
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(UserManager<ApplicationUser> userManager)
+        public HomeController(UserManager<ApplicationUser> userManager,
+                                ApplicationDbContext context)
         {
             this._userManager = userManager;
+            this._context = context;
         }
 
         #region Home Creator
         [Authorize(Roles = Constants.Constants.roleNameCreator)]
         [HttpGet]
-        public IActionResult HomeCreator()
+        public async Task<IActionResult> HomeCreator(int? pageNumber)
         {
-            return View();
+            var a = from s in _context.Campaign
+                    select s;
+
+            a = a.OrderBy(s => s.Gender);
+
+            var c = await a.AsNoTracking().ToListAsync();
+            string d = null;
+
+            int pageSize = 1;
+            return View(await PaginatedList<Campaign>.CreateAsync(a.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = Constants.Constants.roleNameCreator)]
@@ -37,9 +51,13 @@ namespace Dicer.Controllers
         /*[Authorize(Roles = Constants.Constants.roleNameClient)]*/
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult HomeClient()
+        public async Task<IActionResult> HomeClient(int? pageNumber)
         {
-            return View();
+            var campaigns = from s in _context.Campaign
+                    select s;
+            campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
+            int pageSize = 3;
+            return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = Constants.Constants.roleNameClient)]

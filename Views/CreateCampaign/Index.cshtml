@@ -19,10 +19,24 @@
                 <div class="form-group mb-3">
                     <label asp-for="ContentType"></label>
                     <select asp-for="ContentType" id="ddlContentType" class="form-control">
-                        <option value="Sport">Sport</option>
-                        <option value="Food">Food</option>
+                        <option value="IG Feed">IG Feed</option>
+                        <option value="IG Story">IG Story</option>
+                        <option value="IG Reels">IG Reels</option>
                     </select>
                     <span asp-validation-for="ContentType" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Genre"></label>
+                    <select asp-for="Genre" id="ddlGenre" class="form-control">
+                        <option value="Sport">Sport</option>
+                        <option value="Food">Food</option>
+                        <option value="Fashion & Beauty">Fashion & Beauty</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Entertaiment">Entertaiment</option>
+                        <option value="Education">Education</option>
+                        <option value="Another">Another</option>
+                    </select>
+                    <span asp-validation-for="Genre" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description"></label>

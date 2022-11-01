@@ -5,9 +5,11 @@ namespace Dicer.Models
     public class CreateCampaignViewModel
     {
         [Required]
+        [Display(Name = "Campaign Name")]
         public string CampaignName { get; set; }
 
         [Required]
+        [Display(Name = "Content Type")]
         public string ContentType { get; set; }
 
         [Required]
@@ -39,5 +41,6 @@ namespace Dicer.Models
         [Range(1, 100)]
         [Display(Name = "Maximal Age")]
         public int? MaxAge { get; set; }
+        public string Genre { get; set; }
     }
 }

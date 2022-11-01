@@ -1,4 +1,4 @@
-﻿@model HomeModel
+﻿@model PaginatedList<Dicer.Models.Campaign>
 
 @{
     ViewData["Title"] = "Home Client";
@@ -41,97 +41,61 @@
         </div>
         </div>
     </div>
-    <div class="row justify-content-between align-items-center mt-3">
+    <div class="row justify-content-between align-items-center  mt-3">
         <div class="col-md-3">
             <span class="homeTitle">My Campaign</span>
-            @*<h4>My Campaign</h4>*@
         </div>
-        <div class="col-md-2">          
-                @*<button type ="button" onclick="location.href='@Url.Action("index","CreateCampaign")'" class="w-100 btn btn-sm btn-primary bgColor btnCreateCampaign">Create</button>*@
-                <a class="btn btn-primary btn-lg font-weight-bold createBtn" href="#" role="button">Add+</a>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 align-self-center">
+            <div class="input-group searchBox">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" placeholder="Search"/>
+                </div>
+                <button type="button" class="btn searchBtn">
+                    <i class="fas fa-search magnifierIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-1 align-self-center">
+            <a class="btn btn-primary btn-sm font-weight-bold createBtn" asp-action="index" asp-controller="CreateCampaign" role="button">ADD+</a>
         </div>
     </div>
+    
     <div class="row align-items-center ">
         <div class="col-md-12 ">          
              <hr class="@*lineHome*@">
         </div>
     </div>
-    <div class="card-deck">
-        <div class="card bg-light border-light" style="width: 18rem;">
+    <div class="row justify-content-center">
+        @foreach (var item in Model)
+        {
+            var photoPath = "~/Img/Campaign/" + (item.CampaignImg ?? "noimage.jpg");
+            <div class="card bg-light border-light" style="width: 20em; margin: 9px">
                 <div class="card-body">
-                    <img class="card-img-top p" src="../Img/System/msGlow.png" alt="Card image cap">
-                    <h6 class="card-title font-weight-bold mt-3">MS GLOW FOR MEN</h6>
-                    <h6 class="text-truncate">MS GLOW UP#GlowUpStarterPack</h6>
-                    <p class="contentType"> Instagram Story, Instagram Reels</p>
-                    <h6 class="contentPrice">Rp. 100.000</h6>
-                    <p class="card-text text-truncate">Jadilah brand ambassador untuk MS GLOW MEN dan dapatkan berbagai keuntungan disini.</p>
+                    <img class="card-img-top p" src=@photoPath alt="Card image cap" asp-append-version="true">
+                    <h6 class="card-title font-weight-bold mt-3">@item.ClientName</h6>
+                    <h6 class="text-truncate">@item.CampaignName</h6>
+                    <p class="contentType">@item.ContentType</p>
+                    <h6 class="contentPrice">Rp. @item.Commission</h6>
+                    <p class="card-text text-truncate">@item.Description</p>
                 </div>
-        </div>
-        <div class="card bg-light border-light" style="width: 18rem;">
-                <div class="card-body">
-                    <img class="card-img-top" src="../Img/System/poster.jpg" alt="Card image cap">
-                    <h6 class="card-title font-weight-bold mt-3">MS GLOW FOR MEN</h6>
-                    <h6>MS GLOW UP#GlowUpStarterPack</h6>
-                    <p class="contentType"> Instagram Story, Instagram Reels</p>
-                    <h6 class="contentPrice">Rp. 100.000</h6>
-                    <p class="card-text">Jadilah brand ambassador untuk MS GLOW MEN dan dapatkan berbagai keuntungan disini.</p>
-                </div>
-        </div>
-        <div class="card bg-light border-light" style="width: 18rem;">
-                <div class="card-body">
-                    <img class="card-img-top" src="../Img/System/poster.jpg" alt="Card image cap">
-                    <h6 class="card-title font-weight-bold mt-3">MS GLOW FOR MEN</h6>
-                    <h6>MS GLOW UP#GlowUpStarterPack</h6>
-                    <p class="contentType"> Instagram Story, Instagram Reels</p>
-                    <h6 class="contentPrice">Rp. 100.000</h6>
-                    <p class="card-text">Jadilah brand ambassador untuk MS GLOW MEN dan dapatkan berbagai keuntungan disini.</p>
-                </div>
-        </div>
+            </div>
+        }
     </div>
-    
-    @*<div class="row justify-content-around">
-        <div class="col-md-4 ">
-            
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-light border-light" style="width: 20.5rem;">
-                <img class="card-img-top" src="../Img/System/kamera.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">DSLR NIKON</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-light border-light" style="width: 20.5rem;">
-                <img class="card-img-top" src="../Img/System/speaker.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">SPEAKER SONOS</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-    </div>*@
 </div>
 
-@*<span class="landingTitle">Digital Creator Platform</span>
-                <div class="form-group mb-3">
-                    <label class="form-label"></label>
-                    <input class="form-control" />
-                    <span class="text-danger"></span>
-                </div>
-                <hr/>
-                <button type="submit" class="align-self-center w-100 btn btn-lg btn-primary bgColor">Login</button>
-                <div class="d-flex justify-content-center my-2">
-                    Forget password?&nbsp;
-                    <a asp-action="forgotPassword" asp-controller="Account">Click here</a>
-                </div>
-                <div class="d-flex justify-content-center my-2">
-                    Don't have account?&nbsp;
-                    <a asp-action="register" asp-controller="Account" >Sign Up as Client</a>&nbsp;&nbsp;
-                    <a asp-action="registerCreator" asp-controller="Account" >Sign Up as Creator</a>
-                </div>*@
-    
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
 
-
-
+<a asp-action="HomeClient"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="HomeClient"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

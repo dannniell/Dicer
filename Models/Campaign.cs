@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dicer.Models
 {
-    public class CampaignModel
+    public class Campaign
     {
         [Key]
         public int? CampaignId { get; set; }
@@ -13,19 +13,17 @@ namespace Dicer.Models
         public string Description { get; set; }
         public int Commission { get; set; }
         public string Task { get; set; }
-
-        public string? CampaignImg { get; set; }
-
         public string? Gender { get; set; }
-
-        public int? Kota { get; set; }
-
         public int? Provinsi { get; set; }
+        public int? Kota { get; set; }
+        public string? CampaignImg { get; set; }
         public int? MinFollowers { get; set; }
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }
-        public string? UserId { get; set; }
-        public string UserName { get; set; }
+        public bool? IsPaid { get; set; }
+        public bool? IsDone { get; set; }
+        public string ClientName { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string Genre { get; set; }
     }
 }

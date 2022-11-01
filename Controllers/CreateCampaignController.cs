@@ -83,7 +83,9 @@ namespace Dicer.Controllers
                         MinFollowers = model.MinFollowers,
                         MinAge = model.MinAge,
                         MaxAge = model.MaxAge,
-                        UserId = user.Id
+                        UserId = user.Id,
+                        UserName = user.Name,
+                        Genre = model.Genre
                     };
 
                     campaignRepository.UpsertCampaign(newCampaign);
