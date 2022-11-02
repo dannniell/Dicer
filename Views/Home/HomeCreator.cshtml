@@ -2,7 +2,11 @@
 
 @{
     ViewData["Title"] = "Home Creator";
+    var initKota = ViewData["locationInt"];
+    var initGenre = ViewData["genreString"];
 }
+<input id="InitGenre" value=@initGenre class="d-none"/>
+<input id="InitKota" value=@initKota class="d-none"/>
 
 <div class="container homeClientContent">
     <div class="row">
@@ -46,19 +50,19 @@
             <span class="homeTitle">Campaign</span>
         </div>
         <div class="col-md-9 d-inline-flex flex-row-reverse">
-            <div class="form-group w-25 pt-4 d-none" id="locationContainer">
-                    <select id="sortLocation" class="form-control">
+            <div class="form-group w-25 pt-4 d-none" name="LocationString" id="locationContainer">
+                    <select id="ddlLocation" class="form-control">
                         <option value="" disabled selected hidden>Choose location</option>
                         <option value="Provinsi">Provinsi</option>
                         <option value="Kota">Kota</option>
                     </select>
             </div>
-            <div class="form-group w-25 pt-4 d-none" id="genreContainer">
+            <div class="form-group w-25 pt-4 d-none" name="TypeString" id="genreContainer">
                     <select id="ddlGenre" class="form-control">
                         <option value="" disabled selected hidden>Choose type</option>
                         <option value="Sport">Sport</option>
                         <option value="Food">Food</option>
-                        <option value="Fashion & Beauty">Fashion & Beauty</option>
+                        <option value="FnB">Fashion & Beauty</option>
                         <option value="Technology">Technology</option>
                         <option value="Entertaiment">Entertaiment</option>
                         <option value="Education">Education</option>
@@ -72,7 +76,7 @@
                         <option value="Type">Type</option>
                     </select>
             </div>
-            <form asp-action="HomeClient" asp-controller="Home" method="get">
+            <form asp-action="HomeCreator" asp-controller="Home" method="get">
                 <div class="input-group mr-3 pt-4">
                     <div class="form-outline">
                         <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" id="form1" class="form-control" placeholder="Search"/>
@@ -125,6 +129,6 @@
 </a>
 
 @section Scripts {
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/HomeCreator.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 }

@@ -15,7 +15,6 @@ $(document).on("change", "#sortCategory", function () {
         $("#genreContainer").removeClass('d-none');
         $("#locationContainer").addClass('d-none');
         $("#locationContainer").val('').change();
-
     }
     else if ($('#sortCategory').val() === 'All') {
         $("#sortContainer").removeClass('mr-3');

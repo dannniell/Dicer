@@ -21,5 +21,12 @@ namespace Dicer.Repositories
 
             return result;
         }
+       
+        public async Task<IEnumerable<Kota>> GetKota()
+        {
+            var param = new SqlParameter("@ProvinsiId", "");
+            var result = _context.kotas.FromSqlRaw(Constants.Constants.getKota, param).ToList();
+            return result;
+        }
     }
 }

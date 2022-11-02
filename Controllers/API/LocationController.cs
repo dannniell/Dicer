@@ -41,5 +41,14 @@ namespace Dicer.Controllers.API
             var kota = data.Select(x => new SelectListItem() { Value = x.KotaId.ToString(), Text = x.NamaKota }).ToList();
             return Ok(kota);
         }
+
+        [Route("GetKota")]
+        [HttpGet]
+        public async Task<IActionResult> GetKota()
+        {
+            var data = await kotaService.GetKota();
+            var kota = data.Select(x => new SelectListItem() { Value = x.KotaId.ToString(), Text = x.NamaKota }).ToList();
+            return Ok(kota);
+        }
     }
 }

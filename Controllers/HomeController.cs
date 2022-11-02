@@ -24,25 +24,29 @@ namespace Dicer.Controllers
         #region Home Creator
         [Authorize(Roles = Constants.Constants.roleNameCreator)]
         [HttpGet]
-        public async Task<IActionResult> HomeCreator(int? pageNumber)
+        public async Task<IActionResult> HomeCreator(int? pageNumber, string searchString, string genreString, int locationInt)
         {
-            var a = from s in _context.Campaign
-                    select s;
-
-            a = a.OrderBy(s => s.Gender);
-
-            var c = await a.AsNoTracking().ToListAsync();
-            string d = null;
-
-            int pageSize = 1;
-            return View(await PaginatedList<Campaign>.CreateAsync(a.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
-
-        [Authorize(Roles = Constants.Constants.roleNameCreator)]
-        [HttpPost]
-        public async Task<IActionResult> HomeCreator(HomeModel model)
-        {
-            return View(model);
+            var user = await GetCurrentUserAsync();
+            ViewData["SearchFilter"] = searchString;
+            ViewData["genreString"] = genreString;
+            ViewData["locationInt"] = locationInt;
+            var campaigns = from s in _context.Campaign
+                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(genreString))
+            {
+                campaigns = campaigns.Where(s => s.Genre.Contains(genreString));
+            }
+            if (locationInt > 0)
+            {
+                campaigns = campaigns.Where(s => s.Kota == locationInt);
+            }
+            campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
+            int pageSize = 3;
+            return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         #endregion Home Creator
 
@@ -67,13 +71,6 @@ namespace Dicer.Controllers
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
             int pageSize = 3;
             return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
-
-        [Authorize(Roles = Constants.Constants.roleNameClient)]
-        [HttpPost]
-        public async Task<IActionResult> HomeClient(HomeModel model)
-        {
-            return View(model);
         }
         #endregion Home Client
 
