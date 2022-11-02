@@ -53,9 +53,13 @@ namespace Dicer.Controllers
         [HttpGet]
         public async Task<IActionResult> HomeClient(int? pageNumber, string searchString)
         {
+            var user = await GetCurrentUserAsync();
             ViewData["SearchFilter"] = searchString;
             var campaigns = from s in _context.Campaign
-                    select s;
+                            from b in _context.ClientCampaign
+                            where b.UserId == user.Id
+                                && s.CampaignId == b.CampaignId
+                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString));
@@ -78,5 +82,7 @@ namespace Dicer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
