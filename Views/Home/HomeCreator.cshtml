@@ -1,14 +1,113 @@
 ﻿@model PaginatedList<Dicer.Models.Campaign>
 
 @{
-    ViewData["Title"] = "Home Client";
+    ViewData["Title"] = "Home Creator";
 }
 
-<h2>Index</h2>
-<h2>Index</h2>
-<h2>Index</h2>
-<h2>Index</h2>
-<h2>Index</h2>
+<div class="container homeClientContent">
+    <div class="row">
+        <div class="col">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="../Img/System/lofi.jpg" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="display-4 font-weight-bold">FIND UR BEST <br> CONTENT CREATOR</h1>
+                        <hr class="my-4">
+                        <p class="lead">Make campaign and find content creator that suits you the best!</p>
+                        @*<a class="btn btn-primary btn-lg font-weight-bold" href="#" role="button">CREATE</a>*@
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="../Img/System/poster.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="../Img/System/lofi.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        </div>
+    </div>
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-3">
+            <span class="homeTitle">Campaign</span>
+        </div>
+        <div class="col-md-9 d-inline-flex flex-row-reverse">
+            <div class="form-group w-25 pt-4 d-none" id="locationContainer">
+                    <select id="sortLocation" class="form-control">
+                        <option value="" disabled selected hidden>Choose location</option>
+                        <option value="Provinsi">Provinsi</option>
+                        <option value="Kota">Kota</option>
+                    </select>
+            </div>
+            <div class="form-group w-25 pt-4 d-none" id="genreContainer">
+                    <select id="ddlGenre" class="form-control">
+                        <option value="" disabled selected hidden>Choose type</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Food">Food</option>
+                        <option value="Fashion & Beauty">Fashion & Beauty</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Entertaiment">Entertaiment</option>
+                        <option value="Education">Education</option>
+                        <option value="Another">Another</option>
+                    </select>
+            </div>
+            <div class="form-group w-25 pt-4" id="sortContainer">
+                    <select id="sortCategory" class="form-control">
+                        <option value="All" selected>All</option>
+                        <option value="Location">Location</option>
+                        <option value="Type">Type</option>
+                    </select>
+            </div>
+            <form asp-action="HomeClient" asp-controller="Home" method="get">
+                <div class="input-group mr-3 pt-4">
+                    <div class="form-outline">
+                        <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" id="form1" class="form-control" placeholder="Search"/>
+                    </div>
+                    <button type="submit" value="Search" class="btn searchBtn">
+                        <i class="fas fa-search magnifierIcon"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row align-items-center ">
+        <div class="col-md-12 ">          
+             <hr class="@*lineHome*@">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        @foreach (var item in Model)
+        {
+            var photoPath = "~/Img/Campaign/" + (item.CampaignImg ?? "noimage.jpg");
+            <div class="card bg-light border-light" style="width: 20em; margin: 9px">
+                <div class="card-body">
+                    <img class="card-img-top p" src=@photoPath alt="Card image cap" asp-append-version="true">
+                    <h6 class="card-title font-weight-bold mt-3">@item.ClientName</h6>
+                    <h6 class="text-truncate">@item.CampaignName</h6>
+                    <p class="contentType">@item.ContentType</p>
+                    <h6 class="contentPrice">Rp. @item.Commission</h6>
+                    <p class="card-text text-truncate">@item.Description</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
@@ -24,3 +123,8 @@
    class="btn btn-default @nextDisabled">
     Next
 </a>
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+}
