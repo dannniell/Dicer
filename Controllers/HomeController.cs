@@ -51,10 +51,15 @@ namespace Dicer.Controllers
         /*[Authorize(Roles = Constants.Constants.roleNameClient)]*/
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> HomeClient(int? pageNumber)
+        public async Task<IActionResult> HomeClient(int? pageNumber, string searchString)
         {
+            ViewData["SearchFilter"] = searchString;
             var campaigns = from s in _context.Campaign
                     select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString));
+            }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
             int pageSize = 3;
             return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
