@@ -2,38 +2,6 @@
     var self = this;
     var globalKota;
 
-    self.getInitKota = function (initKota) {
-        var ajaxTypesObj = {
-            url: '/Api/location/GetKota',
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                globalKota = data;
-                self.populateInitKota(initKota);
-            },
-            error: function (e) {
-                alert('Failed to Insert Transaction Detail Data!');
-            },
-            complete: function (data) {
-                //alert('Transaction Detail Data Successfully Inserted!');
-            }
-        };
-        $.ajax(ajaxTypesObj);
-    };
-
-    self.populateInitKota = function (initKota) {
-        var row = "";
-        $("#ddlLocation").empty();
-        $.each(globalKota, function (i, v) {
-            if (initKota == v.value) {
-                row += "<option value=" + v.value + " selected>" + v.text + "</option>";
-            } else {
-                row += "<option value=" + v.value + ">" + v.text + "</option>";
-            }
-        });
-        $("#ddlLocation").html(row);
-    };
-
     self.getDefaultKota = function () {
         var ajaxTypesObj = {
             url: "/Api/location/GetKota",
@@ -42,6 +10,15 @@
             success: function (data) {
                 globalKota = data;
                 self.populateKota();
+
+                var initKota = document.getElementById("InitKota").value;
+                if (initKota > 0) {
+                    $("#sortContainer").addClass('mr-3');
+                    $("#locationContainer").removeClass('d-none');
+                    $("#genreContainer").addClass('d-none');
+                    $("#sortCategory").val('Location');
+                    $("#ddlLocation").val(initKota);
+                }
             },
             error: function (e) {
                 alert('Failed to Insert Transaction Detail Data!');
@@ -67,15 +44,7 @@ var globalDataFilter = new dataFilter();
 
 $(document).ready(function () {
     var initGenre = document.getElementById("InitGenre").value;
-    var initKota = document.getElementById("InitKota").value;
     globalDataFilter.getDefaultKota();
-    if (initKota > 0) {
-        $("#sortContainer").addClass('mr-3');
-        $("#locationContainer").removeClass('d-none');
-        $("#genreContainer").addClass('d-none');
-        $("#sortCategory").val('Location');
-        globalDataFilter.getInitKota(initKota, initProvinsi);
-    }
     if (initGenre !== "") {
         $("#sortContainer").addClass('mr-3');
         $("#genreContainer").removeClass('d-none');
