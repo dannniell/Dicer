@@ -93,11 +93,13 @@
 
 <a asp-action="HomeClient"
    asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-searchString="@ViewData["SearchFilter"]"
    class="btn btn-default @prevDisabled">
     Previous
 </a>
 <a asp-action="HomeClient"
    asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-searchString="@ViewData["SearchFilter"]"
    class="btn btn-default @nextDisabled">
     Next
 </a>

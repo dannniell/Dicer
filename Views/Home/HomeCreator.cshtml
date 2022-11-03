@@ -7,6 +7,7 @@
 }
 <input id="InitGenre" value=@initGenre class="d-none"/>
 <input id="InitKota" value=@initKota class="d-none"/>
+<input id="InitPage" value=@Model.PageIndex class="d-none"/>
 
 <div class="container homeClientContent">
     <div class="row">
@@ -79,7 +80,7 @@
             <form asp-action="HomeCreator" asp-controller="Home" method="get">
                 <div class="input-group mr-3 pt-4">
                     <div class="form-outline">
-                        <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" id="form1" class="form-control" placeholder="Search"/>
+                        <input type="text" id="searchBox" name="SearchString" value="@ViewData["SearchFilter"]" id="form1" class="form-control" placeholder="Search"/>
                     </div>
                     <button type="submit" value="Search" class="btn searchBtn">
                         <i class="fas fa-search magnifierIcon"></i>
@@ -117,13 +118,11 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<a asp-action="HomeCreator"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
+<a id="BtnPrevious"
    class="btn btn-default @prevDisabled">
     Previous
 </a>
-<a asp-action="HomeCreator"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
+<a id="BtnNext"
    class="btn btn-default @nextDisabled">
     Next
 </a>

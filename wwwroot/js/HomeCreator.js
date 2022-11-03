@@ -120,3 +120,36 @@ $(document).on("change", "#ddlLocation", function () {
     window.location.href = '/Home/HomeCreator?locationInt=' + location;
 });
 
+$(document).on("click", "#BtnNext", function () {
+    var initPage = $("#InitPage").val();
+    var location = $("#ddlLocation").val();
+    var genre = $("#ddlGenre").val();
+    var search = $("#searchBox").val();
+    var nextPage = +initPage + +1;
+    if (location > 0) {
+        window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
+    }
+    if (genre !== "") {
+        window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
+    }
+    if (search !== "") {
+        window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
+    }
+});
+
+$(document).on("click", "#BtnPrevious", function () {
+    var initPage = $("#InitPage").val();
+    var location = $("#ddlLocation").val();
+    var genre = $("#ddlGenre").val();
+    var search = $("#searchBox").val();
+    var nextPage = +initPage - +1;
+    if (location > 0) {
+        window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
+    }
+    if (genre !== "") {
+        window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
+    }
+    if (search !== "") {
+        window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
+    }
+});

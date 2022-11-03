@@ -52,8 +52,7 @@ namespace Dicer.Controllers
 
 
         #region Home Client
-        /*[Authorize(Roles = Constants.Constants.roleNameClient)]*/
-        [AllowAnonymous]
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpGet]
         public async Task<IActionResult> HomeClient(int? pageNumber, string searchString)
         {
