@@ -39,18 +39,18 @@
                         </li>
                         @if(User.IsInRole("Client")){
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="HomeClient">Home</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeClient">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="HomeClient">My Campaign</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeClient">My Campaign</a>
                             </li>
                         }
                         @if(User.IsInRole("Creator")){
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="HomeCreator">Home</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeCreator">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="HomeCreator">My Job</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeCreator">My Job</a>
                             </li>
                         }
                     }
@@ -58,18 +58,18 @@
                         @if (User.IsInRole("Client"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ProfileClient">Profile</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Account" asp-action="ProfileClient">Profile</a>
                             </li>
                         }
                         @if (User.IsInRole("Creator"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
+                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
                             </li>
                         }
                             <li class="nav-item">
                                 <form id="logoutForm" class="form-inline" asp-action="Logout" asp-controller="Account">
-                                    <button id="logout" type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-white font-weight-bold">Logout</button>
                                 </form>
                             </li>
                     }
