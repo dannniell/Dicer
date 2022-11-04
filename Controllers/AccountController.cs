@@ -259,7 +259,7 @@ namespace Dicer.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("ProfileCreator", "Account");
+                        return RedirectToAction("ProfileClient", "Account");
                     }
 
                     foreach (var error in result.Errors)
