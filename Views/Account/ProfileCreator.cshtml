@@ -11,96 +11,104 @@
 <input id="InitProvinsi" value="@Model.Provinsi"/>
 <input id="InitKota" value="@Model.Kota"/>
 <div class="container registerCreatorContent">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <form enctype="multipart/form-data" asp-action="ProfileCreator" asp-controller="Account" method="post">
-                <span class="landingTitle">Creator Profile Account</span>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group mb-3">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" aria-required="true" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+    <form enctype="multipart/form-data" asp-action="ProfileCreator" asp-controller="Account" method="post">
+    <span class="landingTitle d-flex justify-content-center">Creator Profile Account</span>
+    <hr />
+    <div class="form-row justify-content-around">
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+                <div class="form-label">
+                    <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                 </div>
-                 <div class="form-group mb-3">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" disabled aria-required="true" />
-                </div>
+                <span asp-validation-for="ProfileImg" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
                 <div class="form-group mb-3">
-                    <label asp-for="Gender"></label>
-                    <select asp-for="Gender" id="ddlgender" class="form-control">
-                        @if (Model.Gender == "Male")
-                        {
-                            <option value="Male" selected>Male</option>
-                            <option value="Female">Female</option>
-                        }
-                        @if(Model.Gender == "Female")
-                        {
-                            <option value="Female" selected>Female</option>
-                            <option value="Male" selected>Male</option>
-                        }
-                    </select>
-                    <span asp-validation-for="Gender" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="DoB" class="control-label"></label>
-                    @*<div class="input-group date" id="datepicker" value="@InitDate">
-                        <input asp-for="DoB" type="text" class="form-control">
-                            <span class="input-group-append">
-                                <span class="input-group-text bg-white">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" disabled aria-required="true" />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" id="ddlgender" class="form-control">
+                    @if (Model.Gender == "Male")
+                    {
+                        <option value="Male" selected>Male</option>
+                        <option value="Female">Female</option>
+                    }
+                    @if(Model.Gender == "Female")
+                    {
+                        <option value="Female" selected>Female</option>
+                        <option value="Male" selected>Male</option>
+                    }
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DoB" class="control-label"></label>
+                @*<div class="input-group date" id="datepicker" value="@InitDate">
+                    <input asp-for="DoB" type="text" class="form-control">
+                        <span class="input-group-append">
+                            <span class="input-group-text bg-white">
+                                <i class="fa fa-calendar"></i>
                             </span>
-                        </div>
-                    <span asp-validation-for="DoB" class="text-danger"></span>*@
-
-
-                    <input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
-                    @*<span class="input-group-append">
-                        <span class="input-group-text bg-light d-block">
-                            <i class="fa fa-calendar"></i>
                         </span>
-                    </span>
-                    <span asp-validation-for="DoB" class="text-danger"></span>  *@
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Provinsi" class="control-label">Province</label>
-                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                    <span asp-validation-for="Provinsi" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Kota" class="control-label">City</label>
-                    <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                    <span asp-validation-for="Kota" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
-                    <div class="form-label">
-                        <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                     </div>
-                    <span asp-validation-for="ProfileImg" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="UserNameIg"></label>
-                    <input asp-for="UserNameIg" class="form-control" aria-required="true" />
-                    <span asp-validation-for="UserNameIg" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="JumlahFollowers"></label>
-                    <input asp-for="JumlahFollowers" disabled class="form-control" aria-required="true" />
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="ER"></label>
-                    <input asp-for="ER" disabled class="form-control" aria-required="true" />
-                </div>
-                <hr />
-                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
-                <hr />
-                <a asp-action="ProfileCreator" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
-                <br />
-            </form>
+                <span asp-validation-for="DoB" class="text-danger"></span>*@
+
+
+                <input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
+                @*<span class="input-group-append">
+                    <span class="input-group-text bg-light d-block">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </span>
+                <span asp-validation-for="DoB" class="text-danger"></span>  *@
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Provinsi" class="control-label">Province</label>
+                <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <span asp-validation-for="Provinsi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Kota" class="control-label">City</label>
+                <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <span asp-validation-for="Kota" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label asp-for="UserNameIg"></label>
+                <input asp-for="UserNameIg" class="form-control" aria-required="true" />
+                <span asp-validation-for="UserNameIg" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="JumlahFollowers"></label>
+                <input asp-for="JumlahFollowers" disabled class="form-control" aria-required="true" />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ER"></label>
+                <input asp-for="ER" disabled class="form-control" aria-required="true" />
+            </div>
         </div>
     </div>
+    <hr/>
+    <div class="form-row justify-content-center">
+        <div class="col-md-3 mx-1">
+            <a asp-action="ProfileCreator" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
+        </div>
+        <div class="col-md-3 mx-1">
+            <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
+        </div>
+    </div>
+    
+    </form>
 </div>
 @section Scripts {
     <script src="~/js/UpdatelistProvinsiKota.js" asp-append-version="true"></script>

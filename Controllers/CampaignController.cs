@@ -11,16 +11,20 @@ namespace Dicer.Controllers
         private readonly ICampaignRepository campaignRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly ApplicationDbContext _context;
 
         public CampaignController(ICampaignRepository campaignRepository,
                                         UserManager<ApplicationUser> userManager,
-                                        IWebHostEnvironment webHostEnvironment)
+                                        IWebHostEnvironment webHostEnvironment,
+                                        ApplicationDbContext context)
         {
             this.campaignRepository = campaignRepository;
             this._userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
+            this._context = context;
         }
 
+        #region Create
         [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpGet]
         public IActionResult Create()
@@ -30,7 +34,7 @@ namespace Dicer.Controllers
 
         [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCampaignViewModel model)
+        public async Task<IActionResult> Create(CampaignViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -95,8 +99,49 @@ namespace Dicer.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Edit
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var check = from b in _context.ClientCampaign
+                            where b.UserId == user.Id
+                                && b.CampaignId == id
+                            select b;
 
+            if(check.Count()<1 || user == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+
+            var campaign = _context.Campaign
+                            .Where(s => s.CampaignId == id)
+                            .FirstOrDefault();
+
+            ViewData["Img"] = campaign.CampaignImg;
+            var model = new CampaignViewModel
+            {
+                CampaignId = id,
+                CampaignName = campaign.CampaignName,
+                ContentType = campaign.ContentType,
+                Description = campaign.Description,
+                Commission = campaign.Commission,
+                Task = campaign.Task,
+                Gender = campaign.Gender,
+                Kota = campaign.Kota,
+                Provinsi = campaign.Provinsi,
+                MinFollowers = campaign.MinFollowers,
+                MinAge = campaign.MinAge,
+                MaxAge = campaign.MaxAge,
+                Genre = campaign.Genre
+            };
+            return View(model);
+        }
+
+        #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }

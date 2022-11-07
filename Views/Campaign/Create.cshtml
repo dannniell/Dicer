@@ -1,4 +1,4 @@
-﻿@model CreateCampaignViewModel
+﻿@model CampaignViewModel
 
 @{
     ViewData["Title"] = "Create Campaign";
@@ -6,7 +6,7 @@
 }
 
 <div class="container profileCreatorContent">
-    <form enctype="multipart/form-data" asp-action="Index" asp-controller="CreateCampaign" method="post">
+    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Campaign" method="post">
     <span class="landingTitle d-flex justify-content-center">Create Campaign</span>
     <hr />
     <div class="form-row justify-content-around">

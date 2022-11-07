@@ -2,8 +2,10 @@
 
 namespace Dicer.Models
 {
-    public class CreateCampaignViewModel
+    public class CampaignViewModel
     {
+        public int? CampaignId { get; set; }
+
         [Required]
         [Display(Name = "Campaign Name")]
         public string CampaignName { get; set; }
