@@ -54,8 +54,6 @@
             <div class="form-group w-25 pt-4 d-none" name="LocationString" id="locationContainer">
                     <select id="ddlLocation" class="form-control">
                         <option value="" disabled selected hidden>Choose location</option>
-                        <option value="Provinsi">Provinsi</option>
-                        <option value="Kota">Kota</option>
                     </select>
             </div>
             <div class="form-group w-25 pt-4 d-none" name="TypeString" id="genreContainer">
@@ -99,8 +97,9 @@
         @foreach (var item in Model)
         {
             var photoPath = "~/Img/Campaign/" + (item.CampaignImg ?? "noimage.jpg");
-            <div class="card bg-light border-light" style="width: 20em; margin: 9px">
+            <div class="card bg-light border-light" id="card" style="width: 20em; margin: 9px">
                 <div class="card-body">
+                    <input id="InitId" value=@item.CampaignId class="IdCard d-none"/>
                     <img class="card-img-top p" src=@photoPath alt="Card image cap" asp-append-version="true">
                     <h6 class="card-title font-weight-bold mt-3">@item.ClientName</h6>
                     <h6 class="text-truncate">@item.CampaignName</h6>

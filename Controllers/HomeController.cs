@@ -42,7 +42,7 @@ namespace Dicer.Controllers
             }
             if (locationInt > 0)
             {
-                campaigns = campaigns.Where(s => s.Kota == locationInt);
+                campaigns = campaigns.Where(s => s.Provinsi == locationInt);
             }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
             int pageSize = 3;

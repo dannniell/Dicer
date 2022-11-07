@@ -1,15 +1,15 @@
 ﻿var dataFilter = function () {
     var self = this;
-    var globalKota;
+    var globalLocation;
 
     self.getDefaultKota = function () {
         var ajaxTypesObj = {
-            url: "/Api/location/GetKota",
+            url: "/Api/location/GetProvinsi",
             method: "GET",
             dataType: "json",
             success: function (data) {
-                globalKota = data;
-                self.populateKota();
+                globalLocation = data;
+                self.populateLocation();
 
                 var initKota = document.getElementById("InitKota").value;
                 if (initKota > 0) {
@@ -30,10 +30,10 @@
         $.ajax(ajaxTypesObj);
     };
 
-    self.populateKota = function () {
+    self.populateLocation = function () {
         var row = "";
         $("#ddlLocation").empty();
-        $.each(globalKota, function (i, v) {
+        $.each(globalLocation, function (i, v) {
             row += "<option value=" + v.value + ">" + v.text + "</option>";
         });
         $("#ddlLocation").html(row);
@@ -51,6 +51,15 @@ $(document).ready(function () {
         $("#locationContainer").addClass('d-none');
         $("#sortCategory").val('Type');
         $("#ddlGenre").val(initGenre);
+    }
+
+    //todo
+    var cards = document.querySelectorAll(".card");
+    for (var i = 0; i < cards.length; i++) {
+        cards[i].addEventListener('click', function (e) {
+            var link = this.querySelector(".IdCard");
+            console.log(link.value);
+        }, false);
     }
 });
 
@@ -122,3 +131,5 @@ $(document).on("click", "#BtnPrevious", function () {
         window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
     }
 });
+
+

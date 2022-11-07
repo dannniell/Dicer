@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Dicer.Controllers
 {
-    public class CreateCampaignController : Controller
+    public class CampaignController : Controller
     {
         private readonly ICampaignRepository campaignRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public CreateCampaignController(ICampaignRepository campaignRepository,
+        public CampaignController(ICampaignRepository campaignRepository,
                                         UserManager<ApplicationUser> userManager,
                                         IWebHostEnvironment webHostEnvironment)
         {
@@ -23,14 +23,14 @@ namespace Dicer.Controllers
 
         [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Create()
         {
             return View();
         }
 
         [Authorize(Roles = Constants.Constants.roleNameClient)]
         [HttpPost]
-        public async Task<IActionResult> Index(CreateCampaignViewModel model)
+        public async Task<IActionResult> Create(CreateCampaignViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +95,9 @@ namespace Dicer.Controllers
             }
             return View(model);
         }
+
+
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
