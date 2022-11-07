@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Create Campaign";
-    var photoPath = ViewData["Img"];
+    var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
 }
 <input id="InitType" value="@Model.ContentType" class="d-none"/>
 <input id="InitGenre" value="@Model.Genre" class="d-none"/>
@@ -11,100 +11,110 @@
 <input id="InitKota" value="@Model.Kota"/>
 
 <div class="container profileCreatorContent">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <form enctype="multipart/form-data" asp-action="Edit" asp-controller="Campaign" method="post">
-                <input id="InitId" value="@Model.CampaignId" class="d-none"/>
-                <span class="landingTitle">Edit Campaign</span>
-                <hr />
-                <div class="form-group mb-3">
-                    <label asp-for="CampaignName"></label>
-                    <input asp-for="CampaignName" class="form-control" aria-required="true" />
-                    <span asp-validation-for="CampaignName" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="ContentType"></label>
-                    <select asp-for="ContentType" id="ddlContentType" class="form-control">
-                        <option value="IG Feed">IG Feed</option>
-                        <option value="IG Story">IG Story</option>
-                        <option value="IG Reels">IG Reels</option>
-                    </select>
-                    <span asp-validation-for="ContentType" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Genre"></label>
-                    <select asp-for="Genre" id="ddlGenre" class="form-control">
-                        <option value="Sport">Sport</option>
-                        <option value="Food">Food</option>
-                        <option value="FnB">Fashion & Beauty</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Entertaiment">Entertaiment</option>
-                        <option value="Education">Education</option>
-                        <option value="Another">Another</option>
-                    </select>
-                    <span asp-validation-for="Genre" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <textarea asp-for="Description" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
-                    <span asp-validation-for="CampaignName" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Commission"></label>
-                    <input asp-for="Commission" class="form-control" aria-required="true" />
-                    <span asp-validation-for="Commission" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Task"></label>
-                    <textarea asp-for="Task" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
-                    <span asp-validation-for="Task" class="text-danger"></span>
-                </div>
-                 <div class="form-group mb-3">
+    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Campaign" method="post">
+    <input id="InitId" value=@Model.CampaignId class="d-none" />
+    <span class="landingTitle d-flex justify-content-center">Create Campaign</span>
+    <hr />
+    <div class="form-row justify-content-around">
+        <div class="col-md-3">
+            <div class="form-group mb-3">
                     <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
                     <div class="form-label">
                         <input asp-for="CampaignImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                     </div>
                     <span asp-validation-for="CampaignImg" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Gender"></label>
-                    <select asp-for="Gender" id="ddlgender" class="form-control">
-                        <option value="">Not Selected</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Provinsi" class="control-label">Province</label>
-                    <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                    <span asp-validation-for="Provinsi" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="Kota" class="control-label">City</label>
-                    <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
-                    <span asp-validation-for="Kota" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="MinFollowers"></label>
-                    <input asp-for="MinFollowers" class="form-control" aria-required="true" />
-                    <span asp-validation-for="MinFollowers" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="MinAge"></label>
-                    <input asp-for="MinAge" class="form-control" aria-required="true" />
-                    <span asp-validation-for="MinAge" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label asp-for="MaxAge"></label>
-                    <input asp-for="MaxAge" class="form-control" aria-required="true" />
-                    <span asp-validation-for="MaxAge" class="text-danger"></span>
-                </div>
-                <hr />
-                <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Create</button>
-                <br />
-            </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label asp-for="CampaignName"></label>
+                <input asp-for="CampaignName" class="form-control" aria-required="true" />
+                <span asp-validation-for="CampaignName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ContentType"></label>
+                <select asp-for="ContentType" id="ddlContentType" class="form-control">
+                    <option value="IG Feed">IG Feed</option>
+                    <option value="IG Story">IG Story</option>
+                    <option value="IG Reels">IG Reels</option>
+                </select>
+                <span asp-validation-for="ContentType" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Genre"></label>
+                <select asp-for="Genre" id="ddlGenre" class="form-control">
+                    <option value="Sport">Sport</option>
+                    <option value="Food">Food</option>
+                    <option value="FnB">Fashion & Beauty</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Entertaiment">Entertaiment</option>
+                    <option value="Education">Education</option>
+                    <option value="Another">Another</option>
+                </select>
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
+                <span asp-validation-for="CampaignName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Commission"></label>
+                <input asp-for="Commission" class="form-control" aria-required="true" />
+                <span asp-validation-for="Commission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task"></label>
+                <textarea asp-for="Task" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
+                <span asp-validation-for="Task" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" id="ddlgender" class="form-control">
+                    <option value="">Not Selected</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Provinsi" class="control-label">Province</label>
+                <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <span asp-validation-for="Provinsi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Kota" class="control-label">City</label>
+                <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <span asp-validation-for="Kota" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MinFollowers"></label>
+                <input asp-for="MinFollowers" class="form-control" aria-required="true" />
+                <span asp-validation-for="MinFollowers" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MinAge"></label>
+                <input asp-for="MinAge" class="form-control" aria-required="true" />
+                <span asp-validation-for="MinAge" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MaxAge"></label>
+                <input asp-for="MaxAge" class="form-control" aria-required="true" />
+                <span asp-validation-for="MaxAge" class="text-danger"></span>
+            </div>
         </div>
     </div>
+    <hr/>
+    <div class="form-row justify-content-center">
+        <div class="col-md-3 mx-1">
+            <a asp-action="Edit" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
+        </div>
+        <div class="col-md-3 mx-1">
+            <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
+        </div>
+    </div>
+    </form>
 </div>
 @section Scripts {
     <script src="~/js/UpdatelistProvinsiKota.js" asp-append-version="true"></script>
