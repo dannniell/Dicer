@@ -39,18 +39,18 @@
                         </li>
                         @if(User.IsInRole("Client")){
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeClient">Home</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Home" asp-action="HomeClient">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeClient">My Campaign</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Home" asp-action="HomeClient">My Campaign</a>
                             </li>
                         }
                         @if(User.IsInRole("Creator")){
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeCreator">Home</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Home" asp-action="HomeCreator">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Home" asp-action="HomeCreator">My Job</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Home" asp-action="HomeCreator">My Job</a>
                             </li>
                         }
                     }
@@ -58,13 +58,13 @@
                         @if (User.IsInRole("Client"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Account" asp-action="ProfileClient">Profile</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Account" asp-action="ProfileClient">Profile</a>
                             </li>
                         }
                         @if (User.IsInRole("Creator"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white font-weight-bold" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
+                                <a class="nav-link text-white menuTitle" asp-area="" asp-controller="Account" asp-action="ProfileCreator">Profile</a>
                             </li>
                         }
                             <li class="nav-item">

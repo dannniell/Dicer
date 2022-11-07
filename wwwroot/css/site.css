@@ -203,22 +203,31 @@ ul {
 }
 
 .headTitle {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
-    color: white
+    color: white;
+    margin-bottom: 8px;
 }
 
 .headSubTitle {
-    font-size: 15px;
+    font-size: 18px;
     font-style: italic;
     color: white;
-    margin-top: 10px;
+    margin-top: 0px;
+}
 
+.menuTitle {
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    margin-top: 2.5px;
 }
 
 .welcomeTitle {
-    color: white; 
+    font-size: 13px;
+    color: white;
     font-style: italic;
+    margin-top: 4.5px;
 }
 
 .footTitle {
@@ -334,8 +343,8 @@ ul {
     border: none;
     border-radius: 25px;
     padding: 9px 15px 9px 15px;
-    /*margin-left: 30px;*/
-    margin-left: -10px;
+    /*margin-left: 30px;
+    margin-left: -10px;*/
 }
 
 .contentType {

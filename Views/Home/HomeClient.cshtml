@@ -20,7 +20,6 @@
                         <h1 class="display-4 font-weight-bold">FIND UR BEST <br> CONTENT CREATOR</h1>
                         <hr class="my-4">
                         <p class="lead">Make campaign and find content creator that suits you the best!</p>
-                        @*<a class="btn btn-primary btn-lg font-weight-bold" href="#" role="button">CREATE</a>*@
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -45,10 +44,10 @@
         <div class="col-md-3">
             <span class="homeTitle">My Campaign</span>
         </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4 align-self-center">
+        <div class="col-md-9 d-inline-flex flex-row-reverse align-self-center">
+            <a class="btn btn-primary btn-sm font-weight-bold createBtn" asp-action="create" asp-controller="Campaign" role="button">Add Campaign</a>
             <form asp-action="HomeClient" asp-controller="Home" method="get">
-                <div class="input-group searchBox">
+                <div class="input-group mr-3">
                     <div class="form-outline">
                         <input type="text" name="SearchString" value="@ViewData["SearchFilter"]" id="form1" class="form-control" placeholder="Search"/>
                     </div>
@@ -57,9 +56,6 @@
                     </button>
                 </div>
             </form>
-        </div>
-        <div class="col-md-1 align-self-center">
-            <a class="btn btn-primary btn-sm font-weight-bold createBtn" asp-action="create" asp-controller="Campaign" role="button">ADD+</a>
         </div>
     </div>
     
