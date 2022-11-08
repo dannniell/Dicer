@@ -10,73 +10,70 @@
 <input id="InitKota" value="@ViewData["Kota"]"/>
 
 <div class="container profileCreatorContent">
-    <span class="landingTitle d-flex justify-content-center">Detail Campaign</span>
-    <hr />
-    @if (User.IsInRole("Client"))
-    {
-        <div class="form-row justify-content-center">
-            <div class="col-md-3 mx-1">
-                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="w-100 btn btn-lg btn-primary bgColor">Edit</a>
-            </div>
+    <div class="form-row justify-content-center">
+        <div class="col-md-10">
+            <span class="landingTitle">Campaign Details</span>
         </div>
-    }
-
+        <div class="col-md-2 d-inline-flex flex-row-reverse h-100 mt-4">
+            @if (User.IsInRole("Client"))
+            {
+                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn">Edit</a>
+                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn mr-2">Accept</a>
+            }
+            @if (User.IsInRole("Creator"))
+            {
+                <a asp-action="Register" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn mr-2">Apply</a>
+            }
+        </div>
+    </div>
+    <hr />
     <div class="form-row justify-content-around">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group mb-3">
                     <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
             </div>
+            <hr />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group mb-3">
-                <label asp-for="CampaignName"></label>
-                <input asp-for="CampaignName" class="form-control" disabled />
+                <h2 class="font-weight-bold">@Model.CampaignName</h2>
             </div>
+            <hr />
             <div class="form-group mb-3">
-                <label asp-for="ContentType"></label>
-                <input asp-for="ContentType" class="form-control" disabled />
+                <div class="form-row justify-content-center">
+                    <div class="col-md-6">
+                        <h3>@Model.ClientName</h3>
+                    </div>
+                    <div class="col-md-6 d-inline-flex flex-row-reverse h-100">
+                        <a class="font-weight-bold typeBtn">@Model.ContentType</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="Genre"></label>
-                <input asp-for="Genre" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <textarea asp-for="Description" rows="5" cols="5" class="form-control" disabled ></textarea>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Commission"></label>
-                <input asp-for="Commission" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Task"></label>
-                <textarea asp-for="Task" rows="5" cols="5" class="form-control" disabled ></textarea>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group mb-3">
-                <label asp-for="Gender"></label>
-                <input asp-for="Gender" class="form-control" disabled />
+           <div class="form-group mb-3">
+                 <h2 class="detailPrice">Rp. @Model.Commission</h2>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label">Province</label>
-                <input id="provinsi" class="form-control" disabled />
+                <h4 class="font-weight-bold">Campaign Description</h4>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label">City</label>
-                <input id="kota" class="form-control" disabled />
+                <p>@Model.Description</p>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="MinFollowers"></label>
-                <input asp-for="MinFollowers" class="form-control" disabled />
+                <h4 class="font-weight-bold">Requirements</h4>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="MinAge"></label>
-                <input asp-for="MinAge" class="form-control" disabled />
+                <ul>
+                    <li>Gender: @Model.Gender</li>
+                    <li>Provinsi: @ViewData["Provinsi"]</li>
+                    <li>Kota: @ViewData["Kota"]</li>
+                    <li>Age: @Model.CampaignId</li>
+                </ul>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="MaxAge"></label>
-                <input asp-for="MaxAge" class="form-control" disabled/>
+                <h4 class="font-weight-bold">Detail Task</h4>
+            </div>
+            <div class="form-group mb-3">
+                <p>@Model.Task</p>
             </div>
         </div>
     </div>

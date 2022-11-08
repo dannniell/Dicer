@@ -9,9 +9,10 @@
             dataType: "json",
             success: function (data) {
                 globalLocation = data;
-                self.populateLocation();
-
                 var initKota = document.getElementById("InitKota").value;
+                self.populateLocation(initKota);
+
+                
                 if (initKota > 0) {
                     $("#sortContainer").addClass('mr-3');
                     $("#locationContainer").removeClass('d-none');
@@ -30,13 +31,16 @@
         $.ajax(ajaxTypesObj);
     };
 
-    self.populateLocation = function () {
+    self.populateLocation = function (initKota) {
         var row = "";
         $("#ddlLocation").empty();
         $.each(globalLocation, function (i, v) {
             row += "<option value=" + v.value + ">" + v.text + "</option>";
         });
         $("#ddlLocation").html(row);
+        if (initKota == 0) {
+            $("#ddlLocation").empty();
+        }
     };
 }
 
@@ -45,7 +49,7 @@ var globalDataFilter = new dataFilter();
 $(document).ready(function () {
     var initGenre = document.getElementById("InitGenre").value;
     globalDataFilter.getDefaultKota();
-    if (initGenre !== "") {
+    if (initGenre) {
         $("#sortContainer").addClass('mr-3');
         $("#genreContainer").removeClass('d-none');
         $("#locationContainer").addClass('d-none');
@@ -107,11 +111,14 @@ $(document).on("click", "#BtnNext", function () {
     if (location > 0) {
         window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
     }
-    if (genre !== "") {
+    if (genre) {
         window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
     }
-    if (search !== "") {
+    if (search) {
         window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
+    }
+    if (location < 0 && !genre && !search) {
+        window.location.href = '/Home/HomeCreator?pageNumber=' + nextPage;
     }
 });
 
@@ -124,11 +131,14 @@ $(document).on("click", "#BtnPrevious", function () {
     if (location > 0) {
         window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
     }
-    if (genre !== "") {
+    if (genre) {
         window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
     }
-    if (search !== "") {
+    if (search) {
         window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
+    }
+    if (location < 0 && !genre && !search) {
+        window.location.href = '/Home/HomeCreator?pageNumber=' + nextPage;
     }
 });
 

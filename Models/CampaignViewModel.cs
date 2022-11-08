@@ -44,5 +44,7 @@ namespace Dicer.Models
         [Display(Name = "Maximal Age")]
         public int? MaxAge { get; set; }
         public string Genre { get; set; }
+
+        public string? ClientName { get; set; }
     }
 }

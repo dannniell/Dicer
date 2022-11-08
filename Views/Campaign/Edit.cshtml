@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create Campaign";
     var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
+    
 }
 <input id="InitType" value="@Model.ContentType" class="d-none"/>
 <input id="InitGenre" value="@Model.Genre" class="d-none"/>
@@ -11,8 +12,8 @@
 <input id="InitKota" value="@Model.Kota"/>
 
 <div class="container profileCreatorContent">
-    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Campaign" method="post">
-    <input id="InitId" value=@Model.CampaignId class="d-none" />
+    <form enctype="multipart/form-data" asp-action="Edit" asp-controller="Campaign" method="post">
+    <input asp-for="CampaignId" class="form-control d-none" aria-required="true" />
     <span class="landingTitle d-flex justify-content-center">Create Campaign</span>
     <hr />
     <div class="form-row justify-content-around">

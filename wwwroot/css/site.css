@@ -347,6 +347,16 @@ ul {
     margin-left: -10px;*/
 }
 
+.typeBtn {
+    background-color: #EFA46B;
+    border: none;
+    border-radius: 25px;
+    padding: 9px 15px 9px 15px;
+    /*opacity: 50%;*/
+    /*margin-left: 30px;
+    margin-left: -10px;*/
+}
+
 .contentType {
     color: #00599F;
     font-size: 12px;
@@ -383,4 +393,9 @@ ul {
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.detailPrice {
+    color: #00599F;
+    text-decoration: underline;
 }

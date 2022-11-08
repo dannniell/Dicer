@@ -141,6 +141,70 @@ namespace Dicer.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(CampaignViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //ViewData["Id"] = searchString;
+                if (model.MinAge > model.MaxAge)
+                {
+                    return View(model);
+                }
+
+                var user = await GetCurrentUserAsync();
+
+                if (user == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    string? uniqueFileName = null;
+                    if (model.CampaignImg != null)
+                    {
+                        var extension = Path.GetExtension(model.CampaignImg.FileName);
+                        if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+                        {
+                            string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "Campaign");
+                            uniqueFileName = Guid.NewGuid() + extension;
+                            string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                            FileStream fs = new FileStream(filePath, FileMode.Create);
+                            model.CampaignImg.CopyTo(fs);
+                            fs.Close();
+                        }
+                    }
+
+                    CampaignModel newCampaign = new CampaignModel
+                    {
+                        CampaignId = model.CampaignId,
+                        CampaignName = model.CampaignName,
+                        ContentType = model.ContentType,
+                        Description = model.Description,
+                        Commission = model.Commission,
+                        Task = model.Task,
+                        CampaignImg = uniqueFileName,
+                        Gender = model.Gender,
+                        Kota = model.Kota,
+                        Provinsi = model.Provinsi,
+                        MinFollowers = model.MinFollowers,
+                        MinAge = model.MinAge,
+                        MaxAge = model.MaxAge,
+                        UserId = user.Id,
+                        UserName = user.Name,
+                        Genre = model.Genre
+                    };
+
+                    campaignRepository.UpsertCampaign(newCampaign);
+
+                    return RedirectToAction("Detail", new { id = model.CampaignId });
+                }
+            }
+            return View(model);
+        }
+
         #endregion
 
         #region DetailClient
@@ -180,6 +244,7 @@ namespace Dicer.Controllers
             {
                 CampaignId = id,
                 CampaignName = campaign.CampaignName,
+                ClientName = campaign.ClientName,
                 ContentType = campaign.ContentType,
                 Description = campaign.Description,
                 Commission = campaign.Commission,
