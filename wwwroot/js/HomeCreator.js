@@ -39,7 +39,7 @@
         });
         $("#ddlLocation").html(row);
         if (initKota == 0) {
-            $("#ddlLocation").empty();
+            $("#ddlLocation").val(0);
         }
     };
 }
@@ -108,18 +108,17 @@ $(document).on("click", "#BtnNext", function () {
     var genre = $("#ddlGenre").val();
     var search = $("#searchBox").val();
     var nextPage = +initPage + +1;
+    var link = "/Home/HomeCreator?";
     if (location > 0) {
-        window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
+        link = link + 'locationInt=' + location + '&&';
     }
     if (genre) {
-        window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
+        link = link + 'genreString=' + genre + '&&';
     }
     if (search) {
-        window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
+        link = link + 'searchString=' + search + '&&';
     }
-    if (location < 0 && !genre && !search) {
-        window.location.href = '/Home/HomeCreator?pageNumber=' + nextPage;
-    }
+    window.location.href = link + 'pageNumber=' + nextPage;
 });
 
 $(document).on("click", "#BtnPrevious", function () {
@@ -128,7 +127,18 @@ $(document).on("click", "#BtnPrevious", function () {
     var genre = $("#ddlGenre").val();
     var search = $("#searchBox").val();
     var nextPage = +initPage - +1;
+    var link = "/Home/HomeCreator?";
     if (location > 0) {
+        link = link + 'locationInt=' + location + '&&';
+    }
+    if (genre) {
+        link = link + 'genreString=' + genre + '&&';
+    }
+    if (search) {
+        link = link + 'searchString=' + search + '&&';
+    }
+    window.location.href = link + 'pageNumber=' + nextPage;
+    /*if (location > 0) {
         window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
     }
     if (genre) {
@@ -139,7 +149,7 @@ $(document).on("click", "#BtnPrevious", function () {
     }
     if (location < 0 && !genre && !search) {
         window.location.href = '/Home/HomeCreator?pageNumber=' + nextPage;
-    }
+    }*/
 });
 
 
