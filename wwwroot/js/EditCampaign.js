@@ -6,13 +6,4 @@
     $("#ddlContentType").val(InitType);
     $("#ddlGenre").val(initGenre);
     $("#Gender").val(InitGender);
-
-    //todo
-    var cards = document.querySelectorAll(".card");
-    for (var i = 0; i < cards.length; i++) {
-        cards[i].addEventListener('click', function (e) {
-            var link = this.querySelector(".IdCard");
-            window.location.href = '/Branch/Details/' + link.value;
-        }, false);
-    }
 });

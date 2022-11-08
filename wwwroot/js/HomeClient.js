@@ -4,7 +4,7 @@
     for (var i = 0; i < cards.length; i++) {
         cards[i].addEventListener('click', function (e) {
             var link = this.querySelector(".IdCard");
-            window.location.href = '/Campaign/Edit?id=' + link.value;
+            window.location.href = '/Campaign/DetailClient?id=' + link.value;
         }, false);
     }
 });

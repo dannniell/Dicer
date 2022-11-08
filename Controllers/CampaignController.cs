@@ -143,6 +143,47 @@ namespace Dicer.Controllers
 
         #endregion
 
+        #region DetailClient
+        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [HttpGet]
+        public async Task<IActionResult> DetailClient(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var check = from b in _context.ClientCampaign
+                        where b.UserId == user.Id
+                            && b.CampaignId == id
+                        select b;
+
+            if (check.Count() < 1 || user == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+
+            var campaign = _context.Campaign
+                            .Where(s => s.CampaignId == id)
+                            .FirstOrDefault();
+
+            ViewData["Img"] = campaign.CampaignImg;
+            var model = new CampaignViewModel
+            {
+                CampaignId = id,
+                CampaignName = campaign.CampaignName,
+                ContentType = campaign.ContentType,
+                Description = campaign.Description,
+                Commission = campaign.Commission,
+                Task = campaign.Task,
+                Gender = campaign.Gender,
+                Kota = campaign.Kota,
+                Provinsi = campaign.Provinsi,
+                MinFollowers = campaign.MinFollowers,
+                MinAge = campaign.MinAge,
+                MaxAge = campaign.MaxAge,
+                Genre = campaign.Genre
+            };
+            return View(model);
+        }
+        #endregion
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

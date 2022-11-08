@@ -1,0 +1,89 @@
+﻿@model CampaignViewModel
+
+@{
+    ViewData["Title"] = "Create Campaign";
+    var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
+}
+<input id="InitType" value="@Model.ContentType" class="d-none"/>
+<input id="InitGenre" value="@Model.Genre" class="d-none"/>
+<input id="InitGender" value="@Model.Gender" class="d-none"/>
+<input id="InitProvinsi" value="@Model.Provinsi"/>
+<input id="InitKota" value="@Model.Kota"/>
+
+<div class="container profileCreatorContent">
+    <input id="InitId" value=@Model.CampaignId class="d-none" />
+    <span class="landingTitle d-flex justify-content-center">Detail Campaign</span>
+    <hr />
+    <div class="form-row justify-content-around">
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label asp-for="CampaignName"></label>
+                <input asp-for="CampaignName" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ContentType"></label>
+                <input asp-for="ContentType" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Genre"></label>
+                <input asp-for="Genre" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="5" cols="5" class="form-control" disabled ></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Commission"></label>
+                <input asp-for="Commission" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Task"></label>
+                <textarea asp-for="Task" rows="5" cols="5" class="form-control" disabled ></textarea>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label asp-for="Gender"></label>
+                <input asp-for="Gender" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Provinsi" class="control-label">Province</label>
+                <input asp-for="Provinsi" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Kota" class="control-label">City</label>
+                <input asp-for="Kota" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MinFollowers"></label>
+                <input asp-for="MinFollowers" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MinAge"></label>
+                <input asp-for="MinAge" class="form-control" disabled />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MaxAge"></label>
+                <input asp-for="MaxAge" class="form-control" disabled/>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="form-row justify-content-center">
+        <div class="col-md-3 mx-1">
+            <a asp-action="Edit" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
+        </div>
+        <div class="col-md-3 mx-1">
+            <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+}
