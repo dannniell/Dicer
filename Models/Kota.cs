@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dicer.Models
 {
-    [Table("dbo.Kota")]
     public class Kota
     {
         [Key]

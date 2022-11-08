@@ -58,7 +58,7 @@ $(document).ready(function () {
     for (var i = 0; i < cards.length; i++) {
         cards[i].addEventListener('click', function (e) {
             var link = this.querySelector(".IdCard");
-            console.log(link.value);
+            window.location.href = '/Campaign/Detail?id=' + link.value;
         }, false);
     }
 });

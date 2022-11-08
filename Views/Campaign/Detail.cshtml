@@ -1,19 +1,26 @@
 ﻿@model CampaignViewModel
+@inject UserManager<ApplicationUser> userManager;
 
 @{
+    var user = await userManager.GetUserAsync(User);
     ViewData["Title"] = "Create Campaign";
     var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
 }
-<input id="InitType" value="@Model.ContentType" class="d-none"/>
-<input id="InitGenre" value="@Model.Genre" class="d-none"/>
-<input id="InitGender" value="@Model.Gender" class="d-none"/>
-<input id="InitProvinsi" value="@Model.Provinsi"/>
-<input id="InitKota" value="@Model.Kota"/>
+<input id="InitProvinsi" value= "@ViewData["Provinsi"]"/>
+<input id="InitKota" value="@ViewData["Kota"]"/>
 
 <div class="container profileCreatorContent">
-    <input id="InitId" value=@Model.CampaignId class="d-none" />
     <span class="landingTitle d-flex justify-content-center">Detail Campaign</span>
     <hr />
+    @if (User.IsInRole("Client"))
+    {
+        <div class="form-row justify-content-center">
+            <div class="col-md-3 mx-1">
+                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="w-100 btn btn-lg btn-primary bgColor">Edit</a>
+            </div>
+        </div>
+    }
+
     <div class="form-row justify-content-around">
         <div class="col-md-3">
             <div class="form-group mb-3">
@@ -52,12 +59,12 @@
                 <input asp-for="Gender" class="form-control" disabled />
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Provinsi" class="control-label">Province</label>
-                <input asp-for="Provinsi" class="form-control" disabled />
+                <label class="control-label">Province</label>
+                <input id="provinsi" class="form-control" disabled />
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Kota" class="control-label">City</label>
-                <input asp-for="Kota" class="form-control" disabled />
+                <label class="control-label">City</label>
+                <input id="kota" class="form-control" disabled />
             </div>
             <div class="form-group mb-3">
                 <label asp-for="MinFollowers"></label>
@@ -74,16 +81,17 @@
         </div>
     </div>
     <hr/>
-    <div class="form-row justify-content-center">
+@*    <div class="form-row justify-content-center">
         <div class="col-md-3 mx-1">
             <a asp-action="Edit" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
         </div>
         <div class="col-md-3 mx-1">
             <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
         </div>
-    </div>
+    </div>*@
 </div>
 @section Scripts {
+    <script src="~/js/DetailClientCampaign.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 }

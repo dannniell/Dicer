@@ -144,26 +144,38 @@ namespace Dicer.Controllers
         #endregion
 
         #region DetailClient
-        [Authorize(Roles = Constants.Constants.roleNameClient)]
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> DetailClient(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             var user = await GetCurrentUserAsync();
-            var check = from b in _context.ClientCampaign
-                        where b.UserId == user.Id
-                            && b.CampaignId == id
-                        select b;
-
-            if (check.Count() < 1 || user == null)
+            var roleClient = await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient);
+            if (roleClient)
             {
-                return RedirectToAction("ErrorView", "Account");
+                var check = from b in _context.ClientCampaign
+                            where b.UserId == user.Id
+                                && b.CampaignId == id
+                            select b;
+
+                if (check.Count() < 1 || user == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
             }
 
             var campaign = _context.Campaign
                             .Where(s => s.CampaignId == id)
                             .FirstOrDefault();
+            var provinsi = _context.Provinsi
+                            .Where(s => s.ProvinsiId == campaign.Provinsi)
+                            .FirstOrDefault();
+            var kota = _context.Kota
+                        .Where(s => s.KotaId == campaign.Kota)
+                        .FirstOrDefault();
 
             ViewData["Img"] = campaign.CampaignImg;
+            ViewData["Provinsi"] = provinsi.NamaProvinsi;
+            ViewData["Kota"] = kota.NamaKota;
             var model = new CampaignViewModel
             {
                 CampaignId = id,
@@ -173,8 +185,6 @@ namespace Dicer.Controllers
                 Commission = campaign.Commission,
                 Task = campaign.Task,
                 Gender = campaign.Gender,
-                Kota = campaign.Kota,
-                Provinsi = campaign.Provinsi,
                 MinFollowers = campaign.MinFollowers,
                 MinAge = campaign.MinAge,
                 MaxAge = campaign.MaxAge,

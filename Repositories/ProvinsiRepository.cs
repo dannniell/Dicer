@@ -16,7 +16,7 @@ namespace Dicer.Repositories
 
         public async Task<IEnumerable<Provinsi>> GetAllProvinsi()
         {
-            var result = _context.provinsis.FromSqlRaw(Constants.Constants.getProvinsi).ToList();
+            var result = _context.Provinsi.FromSqlRaw(Constants.Constants.getProvinsi).ToList();
             return result;
         }
     }

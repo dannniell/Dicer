@@ -12,9 +12,9 @@ namespace Dicer.Models
         {
         }
 
-        public DbSet<Kota> kotas { get; set; }
+        public DbSet<Kota> Kota { get; set; }
 
-        public DbSet<Provinsi> provinsis { get; set; }
+        public DbSet<Provinsi> Provinsi { get; set; }
 
         public DbSet<ApiIGModel> apiIGModels { get; set; }
 

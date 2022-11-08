@@ -17,7 +17,7 @@ namespace Dicer.Repositories
         {
             var param = new SqlParameter("@ProvinsiId", provinsiId);
 
-            var result = _context.kotas.FromSqlRaw(Constants.Constants.getKota, param).ToList();
+            var result = _context.Kota.FromSqlRaw(Constants.Constants.getKota, param).ToList();
 
             return result;
         }
@@ -25,7 +25,7 @@ namespace Dicer.Repositories
         public async Task<IEnumerable<Kota>> GetKota()
         {
             var param = new SqlParameter("@ProvinsiId", "");
-            var result = _context.kotas.FromSqlRaw(Constants.Constants.getKota, param).ToList();
+            var result = _context.Kota.FromSqlRaw(Constants.Constants.getKota, param).ToList();
             return result;
         }
     }
