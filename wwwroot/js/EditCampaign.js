@@ -4,6 +4,6 @@
     var InitGender = document.getElementById("InitGender").value;
 
     $("#ddlContentType").val(InitType);
-    $("#ddlGenre").val(initGenre);
+    $("#ddlGenre").val(InitGenre);
     $("#Gender").val(InitGender);
 });
