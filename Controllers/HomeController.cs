@@ -34,7 +34,9 @@ namespace Dicer.Controllers
                             select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString));
+                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString)
+                                                || s.ContentType.Contains(searchString)
+                                                || s.Genre.Contains(searchString));
             }
             if (!String.IsNullOrEmpty(genreString))
             {
@@ -65,7 +67,9 @@ namespace Dicer.Controllers
                             select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString));
+                campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString)
+                                                || s.ContentType.Contains(searchString)
+                                                || s.Genre.Contains(searchString));
             }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
             int pageSize = 3;
