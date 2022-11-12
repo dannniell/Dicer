@@ -34,12 +34,13 @@
     self.populateLocation = function (initKota) {
         var row = "";
         $("#ddlLocation").empty();
+        row += "<option value='' disabled hidden>Choose location</option>";
         $.each(globalLocation, function (i, v) {
             row += "<option value=" + v.value + ">" + v.text + "</option>";
         });
         $("#ddlLocation").html(row);
         if (initKota == 0) {
-            $("#ddlLocation").val(0);
+            $("#ddlLocation").val('');
         }
     };
 }
@@ -92,14 +93,50 @@ $(document).on("change", "#sortCategory", function () {
 
 $(document).on("change", "#ddlGenre", function () {
     var genre = $("#ddlGenre").val();
+    var search = $("#searchBox").val();
 
-    window.location.href = '/Home/HomeCreator?genreString=' + genre;
+    var link = "/Home/HomeCreator?";
+    if (genre) {
+        link = link + 'genreString=' + genre + '&&';
+    }
+    if (search) {
+        link = link + 'searchString=' + search + '&&';
+    }
+    window.location.href = link
 });
 
 $(document).on("change", "#ddlLocation", function () {
     var location = $("#ddlLocation").val();
+    var search = $("#searchBox").val();
 
-    window.location.href = '/Home/HomeCreator?locationInt=' + location;
+    var link = "/Home/HomeCreator?";
+
+    if (location > 0) {
+        link = link + 'locationInt=' + location + '&&';
+    }
+    if (search) {
+        link = link + 'searchString=' + search + '&&';
+    }
+    window.location.href = link
+});
+
+$(document).on("click", "#BtnSearch", function () {
+    var location = $("#ddlLocation").val();
+    var genre = $("#ddlGenre").val();
+    var search = $("#searchBox").val();
+
+    var link = "/Home/HomeCreator?";
+
+    if (location > 0) {
+        link = link + 'locationInt=' + location + '&&';
+    }
+    if (genre) {
+        link = link + 'genreString=' + genre + '&&';
+    }
+    if (search) {
+        link = link + 'searchString=' + search + '&&';
+    }
+    window.location.href = link
 });
 
 $(document).on("click", "#BtnNext", function () {
@@ -138,18 +175,6 @@ $(document).on("click", "#BtnPrevious", function () {
         link = link + 'searchString=' + search + '&&';
     }
     window.location.href = link + 'pageNumber=' + nextPage;
-    /*if (location > 0) {
-        window.location.href = '/Home/HomeCreator?locationInt=' + location + '&&pageNumber=' + nextPage;
-    }
-    if (genre) {
-        window.location.href = '/Home/HomeCreator?genreString=' + genre + '&&pageNumber=' + nextPage;
-    }
-    if (search) {
-        window.location.href = '/Home/HomeCreator?searchString=' + search + '&&pageNumber=' + nextPage;
-    }
-    if (location < 0 && !genre && !search) {
-        window.location.href = '/Home/HomeCreator?pageNumber=' + nextPage;
-    }*/
 });
 
 
