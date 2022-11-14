@@ -22,7 +22,10 @@
             }
             @if (User.IsInRole("Creator"))
             {
-                <a asp-action="Register" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn mr-2">Apply</a>
+                <form enctype="multipart/form-data" asp-action="Register" method="post">
+                    <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
+                     <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn mr-2">Apply</button>
+                </form>
             }
         </div>
     </div>

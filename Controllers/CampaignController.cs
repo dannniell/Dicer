@@ -259,6 +259,108 @@ namespace Dicer.Controllers
         }
         #endregion
 
+        #region Register
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
+        public async Task<IActionResult> Register(int campaignId)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await GetCurrentUserAsync();
+
+                if (user == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                var campaign = _context.Campaign
+                            .Where(s => s.CampaignId == campaignId)
+                            .FirstOrDefault();
+
+                var valid = true;
+
+                if (campaign == null)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    //check followers
+                    if(campaign.MinFollowers != null)
+                    {
+                        if(campaign.MinFollowers > user.JumlahFollowers)
+                        {
+                            valid = false;
+                        }
+                    }
+
+                    //check age
+                    if(campaign.MinAge != null)
+                    {
+                        var today = DateTime.Today;
+
+                        // Calculate the age.
+                        var age = today.Year - user.DoB.Value.Year;
+                        if (campaign.MinAge > age)
+                        {
+                            valid = false;
+                        }
+                    }
+                    if (campaign.MaxAge != null)
+                    {
+                        var today = DateTime.Today;
+
+                        // Calculate the age.
+                        var age = today.Year - user.DoB.Value.Year;
+                        if (campaign.MaxAge < age)
+                        {
+                            valid = false;
+                        }
+                    }
+
+                    //gender
+                    if (campaign.Gender != null)
+                    {
+                        if(campaign.Gender != user.Gender)
+                        {
+                            valid = false;
+                        }
+                    }
+                }
+
+                /*var campaign = _context.Campaign
+                            .Where(s => s.CampaignId == campaignId)
+                            .FirstOrDefault();
+
+                var check = campaign;
+                check = check.Where(s => s.CampaignId == campaignId);
+                query = query.Where(b => b == "something else");
+                var check = from b in _context.Campaign
+                            where b.CampaignId == campaignId
+                            && b.Provinsi == user.Provinsi
+
+                                
+                            select b;*/
+
+                if (!valid)
+                {
+                    return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    var userId = user.Id;
+                    var result = await campaignRepository.RegisterCampaign(userId, campaignId);
+
+                    if (!result)
+                    {
+                        return RedirectToAction("ErrorView", "Account");
+                    }
+                    return RedirectToAction("HomeCreator", "Home");
+                }
+            }
+            return RedirectToAction("Detail", new { id = campaignId });
+        }
+        #endregion
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
