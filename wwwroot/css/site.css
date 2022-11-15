@@ -348,7 +348,7 @@ ul {
 }
 
 .typeBtn {
-    background-color: #EFA46B;
+    /*background-color: #EFA46B;*/
     border: none;
     border-radius: 25px;
     padding: 9px 15px 9px 15px;
@@ -398,4 +398,12 @@ ul {
 .detailPrice {
     color: #00599F;
     text-decoration: underline;
+}
+
+.containerDetail {
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px;
 }
