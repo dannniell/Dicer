@@ -19,6 +19,7 @@
                     <span asp-validation-for="CampaignImg" class="text-danger"></span>
             </div>
         </div>
+        <div class="col-md-1"></div>
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label asp-for="CampaignName"></label>
@@ -49,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description"></label>
-                <textarea asp-for="Description" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
+                <textarea asp-for="Description" rows="1" cols="1" class="form-control" aria-required="true" ></textarea>
                 <span asp-validation-for="CampaignName" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
@@ -59,11 +60,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Task"></label>
-                <textarea asp-for="Task" rows="5" cols="5" class="form-control" aria-required="true" ></textarea>
+                <textarea asp-for="Task" rows="1" cols="1" class="form-control" aria-required="true" ></textarea>
                 <span asp-validation-for="Task" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group mb-3">
                 <label asp-for="Gender"></label>
                 <select asp-for="Gender" id="ddlgender" class="form-control">
@@ -74,12 +75,12 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Provinsi" class="control-label">Province</label>
-                <select asp-for="Provinsi" id="ddlprovinsi" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <select asp-for="Provinsi" id="ddlprovinsi" class="form-control"></select>
                 <span asp-validation-for="Provinsi" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Kota" class="control-label">City</label>
-                <select asp-for="Kota" id="ddlkota" class="form-control" asp-items="@(new SelectList(string.Empty, "Value", "Text"))"></select>
+                <select asp-for="Kota" id="ddlkota" class="form-control"></select>
                 <span asp-validation-for="Kota" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">

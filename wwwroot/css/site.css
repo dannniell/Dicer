@@ -35,18 +35,18 @@ body {
 }
 
 .container .registerCreatorContent {
-    padding-top: 15vh;
-    padding-bottom:10vh;
+    padding-top: 10vh;
+    padding-bottom:5vh;
 }
 
 .container .profileClientContent {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
 }
 
 .container .profileCreatorContent {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
 }
 
 .resetContent {
@@ -203,10 +203,10 @@ ul {
 }
 
 .headTitle {
-    font-size: 25px;
+    font-size: 33px;
     font-weight: bold;
     color: white;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .headSubTitle {
@@ -268,7 +268,7 @@ ul {
 
 /*specific page setting*/
 .landingTitle {
-    font-size: 40px;
+    font-size: 30px;
     /*font-weight: bold;*/
     color: black;
     /*margin-top: 71px;*/
