@@ -24,12 +24,13 @@ namespace Dicer.Controllers
         #region Home Creator
         [Authorize(Roles = Constants.Constants.roleNameCreator)]
         [HttpGet]
-        public async Task<IActionResult> HomeCreator(int? pageNumber, string searchString, string genreString, int locationInt)
+        public async Task<IActionResult> HomeCreator(int? pageNumber, string searchString, string genreString, int locationInt, int monthInt)
         {
             var user = await GetCurrentUserAsync();
             ViewData["SearchFilter"] = searchString;
             ViewData["genreString"] = genreString;
             ViewData["locationInt"] = locationInt;
+            ViewData["monthInt"] = monthInt;
             var campaigns = from s in _context.Campaign
                             select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -45,6 +46,10 @@ namespace Dicer.Controllers
             if (locationInt > 0)
             {
                 campaigns = campaigns.Where(s => s.Provinsi == locationInt);
+            }
+            if (monthInt > 0)
+            {
+                campaigns = campaigns.Where(s => s.CreatedDate.Month == monthInt);
             }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
             int pageSize = 3;
