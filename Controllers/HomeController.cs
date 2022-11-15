@@ -52,7 +52,7 @@ namespace Dicer.Controllers
                 campaigns = campaigns.Where(s => s.CreatedDate.Month == monthInt);
             }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
-            int pageSize = 3;
+            int pageSize = 6;
             return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         #endregion Home Creator
@@ -77,7 +77,7 @@ namespace Dicer.Controllers
                                                 || s.Genre.Contains(searchString));
             }
             campaigns = campaigns.OrderByDescending(s => s.CreatedDate);
-            int pageSize = 3;
+            int pageSize = 6;
             return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         #endregion Home Client
