@@ -17,6 +17,7 @@
                     $("#sortContainer").addClass('mr-3');
                     $("#locationContainer").removeClass('d-none');
                     $("#genreContainer").addClass('d-none');
+                    $("#monthContainer").addClass('d-none');
                     $("#sortCategory").val('Location');
                     $("#ddlLocation").val(initKota);
                 }
@@ -49,16 +50,25 @@ var globalDataFilter = new dataFilter();
 
 $(document).ready(function () {
     var initGenre = document.getElementById("InitGenre").value;
+    var initMonth = document.getElementById("InitMonth").value;
     globalDataFilter.getDefaultKota();
     if (initGenre) {
         $("#sortContainer").addClass('mr-3');
         $("#genreContainer").removeClass('d-none');
         $("#locationContainer").addClass('d-none');
+        $("#monthContainer").addClass('d-none');
         $("#sortCategory").val('Type');
         $("#ddlGenre").val(initGenre);
     }
+    if (initMonth > 0) {
+        $("#sortContainer").addClass('mr-3');
+        $("#monthContainer").removeClass('d-none');
+        $("#locationContainer").addClass('d-none');
+        $("#genreContainer").addClass('d-none');
+        $("#sortCategory").val('Month');
+        $("#ddlMonth").val(initMonth);
+    }
 
-    //todo
     var cards = document.querySelectorAll(".card");
     for (var i = 0; i < cards.length; i++) {
         cards[i].addEventListener('click', function (e) {
@@ -73,21 +83,28 @@ $(document).on("change", "#sortCategory", function () {
         $("#sortContainer").addClass('mr-3');
         $("#locationContainer").removeClass('d-none');
         $("#genreContainer").addClass('d-none');
+        $("#monthContainer").addClass('d-none');
         $("#genreContainer").val('').change();
+        $("#monthContainer").val('').change();
     }
     else if ($('#sortCategory').val() === 'Type') {
         $("#sortContainer").addClass('mr-3');
         $("#genreContainer").removeClass('d-none');
         $("#locationContainer").addClass('d-none');
+        $("#monthContainer").addClass('d-none');
         $("#locationContainer").val('').change();
+        $("#monthContainer").val('').change();
+    }
+    else if ($('#sortCategory').val() === 'Month') {
+        $("#sortContainer").addClass('mr-3');
+        $("#monthContainer").removeClass('d-none');
+        $("#locationContainer").addClass('d-none');
+        $("#genreContainer").addClass('d-none');
+        $("#locationContainer").val('').change();
+        $("#genreContainer").val('').change();
     }
     else if ($('#sortCategory').val() === 'All') {
         window.location.href = '/Home/HomeCreator';
-        /*$("#sortContainer").removeClass('mr-3');
-        $("#locationContainer").addClass('d-none');
-        $("#locationContainer").val('').change();
-        $("#genreContainer").addClass('d-none');
-        $("#genreContainer").val('').change();*/
     }
 });
 
@@ -120,9 +137,24 @@ $(document).on("change", "#ddlLocation", function () {
     window.location.href = link
 });
 
+$(document).on("change", "#ddlMonth", function () {
+    var month = $("#ddlMonth").val();
+    var search = $("#searchBox").val();
+
+    var link = "/Home/HomeCreator?";
+    if (month > 0) {
+        link = link + 'monthInt=' + month + '&&';
+    }
+    if (search) {
+        link = link + 'searchString=' + search + '&&';
+    }
+    window.location.href = link
+});
+
 $(document).on("click", "#BtnSearch", function () {
     var location = $("#ddlLocation").val();
     var genre = $("#ddlGenre").val();
+    var month = $("#ddlMonth").val();
     var search = $("#searchBox").val();
 
     var link = "/Home/HomeCreator?";
@@ -132,6 +164,9 @@ $(document).on("click", "#BtnSearch", function () {
     }
     if (genre) {
         link = link + 'genreString=' + genre + '&&';
+    }
+    if (month > 0) {
+        link = link + 'monthInt=' + month + '&&';
     }
     if (search) {
         link = link + 'searchString=' + search + '&&';
@@ -143,6 +178,7 @@ $(document).on("click", "#BtnNext", function () {
     var initPage = $("#InitPage").val();
     var location = $("#ddlLocation").val();
     var genre = $("#ddlGenre").val();
+    var month = $("#ddlMonth").val();
     var search = $("#searchBox").val();
     var nextPage = +initPage + +1;
     var link = "/Home/HomeCreator?";
@@ -151,6 +187,9 @@ $(document).on("click", "#BtnNext", function () {
     }
     if (genre) {
         link = link + 'genreString=' + genre + '&&';
+    }
+    if (month > 0) {
+        link = link + 'monthInt=' + month + '&&';
     }
     if (search) {
         link = link + 'searchString=' + search + '&&';
@@ -162,6 +201,7 @@ $(document).on("click", "#BtnPrevious", function () {
     var initPage = $("#InitPage").val();
     var location = $("#ddlLocation").val();
     var genre = $("#ddlGenre").val();
+    var month = $("#ddlMonth").val();
     var search = $("#searchBox").val();
     var nextPage = +initPage - +1;
     var link = "/Home/HomeCreator?";
@@ -170,6 +210,9 @@ $(document).on("click", "#BtnPrevious", function () {
     }
     if (genre) {
         link = link + 'genreString=' + genre + '&&';
+    }
+    if (month > 0) {
+        link = link + 'monthInt=' + month + '&&';
     }
     if (search) {
         link = link + 'searchString=' + search + '&&';
