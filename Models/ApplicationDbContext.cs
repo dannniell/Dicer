@@ -21,21 +21,8 @@ namespace Dicer.Models
         public DbSet<Campaign> Campaign { get; set; }
 
         public DbSet<ClientCampaign> ClientCampaign { get; set; }
-/*        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=tcp:dicerdb.database.windows.net,1433;Initial Catalog=DiCerDb;Persist Security Info=False;User ID=dicerhost;Password=d1cerhost@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False");
-        }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
-
-            builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-        }*/
+        public DbSet<CreatorJob> CreatorJob { get; set; }
     }
 
     internal class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
