@@ -13,32 +13,44 @@
 
 <div class="container profileCreatorContent">
     <div class="form-row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <span class="landingTitle">Campaign Details</span>
-        </div>
-        <div class="col-md-2 d-inline-flex flex-row-reverse h-100 mt-4">
-            @if (User.IsInRole("Client"))
-            {
-                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn">Edit</a>
-                <a asp-action="Edit" asp-route-id=@Model.CampaignId class="btn btn-sm btn-primary createBtn mr-2">Accept</a>
-            }
-            @if (User.IsInRole("Creator"))
-            {
-                <form enctype="multipart/form-data" asp-action="Register" method="post">
-                    <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
-                     <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn mr-2">Apply</button>
-                </form>
-            }
         </div>
     </div>
     <hr />
     <div class="form-row justify-content-around">
         <div class="col-md-4">
-            <div class="form-group mb-3">
-                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <div class="DetailImgContainer">
+                        <img class="card-img-top DetailImg" src="@photoPath" asp-append-version="true"/>
+                    </div>
+                </div>
             </div>
             <hr />
-        </div>
+            @if (User.IsInRole("Client"))
+            {
+                <div class="form-row mb-3">
+                    <div class="col-md-12">
+                         <a asp-action="Edit" asp-route-id=@Model.CampaignId class="btn w-100 btn-sm btn-primary createBtn">Edit</a>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <a asp-action="Accept" asp-route-id=@Model.CampaignId class="btn w-100 btn-sm btn-primary createBtn">Accept</a>
+                    </div>
+                </div>
+            }
+            @if (User.IsInRole("Creator"))
+            {
+                <div class="form-row">
+                    <form enctype="multipart/form-data" asp-action="Register" method="post">
+                        <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
+                        <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn">Apply</button>
+                    </form>
+                </div>
+            }
+        </div>
         <div class="col-md-6">
             <div class="containerDetail">
                 <div class="form-group mb-3">

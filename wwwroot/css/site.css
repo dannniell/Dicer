@@ -407,3 +407,23 @@ ul {
     border-radius: 10px;
     padding: 20px 20px 20px 20px;
 }
+
+.DetailImgContainer {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 350px;
+    min-width: 350px;
+    max-height: 350px;
+    min-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DetailImg {
+    min-width: 100%;
+    min-height: 100%;
+    position: center;
+}
