@@ -13,7 +13,9 @@
     <div class="form-row justify-content-center">
         <div class="col-md-4 mx-1">
              <div class="form-group mb-3">
-                <img class="card-img-top img-fluid" style="width: 20em; height: 20em" src="@photoPath" asp-append-version="true"/>
+                <div class="DetailImgContainer">
+                    <img class="card-img-top DetailImg" src="@photoPath" asp-append-version="true"/>
+                </div>
                 <div class="form-label">
                     <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                 </div>

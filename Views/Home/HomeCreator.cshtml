@@ -116,8 +116,10 @@
             var photoPath = "~/Img/Campaign/" + (item.CampaignImg ?? "noimage.jpg");
             <div class="card bg-light border-light" id="card" style="width: 20em; margin: 1em 1.25em 1em 1.25em">
                 <div class="card-body">
+                    <div class="cardImgContainer">
+                        <img class="card-img-top DetailImg" alt="Card image cap" src="@photoPath" asp-append-version="true"/>
+                    </div>
                     <input id="InitId" value=@item.CampaignId class="IdCard d-none"/>
-                    <img class="card-img-top p" src=@photoPath alt="Card image cap" asp-append-version="true">
                     <h6 class="card-title font-weight-bold mt-3">@item.ClientName</h6>
                     <h6 class="text-truncate">@item.CampaignName</h6>
                     <p class="contentType">@item.ContentType</p>

@@ -340,11 +340,32 @@ ul {
 
 .createBtn {
     background-color: #001A72;
-    border: none;
     border-radius: 25px;
     padding: 9px 15px 9px 15px;
     /*margin-left: 30px;
     margin-left: -10px;*/
+}
+
+.selectedBtn {
+    background-color: #001A72;
+    border-radius: 25px;
+    border-color: #001A72;
+    border-style: solid;
+    border-width: medium;
+    padding: 9px 15px 9px 15px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.unselectedBtn {
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    border-color: #001A72;
+    border-style: solid;
+    border-width: medium;
+    padding: 9px 15px 9px 15px;
+    color: #001A72;
+    font-weight: bold;
 }
 
 .typeBtn {
@@ -426,4 +447,32 @@ ul {
     min-width: 100%;
     min-height: 100%;
     position: center;
+}
+
+.profileImgContainer {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 350px;
+    min-width: 350px;
+    max-height: 198px;
+    min-height: 198px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardImgContainer {
+    background-color: white;
+    border-style: solid;
+    border-width: thin;
+    border-color: gray;
+    border-radius: 5px;
+    overflow: hidden;
+    max-height: 278px;
+    min-height: 278px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

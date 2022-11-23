@@ -44,10 +44,12 @@
             @if (User.IsInRole("Creator") && ViewData["isApply"] == "false")
             {
                 <div class="form-row">
-                    <form enctype="multipart/form-data" asp-action="Register" method="post">
-                        <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
-                        <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn">Apply</button>
-                    </form>
+                    <div class="col-md-12">
+                        <form enctype="multipart/form-data" asp-action="Register" method="post">
+                            <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
+                            <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Apply</button>
+                        </form>
+                    </div>
                 </div>
             }
         </div>
