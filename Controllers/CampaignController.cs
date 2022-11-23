@@ -207,13 +207,15 @@ namespace Dicer.Controllers
 
         #endregion
 
-        #region DetailClient
+        #region Detail
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
             var user = await GetCurrentUserAsync();
             var roleClient = await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient);
+            ViewData["isApply"] = "false";
+
             if (roleClient)
             {
                 var check = from b in _context.ClientCampaign
@@ -224,6 +226,18 @@ namespace Dicer.Controllers
                 if (check.Count() < 1 || user == null)
                 {
                     return RedirectToAction("ErrorView", "Account");
+                }
+            }
+            else
+            {
+                var check = from b in _context.CreatorJob
+                           where b.UserId == user.Id
+                             && b.CampaignId == id
+                           select b;
+
+                if (check.Count() > 0)
+                {
+                    ViewData["isApply"] = "true";
                 }
             }
 
