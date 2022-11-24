@@ -450,9 +450,10 @@ ul {
 }
 
 .profileImgContainer {
-    border-style: solid;
+    /*border-style: solid;
     border-width: thin;
-    border-radius: 10px;
+    border-radius: 10px;*/
+    background-color: white;
     overflow: hidden;
     max-width: 350px;
     min-width: 350px;

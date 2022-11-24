@@ -341,20 +341,6 @@ namespace Dicer.Controllers
                     }
                 }
 
-                /*var campaign = _context.Campaign
-                            .Where(s => s.CampaignId == campaignId)
-                            .FirstOrDefault();
-
-                var check = campaign;
-                check = check.Where(s => s.CampaignId == campaignId);
-                query = query.Where(b => b == "something else");
-                var check = from b in _context.Campaign
-                            where b.CampaignId == campaignId
-                            && b.Provinsi == user.Provinsi
-
-                                
-                            select b;*/
-
                 if (!valid)
                 {
                     return RedirectToAction("ErrorView", "Account");
@@ -368,7 +354,7 @@ namespace Dicer.Controllers
                     {
                         return RedirectToAction("ErrorView", "Account");
                     }
-                    return RedirectToAction("HomeCreator", "Home");
+                    return RedirectToAction("OnProgress", "MyJob");
                 }
             }
             return RedirectToAction("Detail", new { id = campaignId });
