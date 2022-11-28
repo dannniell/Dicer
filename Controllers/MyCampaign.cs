@@ -53,7 +53,23 @@ namespace Dicer.Controllers
             int pageSize = 6;
             return View(await PaginatedList<Campaign>.CreateAsync(campaigns.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
-        #endregion 
+        #endregion
+
+        #region Accept
+        public async Task<IActionResult> Accept(int id)
+        {
+            var check = from campaign in _context.Campaign
+                        where campaign.CampaignId == id
+                        select campaign;
+            if(check.FirstOrDefault() == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+            ViewData["campaignId"] = id;
+            
+            return View();
+        }
+        #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
