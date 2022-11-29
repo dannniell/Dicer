@@ -25,6 +25,7 @@
         public const string getKota = "exec GET_KOTA @ProvinsiId";
         public const string getDataIg = "exec GET_DataIg";
         public const string upsertCampaign = "exec UPSERT_CAMPAIGN";
+        public const string getAcceptance = "exec GET_ACCEPTANCE";
         #endregion SP
     }
 }

@@ -20,6 +20,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 
 #region Dependancy
 //scope
+builder.Services.AddScoped<IAcceptanceService, AcceptanceRepository>();
 builder.Services.AddScoped<IProvinsiService, ProvinsiRepository>();
 builder.Services.AddScoped<IKotaService, KotaRepository>();
 builder.Services.AddScoped<IApiIgService, ApiIgRepository>();

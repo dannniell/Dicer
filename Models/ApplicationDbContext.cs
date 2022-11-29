@@ -23,6 +23,14 @@ namespace Dicer.Models
         public DbSet<ClientCampaign> ClientCampaign { get; set; }
 
         public DbSet<CreatorJob> CreatorJob { get; set; }
+
+        public DbSet<AcceptanceUser> AcceptanceUser { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AcceptanceUser>().HasNoKey();
+        }
     }
 
     internal class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Accept";
 }
-
+<input id="initCampaignId" class="d-none" value="@ViewData["campaignId"]"/>
 <div class="container homeClientContent">
    <span class="landingTitle d-flex justify-content-center">Pendaftar</span>
     <div class="form-row justify-content-center">
@@ -14,7 +14,9 @@
     </div>
 </div>
 
-    
 @section Scripts {
     <script src="~/js/Accept.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" asp-append-version="true"></script>
 }
