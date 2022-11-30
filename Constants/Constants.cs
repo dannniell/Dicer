@@ -26,6 +26,7 @@
         public const string getDataIg = "exec GET_DataIg";
         public const string upsertCampaign = "exec UPSERT_CAMPAIGN";
         public const string getAcceptance = "exec GET_ACCEPTANCE";
+        public const string acceptParticipant = "exec ACCEPT_PARTICIPANT";
         #endregion SP
     }
 }

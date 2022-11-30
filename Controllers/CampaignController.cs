@@ -215,6 +215,7 @@ namespace Dicer.Controllers
             var user = await GetCurrentUserAsync();
             var roleClient = await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient);
             ViewData["isApply"] = "false";
+            ViewData["isAccept"] = "false";
 
             if (roleClient)
             {
@@ -226,6 +227,17 @@ namespace Dicer.Controllers
                 if (check.Count() < 1 || user == null)
                 {
                     return RedirectToAction("ErrorView", "Account");
+                }
+                else
+                {
+                    var acceptCheck = from b in _context.Campaign
+                                where b.IsPaid == true
+                                    && b.CampaignId == id
+                                select b;
+                    if (acceptCheck.Count()>0)
+                    {
+                        ViewData["isAccept"] = "true";
+                    }
                 }
             }
             else

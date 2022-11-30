@@ -20,5 +20,24 @@ namespace Dicer.Repositories
             var data = await _context.AcceptanceUser.FromSqlRaw(Constants.Constants.getAcceptance + " @CampaignId", param).ToListAsync();
             return data;
         }
+
+        public async Task<bool> AcceptParticipant(int campaignId, AcceptParticipant model)
+        {
+            var campaign = new SqlParameter("@CampaignId", campaignId);
+            foreach (var item in model.users)
+            {
+                var user = new SqlParameter("@UserId", item.userId);
+                try
+                {
+                    var data = await _context.Database.ExecuteSqlRawAsync(Constants.Constants.acceptParticipant + " @UserId, @CampaignId", user, campaign);
+                }
+                catch (Exception ex)
+                {
+                    var a = ex;
+                }
+            }
+            
+            return true;
+        }
     }
 }

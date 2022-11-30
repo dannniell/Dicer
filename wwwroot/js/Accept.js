@@ -1,5 +1,6 @@
-﻿var participantTable;
+﻿var participantTableData = null;
 var initCampaignId;
+var _globalSelectedItem = [];
 
 var Acceptance = function () {
     var self = this;
@@ -20,8 +21,9 @@ var Acceptance = function () {
     }
 
     self.ParticipantTable = function (data) {
-        participantTable = $('#participantTable').DataTable({
+        participantTableData = $('#participantTable').DataTable({
             data: data,
+            scrollY: true,
             order: [1, 'asc'],
             dom: "<'#CustomHeaderDataTable'<'d-flex justify-content-between align-items-center'<'app-table-title'><'app-table-search d-flex'Bf>><'card-body p-0'tr>><'app-table-pagination d-flex justify-content-between p-1 'ilp>",
             language: {
@@ -30,6 +32,15 @@ var Acceptance = function () {
                 'zeroRecords': 'No data available.'
             },
             columns: [
+                {
+                    data: null,
+                    className: 'text-center',
+                    title: 'Check',
+                    orderable: false,
+                    render: function (data, type, row, meta) {
+                        return '<input type="checkbox" class="select-checkbox" row-id="' + meta.row + '" >'
+                    }
+                },
                 { data: 'userId', className: 'f-userId', title: 'User Id', visible: false },//0
                 { data: 'name', className: 'f-name', title: 'Name' },//1,
                 { data: 'gender', className: 'f-gender', title: 'Gender' },//2
@@ -66,14 +77,29 @@ var Acceptance = function () {
             ],
             orderCellsTop: true,
             initComplete: function (settings, json) {
-                participantTable.draw();
-                $('div.dataTables_filter input').addClass('customQuickFilter');
-                $('.dt-buttons').removeClass('btn-group').removeClass('dt-buttons');
-                $('.btn-secondary').removeClass('btn-secondary');
-                participantTable.columns.adjust().draw();
             }
         });
     }
+
+    self.AcceptParticipant = function () {
+        var listData = {};
+        listData['users'] = _globalSelectedItem;
+
+        var ajaxTypesObj = {
+            url: '/Api/Acceptance/' + initCampaignId,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(listData),
+            success: function (data) {
+                window.location.href = '/Campaign/Detail?id=' + initCampaignId;
+            },
+            error: function (e) {
+                alert('Failed to Insert Transaction Detail Data!');
+            },
+        };
+        $.ajax(ajaxTypesObj);
+    };
 };
 
 var _globalAcceptance = new Acceptance();
@@ -83,4 +109,36 @@ $(document).ready(function () {
     _globalAcceptance.PopulateTable();
 });
 
+//todo
+$('#btnAccept').on('click', function () {
+    //jQuery.noConflict(); 
+    _globalAcceptance.AcceptParticipant();
+    $('#modalValidationAccept').modal("show");
+});
+
+$('#cancelForm').on('click', function (e) {
+    $('#modalValidationAccept').modal("hide");
+});
+
+$('#submitForm').on('click', function (e) {
+    _globalAcceptance.AcceptParticipant();
+});
+
+
+$('#participantTable').on("click", "tbody .select-checkbox", function () {
+    var data = participantTableData.row($(this).attr('row-id')).data();
+
+    if ($(this).prop('checked')) {
+        _globalSelectedItem.push({
+            userId: data.userId
+        });
+    }
+    else {
+        for (var i = 0; i < _globalSelectedItem.length; i++) {
+            if (_globalSelectedItem[i].userId == data.userId) {
+                _globalSelectedItem.splice(i, 1);
+            }
+        }
+    }
+});
 
