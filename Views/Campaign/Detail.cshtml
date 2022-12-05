@@ -6,7 +6,22 @@
     ViewData["Title"] = "Create Campaign";
     var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
     string strSpacer = "&nbsp;&nbsp;";
+    var gender = (Model.Gender ?? "Male or Female");
+    var provinsi = (ViewData["Provinsi"] ?? "Any Provinsi");
+    var kota = (ViewData["Kota"] ?? "Any Kota");
+    var age = (Model.MinAge.ToString() ?? "All Ages") + " until " + (Model.MaxAge.ToString() ?? "Above");
+    if (Model.MinAge == null && Model.MaxAge == null)
+    {
+        age = "Not Set";
+    }
+    string followersData = null;
+    if(Model.MinFollowers != null)
+    {
+        followersData = String.Format("{0:n0}", Model.MinFollowers);
+    }
+    var followers = (followersData ?? "Not Set");
 }
+
 <input id="InitProvinsi" value= "@ViewData["Provinsi"]"/>
 <input id="InitKota" value="@ViewData["Kota"]"/>
 <input id="InitTypeTag" value="@Model.ContentType" class="d-none"/>
@@ -44,7 +59,7 @@
                     </div>
                 }
             }
-            @if (User.IsInRole("Creator") && ViewData["isApply"] == "false")
+            @if (User.IsInRole("Creator") && ViewData["isApply"] == "false" && ViewData["isQualify"] == "true")
             {
                 <div class="form-row">
                     <div class="col-md-12">
@@ -100,11 +115,11 @@
                 </div>
                 <div class="form-group mb-3">
                     <ul>
-                        <li>Gender: @Model.Gender</li>
-                        <li>Provinsi: @ViewData["Provinsi"]</li>
-                        <li>Kota: @ViewData["Kota"]</li>
-                        <li>Age: @Model.MinAge - @Model.MaxAge years old</li>
-                        <li>Minimal Followers: @Model.MinFollowers</li>
+                        <li>Gender: @gender</li>
+                        <li>Provinsi: @provinsi</li>
+                        <li>Kota: @kota</li>
+                        <li>Age: @age (year)</li>
+                        <li>Minimal Followers: @followers</li>
                     </ul>
                 </div>
                 <div class="form-group mb-3">

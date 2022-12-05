@@ -216,6 +216,7 @@ namespace Dicer.Controllers
             var roleClient = await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient);
             ViewData["isApply"] = "false";
             ViewData["isAccept"] = "false";
+            ViewData["isQualify"] = "false";
 
             if (roleClient)
             {
@@ -247,9 +248,12 @@ namespace Dicer.Controllers
                              && b.CampaignId == id
                            select b;
 
-                if (check.Count() > 0)
+                var qualify = CheckQualification(id, user);
+
+                if (check.Count() > 0 && qualify)
                 {
                     ViewData["isApply"] = "true";
+                    ViewData["isQualify"] = "true";
                 }
             }
 
@@ -293,6 +297,7 @@ namespace Dicer.Controllers
             if (ModelState.IsValid)
             {
                 var user = await GetCurrentUserAsync();
+                var valid = true;
 
                 if (user == null)
                 {
@@ -302,55 +307,13 @@ namespace Dicer.Controllers
                             .Where(s => s.CampaignId == campaignId)
                             .FirstOrDefault();
 
-                var valid = true;
-
                 if (campaign == null)
                 {
                     return RedirectToAction("ErrorView", "Account");
                 }
                 else
                 {
-                    //check followers
-                    if(campaign.MinFollowers != null)
-                    {
-                        if(campaign.MinFollowers > user.JumlahFollowers)
-                        {
-                            valid = false;
-                        }
-                    }
-
-                    //check age
-                    if(campaign.MinAge != null)
-                    {
-                        var today = DateTime.Today;
-
-                        // Calculate the age.
-                        var age = today.Year - user.DoB.Value.Year;
-                        if (campaign.MinAge > age)
-                        {
-                            valid = false;
-                        }
-                    }
-                    if (campaign.MaxAge != null)
-                    {
-                        var today = DateTime.Today;
-
-                        // Calculate the age.
-                        var age = today.Year - user.DoB.Value.Year;
-                        if (campaign.MaxAge < age)
-                        {
-                            valid = false;
-                        }
-                    }
-
-                    //gender
-                    if (campaign.Gender != null)
-                    {
-                        if(campaign.Gender != user.Gender)
-                        {
-                            valid = false;
-                        }
-                    }
+                    valid = CheckQualification(campaignId, user);
                 }
 
                 if (!valid)
@@ -374,5 +337,58 @@ namespace Dicer.Controllers
         #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        private bool CheckQualification(int campaignId, ApplicationUser user)
+        {
+            var retVal = true;
+            var CampaignList = from b in _context.Campaign
+                                   where b.CampaignId == campaignId
+                                   select b;
+            var campaign = CampaignList.FirstOrDefault();
+
+            //check followers
+            if (campaign.MinFollowers != null)
+            {
+                if (campaign.MinFollowers > user.JumlahFollowers)
+                {
+                    retVal = false;
+                }
+            }
+
+            //check age
+            if (campaign.MinAge != null)
+            {
+                var today = DateTime.Today;
+
+                // Calculate the age.
+                var age = today.Year - user.DoB.Value.Year;
+                if (campaign.MinAge > age)
+                {
+                    retVal = false;
+                }
+            }
+            if (campaign.MaxAge != null)
+            {
+                var today = DateTime.Today;
+
+                // Calculate the age.
+                var age = today.Year - user.DoB.Value.Year;
+                if (campaign.MaxAge < age)
+                {
+                    retVal = false;
+                }
+            }
+
+            //gender
+            if (campaign.Gender != null)
+            {
+                if (campaign.Gender != user.Gender)
+                {
+                    retVal = false;
+                }
+            }
+
+            return retVal;
+        }
     }
 }
