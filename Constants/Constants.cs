@@ -27,6 +27,8 @@
         public const string upsertCampaign = "exec UPSERT_CAMPAIGN";
         public const string getAcceptance = "exec GET_ACCEPTANCE";
         public const string acceptParticipant = "exec ACCEPT_PARTICIPANT";
+        public const string declineParticipant = "exec DECLINE_PARTICIPANT";
+        public const string paidCampaign = "exec PAID_CAMPAIGN";
         #endregion SP
     }
 }

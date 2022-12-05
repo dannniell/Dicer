@@ -249,11 +249,13 @@ namespace Dicer.Controllers
                            select b;
 
                 var qualify = CheckQualification(id, user);
-
+                if (qualify)
+                {
+                    ViewData["isQualify"] = "true";
+                }
                 if (check.Count() > 0 && qualify)
                 {
                     ViewData["isApply"] = "true";
-                    ViewData["isQualify"] = "true";
                 }
             }
 

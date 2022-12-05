@@ -36,7 +36,9 @@ namespace Dicer.Repositories
                     var a = ex;
                 }
             }
-            
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.declineParticipant + " @CampaignId", campaign);
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.paidCampaign + " @CampaignId", campaign);
+
             return true;
         }
     }
