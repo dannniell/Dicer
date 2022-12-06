@@ -31,8 +31,17 @@ namespace Dicer.Controllers
             ViewData["genreString"] = genreString;
             ViewData["locationInt"] = locationInt;
             ViewData["monthInt"] = monthInt;
+
+            var creatorJobs = from a in _context.CreatorJob
+                              where a.UserId == user.Id
+                              select a;
+
             var campaigns = from s in _context.Campaign
                             select s;
+
+            //show only new campaign
+            campaigns = campaigns.Where(s => !creatorJobs.Any(s2 => s2.CampaignId == s.CampaignId));
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 campaigns = campaigns.Where(s => s.CampaignName.Contains(searchString)

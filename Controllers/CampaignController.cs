@@ -262,16 +262,29 @@ namespace Dicer.Controllers
             var campaign = _context.Campaign
                             .Where(s => s.CampaignId == id)
                             .FirstOrDefault();
-            var provinsi = _context.Provinsi
+
+            //Init Provinsi Kota
+            ViewData["Provinsi"] = null;
+            ViewData["Kota"] = null;
+            if(campaign.Provinsi != null)
+            {
+                var provinsi = _context.Provinsi
                             .Where(s => s.ProvinsiId == campaign.Provinsi)
                             .FirstOrDefault();
-            var kota = _context.Kota
+                ViewData["Provinsi"] = provinsi.NamaProvinsi;
+
+                if(campaign.Kota != null)
+                {
+                    var kota = _context.Kota
                         .Where(s => s.KotaId == campaign.Kota)
                         .FirstOrDefault();
-
+                    ViewData["Kota"] = kota.NamaKota;
+                }
+            }
+            
+            //Init Campaign Image
             ViewData["Img"] = campaign.CampaignImg;
-            ViewData["Provinsi"] = provinsi.NamaProvinsi;
-            ViewData["Kota"] = kota.NamaKota;
+           
             var model = new CampaignViewModel
             {
                 CampaignId = id,
@@ -385,6 +398,17 @@ namespace Dicer.Controllers
             if (campaign.Gender != null)
             {
                 if (campaign.Gender != user.Gender)
+                {
+                    retVal = false;
+                }
+            }
+
+            //Provinsi
+            if (campaign.Provinsi != null && campaign.Provinsi != user.Provinsi)
+            {
+                retVal = false;
+                
+                if(campaign.Kota != null && campaign.Kota != user.Kota)
                 {
                     retVal = false;
                 }
