@@ -24,12 +24,14 @@ namespace Dicer.Repositories
         public async Task<bool> AcceptParticipant(int campaignId, AcceptParticipant model)
         {
             var campaign = new SqlParameter("@CampaignId", campaignId);
+            var commision = new SqlParameter("@Commision", model.Paid);
             foreach (var item in model.users)
             {
                 var user = new SqlParameter("@UserId", item.userId);
                 try
                 {
                     var data = await _context.Database.ExecuteSqlRawAsync(Constants.Constants.acceptParticipant + " @UserId, @CampaignId", user, campaign);
+                    await _context.Database.ExecuteSqlRawAsync(Constants.Constants.pay + " @UserId, @Commision", user, commision);
                 }
                 catch (Exception ex)
                 {

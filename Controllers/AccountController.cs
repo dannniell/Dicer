@@ -19,6 +19,7 @@ namespace Dicer.Controllers
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IApiIgService apiIgService;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
@@ -26,7 +27,8 @@ namespace Dicer.Controllers
                                 IProvinsiService provinsiService,
                                 IEmailService emailService,
                                 IWebHostEnvironment webHostEnvironment,
-                                IApiIgService apiIgService)
+                                IApiIgService apiIgService,
+                                ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,6 +37,7 @@ namespace Dicer.Controllers
             this.emailService = emailService;
             this.webHostEnvironment = webHostEnvironment;
             this.apiIgService = apiIgService;
+            this._context = context;
         }
 
         #region Register Client
@@ -99,11 +102,18 @@ namespace Dicer.Controllers
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name,Gender = model.Gender, DoB = model.DoB, 
                                                 UserNameIg = model.UsernameIg, Provinsi = model.Provinsi, Kota = model.Kota, ProfileImg = defaultImg,
                                                 JumlahFollowers = userDetailIg.JumlahFollowers, ER = userDetailIg.ER};
-                //Kota = model.Kota, Provinsi = model.Provinsi};
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    var paymentParam = new Payment
+                    {
+                        UserId = user.Id,
+                        Saldo = 0
+                    };
+
+                    _context.Payment.Add(paymentParam);
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { userId = user.Id, token = token }, Request.Scheme);

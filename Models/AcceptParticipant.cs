@@ -7,6 +7,8 @@ namespace Dicer.Models
     public class AcceptParticipant
     {
         public List<AcceptedUser> users { get; set; }
+
+        public long Paid { get; set; }
     }
 
     public class AcceptedUser

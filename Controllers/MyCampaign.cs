@@ -66,7 +66,8 @@ namespace Dicer.Controllers
                 return RedirectToAction("ErrorView", "Account");
             }
             ViewData["campaignId"] = id;
-            
+            ViewData["price"] = check.FirstOrDefault().Commission;
+
             return View();
         }
         #endregion

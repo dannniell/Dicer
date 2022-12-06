@@ -26,6 +26,8 @@ namespace Dicer.Models
 
         public DbSet<AcceptanceUser> AcceptanceUser { get; set; }
 
+        public DbSet<Payment> Payment { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

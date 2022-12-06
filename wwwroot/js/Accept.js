@@ -84,6 +84,7 @@ var Acceptance = function () {
     self.AcceptParticipant = function () {
         var listData = {};
         listData['users'] = _globalSelectedItem;
+        listData['paid'] = document.getElementById('initCommision').value;
 
         var ajaxTypesObj = {
             url: '/Api/Acceptance/' + initCampaignId,

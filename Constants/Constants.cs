@@ -29,6 +29,7 @@
         public const string acceptParticipant = "exec ACCEPT_PARTICIPANT";
         public const string declineParticipant = "exec DECLINE_PARTICIPANT";
         public const string paidCampaign = "exec PAID_CAMPAIGN";
+        public const string pay = "exec PAY";
         #endregion SP
     }
 }
