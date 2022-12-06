@@ -477,3 +477,15 @@ ul {
     justify-content: center;
     align-items: center;
 }
+
+/*@media (min-width: 768px) {
+    .modal-xl {
+        width: 100%;
+        max-width: 1200px;
+    }
+}*/
+
+.paymentTerms {
+    font-size: small;
+    color: red;
+}

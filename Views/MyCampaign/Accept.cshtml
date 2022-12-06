@@ -15,7 +15,7 @@
     </div>
     <div class="form-row justify-content-center">
         <div class="col-md-4 mt-4">
-            <button id="btnAccept" name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Accept</button>
+            <button id="btnAccept" name="submit" type="submit" value="submit" data-toggle="modal" data-target="#modalValidationAccept" class="w-100 btn btn-lg btn-primary bgColor">Accept</button>
         </div>
     </div>
 </div>
@@ -34,8 +34,105 @@
                 </center>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelForm">Cancel</button>
-                <button type="button" class="btn btn-primary" id="submitForm">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Payment Summary</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 ml-3">
+                        <div class="form-group mb-3">
+                            <h5>Payment Method</h5>
+                            <select id="paymentMethod" class="form-control">
+                                <option value="">BCA Virtual Account</option>
+                                <option value="">Go-pay</option>
+                                <option value="">Ovo Cash</option>
+                                <option value="">Dana</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 ml-3">
+                        <div class="form-group mb-3">
+                            <h5>Payment Details</h5>
+                            <div class="containerDetail">
+                                <div class="row justify-content-between">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Price (1 creator)</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <h5>Rp 1.000.000</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Total Creator</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h5>2</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-md-4 d-flex d-inline-flex flex-row">
+                                        <div class="form-group mr-2">
+                                            <h5>Services Fee</h5>
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="#" role="button" class="fa fa-question-circle popover-test" title="Service fees" data-content="Fees charged for platform services connecting between client and creator"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <h5>Rp 3.000</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row justify-content-between">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Total Price</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <h5>Rp. 2.000.000</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paymentTerms">*Terms and conditions apply</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button id="cancelForm" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="submitForm" type="button" class="btn btn-primary">Pay Now</button>
             </div>
         </div>
     </div>

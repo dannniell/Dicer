@@ -111,15 +111,19 @@ $(document).ready(function () {
 });
 
 //todo
-$('#btnAccept').on('click', function () {
-    //jQuery.noConflict(); 
-    _globalAcceptance.AcceptParticipant();
-    $('#modalValidationAccept').modal("show");
-});
+/*$('#btnAccept').on('click', function () {
+    var bsModal = $.fn.modal.noConflict();
+    $('#paymentModal').bsModal("show");
 
-$('#cancelForm').on('click', function (e) {
-    $('#modalValidationAccept').modal("hide");
-});
+    *//*var j = jQuery.noConflict();*//*
+    
+    *//*jQuery.noConflict();*//*
+    //_globalAcceptance.AcceptParticipant();
+    *//*(function ($) {
+        $('#paymentModal').modal("show");
+    })(j);*//*
+    
+});*/
 
 $('#submitForm').on('click', function (e) {
     _globalAcceptance.AcceptParticipant();
