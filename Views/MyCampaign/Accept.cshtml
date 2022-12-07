@@ -1,8 +1,15 @@
-﻿@{
+﻿@model CampaignViewModel
+
+@{
     ViewData["Title"] = "Accept";
+    var commision = "";
+    if(Model.Commission != null)
+    {
+        commision = String.Format("{0:n0}", Model.Commission);
+    }
 }
 <input id="initCampaignId" class="d-none" value="@ViewData["campaignId"]"/>
-<input id="initCommision" class="d-none" value="@ViewData["price"]"/>
+<input id="initCommision" class="d-none" value="@Model.Commission"/>
 <div class="container homeClientContent">
    <span class="landingTitle d-flex justify-content-center">Pendaftar</span>
     <div class="form-row justify-content-center">
@@ -79,7 +86,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <h5>Rp 1.000.000</h5>
+                                            <h5>Rp @commision</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +98,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <h5>2</h5>
+                                            <h5 id="TotalCreator"></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +113,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <h5>Rp 3.000</h5>
+                                            <h5>Rp 3,000</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +126,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <h5>Rp. 2.000.000</h5>
+                                            <h5 id="totalPrice">Rp. </h5>
                                         </div>
                                     </div>
                                 </div>

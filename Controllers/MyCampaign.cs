@@ -66,11 +66,42 @@ namespace Dicer.Controllers
                 return RedirectToAction("ErrorView", "Account");
             }
             ViewData["campaignId"] = id;
-            ViewData["price"] = check.FirstOrDefault().Commission;
 
-            return View();
+            var campaignData = check.FirstOrDefault();
+            var model = new CampaignViewModel
+            {
+                CampaignId = id,
+                CampaignName = campaignData.CampaignName,
+                ClientName = campaignData.ClientName,
+                ContentType = campaignData.ContentType,
+                Description = campaignData.Description,
+                Commission = campaignData.Commission,
+                Task = campaignData.Task,
+                Gender = campaignData.Gender,
+                MinFollowers = campaignData.MinFollowers,
+                MinAge = campaignData.MinAge,
+                MaxAge = campaignData.MaxAge,
+                Genre = campaignData.Genre
+            };
+
+            return View(model);
         }
         #endregion
+
+        public async Task<IActionResult> Completed(int id)
+        {
+            var check = from campaign in _context.Campaign
+                        where campaign.CampaignId == id
+                        select campaign;
+            if (check.FirstOrDefault() == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+            ViewData["campaignId"] = id;
+            ViewData["price"] = check.FirstOrDefault().Commission;
+
+            return RedirectToAction("Done", "MyCampaign");
+        }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }

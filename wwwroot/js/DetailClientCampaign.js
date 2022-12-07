@@ -18,3 +18,19 @@
     $("#provinsi").val(InitProvinsi);
     $("#kota").val(InitKota);
 });
+
+$('#campaignCompleted').on('click', function () {
+    var initCampaignId = parseInt(document.getElementById("InitCampaignId").value);
+    var ajaxTypesObj = {
+        url: '/Api/Acceptance/' + initCampaignId + '/Completed',
+        method: "POST",
+        dataType: "json",
+        success: function (data) {
+            window.location.href = '/Mycampaign/Done';
+        },
+        error: function (e) {
+            alert('Failed to Complete Campaign!');
+        },
+    };
+    $.ajax(ajaxTypesObj);
+});

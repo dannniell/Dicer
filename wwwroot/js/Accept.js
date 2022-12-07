@@ -84,7 +84,6 @@ var Acceptance = function () {
     self.AcceptParticipant = function () {
         var listData = {};
         listData['users'] = _globalSelectedItem;
-        listData['paid'] = document.getElementById('initCommision').value;
 
         var ajaxTypesObj = {
             url: '/Api/Acceptance/' + initCampaignId,
@@ -145,5 +144,12 @@ $('#participantTable').on("click", "tbody .select-checkbox", function () {
             }
         }
     }
+
+    var count = _globalSelectedItem.length;
+    document.getElementById("TotalCreator").innerHTML = count;
+
+    var initCommision = document.getElementById("initCommision").value;
+    var total = (initCommision * count) + 3000;
+    document.getElementById("totalPrice").innerHTML = 'Rp ' + String(total).replace(/(.)(?=(\d{3})+$)/g, '$1,');
 });
 
