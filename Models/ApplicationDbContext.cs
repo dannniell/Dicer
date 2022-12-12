@@ -28,10 +28,13 @@ namespace Dicer.Models
 
         public DbSet<Payment> Payment { get; set; }
 
+        public DbSet<SaldoCreator> Saldo { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AcceptanceUser>().HasNoKey();
+            modelBuilder.Entity<SaldoCreator>().HasNoKey();
         }
     }
 

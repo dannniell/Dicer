@@ -30,6 +30,8 @@
         public const string declineParticipant = "exec DECLINE_PARTICIPANT";
         public const string paidCampaign = "exec PAID_CAMPAIGN";
         public const string pay = "exec PAY";
+        public const string getSaldo = "exec GET_SALDO";
+        public const string withdrawlSaldo = "exec WITHDRAWL_SALDO";
         #endregion SP
     }
 }
