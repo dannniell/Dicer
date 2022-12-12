@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 }
-                else
+                @if(ViewData["isAccept"] == "true" && ViewData["isDone"] == "false")
                 {
                     <div class="form-row">
                         <div class="col-md-12">

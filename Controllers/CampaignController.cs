@@ -215,6 +215,7 @@ namespace Dicer.Controllers
             var user = await GetCurrentUserAsync();
             var roleClient = await _userManager.IsInRoleAsync(user, Constants.Constants.roleNameClient);
             ViewData["isApply"] = "false";
+            ViewData["isDone"] = "false";
             ViewData["isAccept"] = "false";
             ViewData["isQualify"] = "false";
 
@@ -238,6 +239,16 @@ namespace Dicer.Controllers
                     if (acceptCheck.Count()>0)
                     {
                         ViewData["isAccept"] = "true";
+                    }
+
+                    var doneCheck = from b in _context.Campaign
+                                    where b.CampaignId == id
+                                    && b.IsDone == true
+                                    select b;
+
+                    if (doneCheck.Count() > 0)
+                    {
+                        ViewData["isDone"] = "true";
                     }
                 }
             }
