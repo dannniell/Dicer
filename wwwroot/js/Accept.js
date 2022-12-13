@@ -92,6 +92,7 @@ var Acceptance = function () {
             contentType: "application/json",
             data: JSON.stringify(listData),
             success: function (data) {
+                alert("Payment Success!!");
                 window.location.href = '/Campaign/Detail?id=' + initCampaignId;
             },
             error: function (e) {

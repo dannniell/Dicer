@@ -31,4 +31,11 @@
     <Folder Include="wwwroot\lib\NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\js\WithdrawalSaldo.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

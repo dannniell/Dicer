@@ -9,6 +9,7 @@
     var photoPath = "~/Img/Profile/" + (user.ProfileImg ?? "noimage.jpg");
 }
 
+<input id="InitUserId" value="@user.Id" class="d-none" />
 <input id="InitProvinsi" value="@Model.Provinsi"/>
 <input id="InitKota" value="@Model.Kota"/>
 
@@ -102,17 +103,70 @@
     </div>
     <hr/>
     <div class="form-row justify-content-center">
-        <div class="col-md-4 mx-1">
+         <div class="col-md-3 mx-1 ">
+            <a data-toggle="modal" data-target="#withdrawalModal" asp-action="#" class="w-100 btn btn-lg btn-primary bgColor">Withdraw</a>
+        </div>
+        <div class="col-md-3 mx-1">
             <a asp-action="ProfileCreator" class="w-100 btn btn-lg btn-primary bgColor">Cancel</a>
         </div>
-        <div class="col-md-4 mx-1">
+        <div class="col-md-3 mx-1">
             <button name="submit" type="submit" value="submit" class="w-100 btn btn-lg btn-primary bgColor">Update</button>
         </div>
     </div>
     
     </form>
 </div>
+<div class="modal fade" id="withdrawalModal" tabindex="-1" role="dialog" aria-labelledby="withdrawalModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Account Balance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-row">
+                        <div class="col-md-12 ml-3">
+                            <div class="form-group mb-3">
+                                <h4 id="accountBalance"></h4>
+                            </div>
+                            <hr />
+                            <div class="form-group mb-3">
+                                <h5>Withdraw Method</h5>
+                                <select id="paymentMethod" class="form-control">
+                                    <option value="">BCA</option>
+                                    <option value="">BNI</option>
+                                    <option value="">BRI</option>
+                                    <option value="">BTN</option>
+                                    <option value="">Mandiri</option>
+                                    <option value="">Mega</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <h5>Bank Account Number</h5>
+                                <input id="bankAccountNumber" class="form-control" aria-required="true" type="number" required/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <h5>Withdrawal Amount</h5>
+                                <input id="withdrawalAmount" class="form-control" aria-required="true" type="number" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button id="cancelForm" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="submitForm" type="button" class="btn btn-primary">Withdraw</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts {
+    <script src="~/js/WithdrawalSaldo.js" asp-append-version="true"></script>
     <script src="~/js/UpdatelistProvinsiKota.js" asp-append-version="true"></script>
     <script src="~/js/DatePicker.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
