@@ -12,9 +12,9 @@
     <div class="form-row justify-content-around">
         <div class="col-md-3">
             <div class="form-group mb-3">
-                    <img class="card-img-top" src="@photoPath" asp-append-version="true"/>
+                    <img class="card-img-top" id="ImgPlaceholder" src="@photoPath" asp-append-version="true"/>
                     <div class="form-label">
-                        <input asp-for="CampaignImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
+                        <input asp-for="CampaignImg" id="inputImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                     </div>
                     <span asp-validation-for="CampaignImg" class="text-danger"></span>
             </div>
@@ -109,6 +109,7 @@
     </form>
 </div>
 @section Scripts {
+    <script src="~/js/ImagePreview.js" asp-append-version="true"></script>
     <script src="~/js/listProvinsiKotaCampaign.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

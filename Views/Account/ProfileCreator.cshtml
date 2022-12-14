@@ -21,10 +21,10 @@
         <div class="col-md-4 mx-2">
             <div class="form-group mb-3">
                 <div class="profileImgContainer">
-                        <img class="card-img-top DetailImg" src="@photoPath" asp-append-version="true"/>
+                        <img class="card-img-top DetailImg" id="ImgPlaceholder" src="@photoPath" asp-append-version="true"/>
                     </div>
                 <div class="form-label">
-                    <input asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
+                    <input id="inputImg" asp-for="ProfileImg" type="file" accept=".jpg,.png,.jpeg" class="form-control" />
                 </div>
                 <span asp-validation-for="ProfileImg" class="text-danger"></span>
             </div>
@@ -166,6 +166,7 @@
 
 
 @section Scripts {
+    <script src="~/js/ImagePreview.js" asp-append-version="true"></script>
     <script src="~/js/WithdrawalSaldo.js" asp-append-version="true"></script>
     <script src="~/js/UpdatelistProvinsiKota.js" asp-append-version="true"></script>
     <script src="~/js/DatePicker.js" asp-append-version="true"></script>
