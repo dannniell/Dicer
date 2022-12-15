@@ -12,6 +12,7 @@
 <input id="InitUserId" value="@user.Id" class="d-none" />
 <input id="InitProvinsi" value="@Model.Provinsi"/>
 <input id="InitKota" value="@Model.Kota"/>
+<input id="InitDob" class="d-none" value="@InitDate" />
 
 <div class="container profileCreatorContent">
     <form enctype="multipart/form-data" asp-action="ProfileCreator" asp-controller="Account" method="post">
@@ -80,8 +81,8 @@
                     </div>
                 <span asp-validation-for="DoB" class="text-danger"></span>*@
 
-
-                <input asp-for="DoB" id="datepicker" type="text" class="form-control" value="@InitDate" />
+                <input id="hiddenDob" type="hidden" value="@Model.DoB" asp-for="DoB"/>
+                <input id="datepicker" type="text" class="form-control"/>
                 @*<span class="input-group-append">
                     <span class="input-group-text bg-light d-block">
                         <i class="fa fa-calendar"></i>
