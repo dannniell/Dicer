@@ -5,9 +5,11 @@ using Dicer.Models;
 using Dicer.Repositories;
 using Dicer.Interfaces;
 using Dicer.Services;
+using Dicer.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
@@ -67,4 +69,6 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Landing}/{action=Index}");
+
+app.MapHub<ChatHub>("/chatHub");
 app.Run();
