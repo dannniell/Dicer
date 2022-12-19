@@ -28,6 +28,7 @@ builder.Services.AddScoped<IProvinsiService, ProvinsiRepository>();
 builder.Services.AddScoped<IKotaService, KotaRepository>();
 builder.Services.AddScoped<IApiIgService, ApiIgRepository>();
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+builder.Services.AddScoped<IChatMessageService, ChatMessageRepository>();
 
 //singletone
 

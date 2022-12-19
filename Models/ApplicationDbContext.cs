@@ -30,6 +30,8 @@ namespace Dicer.Models
 
         public DbSet<SaldoCreator> Saldo { get; set; }
 
+        public DbSet<ChatMessage> ChatMessage { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

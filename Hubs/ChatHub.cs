@@ -1,15 +1,18 @@
 ﻿using Dicer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Dicer.Interfaces;
 
 namespace Dicer.Hubs
 {
     [AllowAnonymous]
     public class ChatHub : Hub
     {
-        public ChatHub()
-        {
+        private readonly IChatMessageService _chatMessageService;
 
+        public ChatHub(IChatMessageService chatMessageService)
+        {
+            _chatMessageService = chatMessageService;
         }
         /*public async Task SendMessage(string user, string message)
         {
@@ -21,19 +24,9 @@ namespace Dicer.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomName).ConfigureAwait(false);
 
-/*            var date = DateTime.UtcNow;
-            var retVals = new List<ChatMessage>();
-            retVals.Add(new ChatMessage
-            {
-                Message = "tes1",
-                date = date
-            });
-            retVals.Add(new ChatMessage
-            {
-                Message = "tes2",
-                date = date
-            });
-            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", retVals, date.ToString());*/
+            var RetVals = await _chatMessageService.GetChatMessage(chatRoomName);
+
+            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", RetVals);
         }
 
         public async Task SendMessageToGroup(string group, string message, string email)
