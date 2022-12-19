@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dicer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Dicer.Hubs
@@ -6,27 +7,41 @@ namespace Dicer.Hubs
     [AllowAnonymous]
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        public ChatHub()
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+
         }
+        /*public async Task SendMessage(string user, string message)
+        {
+            //to use identity
+            await Clients.All.SendAsync("ReceiveMessage", Context.User.Identity.Name, message);
+        }*/
 
         public async Task JoinChatRoom(string chatRoomName)
         {
-            await this.Groups.AddToGroupAsync(Context.ConnectionId, chatRoomName).ConfigureAwait(false);
+            await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomName).ConfigureAwait(false);
 
-            //retrive history chat. Manual DB
-            //Dictionary<string, string> messages = await this.DatabaseManager.GetChatHistory(chatRoomName).ConfigureAwait(false);
-
-            //broadcast Message to groupchat
-            await this.Clients.Group(chatRoomName).SendAsync("ReceiveMessage", "message");
+/*            var date = DateTime.UtcNow;
+            var retVals = new List<ChatMessage>();
+            retVals.Add(new ChatMessage
+            {
+                Message = "tes1",
+                date = date
+            });
+            retVals.Add(new ChatMessage
+            {
+                Message = "tes2",
+                date = date
+            });
+            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", retVals, date.ToString());*/
         }
 
-        public async Task SendMessageToGroup(string groupName, string message)
+        public async Task SendMessageToGroup(string group, string message, string email)
         {
             //await this.DatabaseManager.SaveChatHistory(chatRoomName, message).ConfigureAwait(false);
-
-            await this.Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+            var date = DateTime.UtcNow;
+            
+            await Clients.Group(group).SendAsync("ReceiveMessage", message, date.ToString());
         }
     }
 }
