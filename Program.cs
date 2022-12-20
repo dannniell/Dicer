@@ -5,9 +5,11 @@ using Dicer.Models;
 using Dicer.Repositories;
 using Dicer.Interfaces;
 using Dicer.Services;
+using Dicer.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
@@ -26,6 +28,7 @@ builder.Services.AddScoped<IProvinsiService, ProvinsiRepository>();
 builder.Services.AddScoped<IKotaService, KotaRepository>();
 builder.Services.AddScoped<IApiIgService, ApiIgRepository>();
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+builder.Services.AddScoped<IChatMessageService, ChatMessageRepository>();
 
 //singletone
 
@@ -67,4 +70,6 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Landing}/{action=Index}");
+
+app.MapHub<ChatHub>("/chatHub");
 app.Run();

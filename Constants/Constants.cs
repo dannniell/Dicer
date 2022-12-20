@@ -32,6 +32,7 @@
         public const string pay = "exec PAY";
         public const string getSaldo = "exec GET_SALDO";
         public const string withdrawlSaldo = "exec WITHDRAWL_SALDO";
+        public const string saveChat = "exec SAVE_CHAT";
         #endregion SP
     }
 }
