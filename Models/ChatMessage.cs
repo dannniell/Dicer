@@ -9,9 +9,9 @@ namespace Dicer.Models
     {
         [Key]
         public int? ChatId { get; set; }
-        public string Message { get; set; }
-        public DateTime date { get; set; }
+        public string MessageData { get; set; }
+        public DateTime MessageTime { get; set; }
         public string Email { get; set; }
-        public string Group { get; set; }
+        public string GroupName { get; set; }
     }
 }

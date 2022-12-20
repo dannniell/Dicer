@@ -14,27 +14,42 @@ namespace Dicer.Hubs
         {
             _chatMessageService = chatMessageService;
         }
-        /*public async Task SendMessage(string user, string message)
-        {
-            //to use identity
-            await Clients.All.SendAsync("ReceiveMessage", Context.User.Identity.Name, message);
-        }*/
 
         public async Task JoinChatRoom(string chatRoomName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomName).ConfigureAwait(false);
 
             var RetVals = await _chatMessageService.GetChatMessage(chatRoomName);
-
-            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", RetVals);
+            var data = new List<ChatMessageViewModel>();
+            if(RetVals.Count > 0)
+            {
+                foreach(var item in RetVals)
+                {
+                    data.Add(new ChatMessageViewModel
+                    {
+                        MessageData = item.MessageData,
+                        MessageTime = item.MessageTime.ToString(),
+                        Email = item.Email
+                    });
+                }
+            }
+            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", data);
         }
 
         public async Task SendMessageToGroup(string group, string message, string email)
         {
-            //await this.DatabaseManager.SaveChatHistory(chatRoomName, message).ConfigureAwait(false);
-            var date = DateTime.UtcNow;
+            var dateNow = DateTime.UtcNow;
+            var data = new ChatMessage
+            {
+                MessageData = message,
+                MessageTime = dateNow,
+                Email = Context.User.Identity.Name,
+                GroupName = group
+            };
+
+            await _chatMessageService.SaveChatMessage(data);
             
-            await Clients.Group(group).SendAsync("ReceiveMessage", message, date.ToString());
+            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString());
         }
     }
 }
