@@ -40,7 +40,7 @@ namespace Dicer.Hubs
                 MessageTime = DateTime.UtcNow.ToString(),
                 Email = "danielalferian9@gmail.com"
             });
-            await Clients.Group(chatRoomName).SendAsync("InitReceiveMessage", data);
+            await Clients.Caller.SendAsync("InitReceiveMessage", data);
         }
 
         public async Task SendMessageToGroup(string group, string message, string email)
@@ -57,7 +57,7 @@ namespace Dicer.Hubs
 
             await _chatMessageService.SaveChatMessage(data);*/
             
-            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString());
+            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString(), email);
         }
     }
 }
