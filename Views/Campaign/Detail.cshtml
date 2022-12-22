@@ -20,6 +20,9 @@
         followersData = String.Format("{0:n0}", Model.MinFollowers);
     }
     var followers = (followersData ?? "Not Set");
+
+    //draft file
+    var draftFilePath = ViewData["draftFile"];
 }
 
 <input id="InitProvinsi" value= "@ViewData["Provinsi"]"/>
@@ -68,16 +71,36 @@
                     </div>
                 }
             }
-            @if (User.IsInRole("Creator") && ViewData["isApply"] == "false" && ViewData["isQualify"] == "true")
+            @if (User.IsInRole("Creator"))
             {
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <form enctype="multipart/form-data" asp-action="Register" method="post">
-                            <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
-                            <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Apply</button>
-                        </form>
+                @if(ViewData["isApply"] == "false" && ViewData["isQualify"] == "true")
+                {
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <form enctype="multipart/form-data" asp-action="Register" method="post">
+                                <input id="campaignId" value = "@Model.CampaignId" name="campaignId" class="d-none" >
+                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Apply</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                }
+                @if(ViewData["isApply"] == "true")
+                {
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <form enctype="multipart/form-data" asp-action="UploadDraft" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
+                                @if(draftFilePath != null)
+                                {
+                                    <a asp-action="downloadDraft" asp-route-draftFile="@draftFilePath">Draft File</a>
+                                }
+                                <div class="form-label">
+                                    <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />
+                                </div>
+                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Draft</button>
+                            </form>
+                        </div>
+                    </div>
+                }
             }
         </div>
         <div class="col-md-6">

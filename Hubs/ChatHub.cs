@@ -43,11 +43,10 @@ namespace Dicer.Hubs
             await Clients.Caller.SendAsync("InitReceiveMessage", data);
         }
 
-        public async Task SendMessageToGroup(string group, string message, string email)
+        public async Task SendMessageToGroup(string group, string message)
         {
             var dateNow = DateTime.UtcNow;
-            //TODO
-            /*var data = new ChatMessage
+            var data = new ChatMessage
             {
                 MessageData = message,
                 MessageTime = dateNow,
@@ -55,9 +54,9 @@ namespace Dicer.Hubs
                 GroupName = group
             };
 
-            await _chatMessageService.SaveChatMessage(data);*/
-            
-            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString(), email);
+            await _chatMessageService.SaveChatMessage(data);
+
+            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString(), Context.User.Identity.Name);
         }
     }
 }

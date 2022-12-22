@@ -17,5 +17,13 @@ namespace Dicer.Models
         public bool IsDeclined { get; set; }
 
         public bool IsDone { get; set; }
+
+        public string? finalDraft { get; set; }
+
+        public string? PostLink { get; set; }
+
+        public bool IsTaskDone { get; set; }
+
+        public bool IsInsightDone { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using Dicer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Dicer.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace Dicer.Controllers
 {
@@ -218,6 +220,7 @@ namespace Dicer.Controllers
             ViewData["isDone"] = "false";
             ViewData["isAccept"] = "false";
             ViewData["isQualify"] = "false";
+            ViewData["draftFile"] = null;
 
             if (roleClient)
             {
@@ -267,6 +270,11 @@ namespace Dicer.Controllers
                 if (check.Count() > 0 && qualify)
                 {
                     ViewData["isApply"] = "true";
+                }
+
+                if(check.FirstOrDefault() != null)
+                {
+                    ViewData["draftFile"] = check.FirstOrDefault().finalDraft;
                 }
             }
 
@@ -358,6 +366,32 @@ namespace Dicer.Controllers
                     return RedirectToAction("OnProgress", "MyJob");
                 }
             }
+            return RedirectToAction("Detail", new { id = campaignId });
+        }
+        #endregion
+
+        #region Upload Draft File
+        public async Task<IActionResult> UploadDraft(IFormFile draftFile, int campaignId, string userId)
+        {
+            string? uniqueFileName = null;
+            if(draftFile == null)
+            {
+                return RedirectToAction("Detail", new { id = campaignId });
+            }
+            var extension = Path.GetExtension(draftFile.FileName);
+            var uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "DraftFile");
+            uniqueFileName = Guid.NewGuid() + extension;
+            string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+            FileStream fs = new FileStream(filePath, FileMode.Create);
+            draftFile.CopyTo(fs);
+            fs.Close();
+
+            var user = new SqlParameter("@UserId", userId);
+            var campaign = new SqlParameter("@CampaignId", campaignId);
+            var file = new SqlParameter("@DraftPath", uniqueFileName);
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.uploadDraft + " @UserId, @CampaignId, @DraftPath", user, campaign, file);
+
             return RedirectToAction("Detail", new { id = campaignId });
         }
         #endregion

@@ -35,10 +35,8 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
-    var email = "danielalferian9@gmail.com";
-    connection.invoke("SendMessageToGroup", "1danielalferian71@gmail.comdanielalferian9@gmail.com", message, email).catch(function (err) {
+    connection.invoke("SendMessageToGroup", "1danielalferian71@gmail.comdanielalferian9@gmail.com", message).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
