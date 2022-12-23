@@ -185,6 +185,12 @@ namespace Dicer.Controllers
                             uniqueFileName = user.Id + extension;
                             string filePath = Path.Combine(uploadFolder, uniqueFileName);
 
+                            //delete when exist (replace)
+                            if (System.IO.File.Exists(filePath))
+                            {
+                                System.IO.File.Delete(filePath);
+                            }
+
                             FileStream fs = new FileStream(filePath, FileMode.Create);
                             model.ProfileImg.CopyTo(fs);
                             fs.Close();
@@ -257,6 +263,12 @@ namespace Dicer.Controllers
                             string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "Profile");
                             uniqueFileName = user.Id + extension;
                             string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                            //delete when exist (replace)
+                            if (System.IO.File.Exists(filePath))
+                            {
+                                System.IO.File.Delete(filePath);
+                            }
 
                             FileStream fs = new FileStream(filePath, FileMode.Create);
                             model.ProfileImg.CopyTo(fs);

@@ -71,7 +71,7 @@ namespace Dicer.Controllers
                     }
                     else
                     {
-                        uniqueFileName = Constants.Constants.DefaultProfileImg;
+                        uniqueFileName = Constants.Constants.DefaultCampaignImg;
                     }
 
                     CampaignModel newCampaign = new CampaignModel
@@ -170,8 +170,14 @@ namespace Dicer.Controllers
                         if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
                         {
                             string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "Campaign");
-                            uniqueFileName = Guid.NewGuid() + extension;
+                            uniqueFileName = model.CampaignId + extension;
                             string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                            //delete when exist (replace)
+                            if (System.IO.File.Exists(filePath))
+                            {
+                                System.IO.File.Delete(filePath);
+                            }
 
                             FileStream fs = new FileStream(filePath, FileMode.Create);
                             model.CampaignImg.CopyTo(fs);
@@ -380,8 +386,14 @@ namespace Dicer.Controllers
             }
             var extension = Path.GetExtension(draftFile.FileName);
             var uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "DraftFile");
-            uniqueFileName = Guid.NewGuid() + extension;
+            uniqueFileName = userId + campaignId + extension;
             string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+            //delete when exist (replace)
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
 
             FileStream fs = new FileStream(filePath, FileMode.Create);
             draftFile.CopyTo(fs);
