@@ -40,7 +40,7 @@ namespace Dicer.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(model.MinAge > model.MaxAge)
+                if (model.MinAge > model.MaxAge)
                 {
                     return View(model);
                 }
@@ -110,11 +110,11 @@ namespace Dicer.Controllers
         {
             var user = await GetCurrentUserAsync();
             var check = from b in _context.ClientCampaign
-                            where b.UserId == user.Id
-                                && b.CampaignId == id
-                            select b;
+                        where b.UserId == user.Id
+                            && b.CampaignId == id
+                        select b;
 
-            if(check.Count()<1 || user == null)
+            if (check.Count() < 1 || user == null)
             {
                 return RedirectToAction("ErrorView", "Account");
             }
@@ -242,10 +242,10 @@ namespace Dicer.Controllers
                 else
                 {
                     var acceptCheck = from b in _context.Campaign
-                                where b.IsPaid == true
-                                    && b.CampaignId == id
-                                select b;
-                    if (acceptCheck.Count()>0)
+                                      where b.IsPaid == true
+                                          && b.CampaignId == id
+                                      select b;
+                    if (acceptCheck.Count() > 0)
                     {
                         ViewData["isAccept"] = "true";
                     }
@@ -264,9 +264,9 @@ namespace Dicer.Controllers
             else
             {
                 var check = from b in _context.CreatorJob
-                           where b.UserId == user.Id
-                             && b.CampaignId == id
-                           select b;
+                            where b.UserId == user.Id
+                              && b.CampaignId == id
+                            select b;
 
                 var qualify = CheckQualification(id, user);
                 if (qualify)
@@ -278,7 +278,7 @@ namespace Dicer.Controllers
                     ViewData["isApply"] = "true";
                 }
 
-                if(check.FirstOrDefault() != null)
+                if (check.FirstOrDefault() != null)
                 {
                     ViewData["draftFile"] = check.FirstOrDefault().finalDraft;
                 }
@@ -291,14 +291,14 @@ namespace Dicer.Controllers
             //Init Provinsi Kota
             ViewData["Provinsi"] = null;
             ViewData["Kota"] = null;
-            if(campaign.Provinsi != null)
+            if (campaign.Provinsi != null)
             {
                 var provinsi = _context.Provinsi
                             .Where(s => s.ProvinsiId == campaign.Provinsi)
                             .FirstOrDefault();
                 ViewData["Provinsi"] = provinsi.NamaProvinsi;
 
-                if(campaign.Kota != null)
+                if (campaign.Kota != null)
                 {
                     var kota = _context.Kota
                         .Where(s => s.KotaId == campaign.Kota)
@@ -306,10 +306,10 @@ namespace Dicer.Controllers
                     ViewData["Kota"] = kota.NamaKota;
                 }
             }
-            
+
             //Init Campaign Image
             ViewData["Img"] = campaign.CampaignImg;
-           
+
             var model = new CampaignViewModel
             {
                 CampaignId = id,
@@ -377,6 +377,8 @@ namespace Dicer.Controllers
         #endregion
 
         #region Upload Draft File
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
         public async Task<IActionResult> UploadDraft(IFormFile draftFile, int campaignId, string userId)
         {
             string? uniqueFileName = null;
@@ -406,6 +408,38 @@ namespace Dicer.Controllers
 
             return RedirectToAction("Detail", new { id = campaignId });
         }
+        #endregion
+
+        #region Download Draft File
+        [Route("api/[Controller]/DownloadDraft/{draftFile}")]
+        [HttpGet]
+        public async Task<IActionResult> DownloadDraft(string draftFile)
+        {
+            if (draftFile == null)
+            {
+                return null;
+            }
+            var basePath = Path.Combine(webHostEnvironment.WebRootPath, "Img", "DraftFile");
+            string filePath = Path.Combine(basePath, draftFile);
+
+            //check file
+            if(!System.IO.File.Exists(filePath))
+            {
+                return null;
+            }
+
+            var memory = new MemoryStream();
+            using(var stream = new FileStream(filePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+            var FileName = Path.GetFileName(filePath);
+
+            return File(memory, contentType, FileName);
+        }
+
         #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
