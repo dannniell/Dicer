@@ -227,6 +227,8 @@ namespace Dicer.Controllers
             ViewData["isAccept"] = "false";
             ViewData["isQualify"] = "false";
             ViewData["draftFile"] = null;
+            ViewData["postLink"] = null;
+
 
             if (roleClient)
             {
@@ -281,6 +283,7 @@ namespace Dicer.Controllers
                 if (check.FirstOrDefault() != null)
                 {
                     ViewData["draftFile"] = check.FirstOrDefault().finalDraft;
+                    ViewData["postLink"] = check.FirstOrDefault().PostLink;
                 }
             }
 
@@ -440,6 +443,20 @@ namespace Dicer.Controllers
             return File(memory, contentType, FileName);
         }
 
+        #endregion
+
+        #region Upload Link Result
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
+        public async Task<IActionResult> PostLink(string postLink, int campaignId, string userId)
+        {
+            var user = new SqlParameter("@UserId", userId);
+            var campaign = new SqlParameter("@CampaignId", campaignId);
+            var link = new SqlParameter("@PostLink", postLink);
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.postLink + " @UserId, @CampaignId, @PostLink", user, campaign, link);
+
+            return RedirectToAction("Detail", new { id = campaignId });
+        }
         #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

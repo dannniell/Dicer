@@ -34,6 +34,7 @@
         public const string withdrawlSaldo = "exec WITHDRAWL_SALDO";
         public const string saveChat = "exec SAVE_CHAT";
         public const string uploadDraft = "exec UPLOAD_DRAFT";
+        public const string postLink = "exec POST_LINK";
         #endregion SP
     }
 }

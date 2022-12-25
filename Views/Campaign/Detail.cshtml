@@ -25,8 +25,8 @@
     var draftFilePath = ViewData["draftFile"];
 }
 
-<input id="InitProvinsi" value= "@ViewData["Provinsi"]"/>
-<input id="InitKota" value="@ViewData["Kota"]"/>
+<input id="InitProvinsi" value= "@ViewData["Provinsi"]" class="d-none"/>
+<input id="InitKota" value="@ViewData["Kota"]" class="d-none"/>
 <input id="InitTypeTag" value="@Model.ContentType" class="d-none"/>
 <input id="InitCampaignId" value="@Model.CampaignId" class="d-none" />
 
@@ -96,7 +96,17 @@
                                 <div class="form-label">
                                     <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />
                                 </div>
+                                <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Draft</button>
+                            </form>
+                            <br>
+                            <form enctype="multipart/form-data" asp-action="PostLink" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
+                                <a target="_blank" href="@ViewData["postLink"]">Post Campaign</a>
+                                <div class="form-label">
+                                    <input type="text" name="postLink" class="form-control" placeholder="link campaign" maxlength="300" value="@ViewData["postLink"]"/>
+                                </div>
+                                <br>
+                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
                             </form>
                         </div>
                     </div>
