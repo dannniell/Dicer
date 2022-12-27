@@ -88,6 +88,39 @@ namespace Dicer.Controllers
         }
         #endregion
 
+        #region ProgressCampaign
+        public async Task<IActionResult> ProgressCampaign(int id)
+        {
+            var check = from campaign in _context.Campaign
+                        where campaign.CampaignId == id
+                        select campaign;
+            if (check.FirstOrDefault() == null)
+            {
+                return RedirectToAction("ErrorView", "Account");
+            }
+            ViewData["campaignId"] = id;
+
+            var campaignData = check.FirstOrDefault();
+            var model = new CampaignViewModel
+            {
+                CampaignId = id,
+                CampaignName = campaignData.CampaignName,
+                ClientName = campaignData.ClientName,
+                ContentType = campaignData.ContentType,
+                Description = campaignData.Description,
+                Commission = campaignData.Commission,
+                Task = campaignData.Task,
+                Gender = campaignData.Gender,
+                MinFollowers = campaignData.MinFollowers,
+                MinAge = campaignData.MinAge,
+                MaxAge = campaignData.MaxAge,
+                Genre = campaignData.Genre
+            };
+
+            return View(model);
+        }
+        #endregion
+
         public async Task<IActionResult> Completed(int id)
         {
             var check = from campaign in _context.Campaign

@@ -2,7 +2,7 @@
 var initCampaignId;
 var _globalSelectedItem = [];
 
-var Progress = function () {
+var Acceptance = function () {
     var self = this;
 
     self.PopulateTable = function () {
@@ -103,12 +103,27 @@ var Progress = function () {
     };
 };
 
-var _globalProgress = new Progress();
+var _globalAcceptance = new Acceptance();
 
 $(document).ready(function () {
     initCampaignId = parseInt(document.getElementById("initCampaignId").value);
     _globalAcceptance.PopulateTable();
 });
+
+//todo
+/*$('#btnAccept').on('click', function () {
+    var bsModal = $.fn.modal.noConflict();
+    $('#paymentModal').bsModal("show");
+
+    *//*var j = jQuery.noConflict();*//*
+    
+    *//*jQuery.noConflict();*//*
+    //_globalAcceptance.AcceptParticipant();
+    *//*(function ($) {
+        $('#paymentModal').modal("show");
+    })(j);*//*
+    
+});*/
 
 $('#submitForm').on('click', function (e) {
     _globalAcceptance.AcceptParticipant();
