@@ -127,11 +127,14 @@
                                 {
                                     <a asp-action="downloadInsight" asp-route-insightFile="@insightFilePath">Insight File</a>
                                 }
-                                <div class="form-label">
+                                @if(insightFilePath == null)
+                                {
+                                    <div class="form-label">
                                     <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control" />
                                 </div>
                                 <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Insight</button>
+                                }
                             </form>
                         </div>
                     </div>

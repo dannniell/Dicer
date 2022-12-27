@@ -490,6 +490,8 @@ namespace Dicer.Controllers
             var user = new SqlParameter("@UserId", userId);
             var campaign = new SqlParameter("@CampaignId", campaignId);
             var file = new SqlParameter("@InsightPath", uniqueFileName);
+            
+            //upload insight, get payment, campaign done
             await _context.Database.ExecuteSqlRawAsync(Constants.Constants.uploadInsight + " @UserId, @CampaignId, @InsightPath", user, campaign, file);
 
             return RedirectToAction("Detail", new { id = campaignId });
