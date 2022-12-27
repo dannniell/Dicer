@@ -23,6 +23,13 @@
 
     //draft file
     var draftFilePath = ViewData["draftFile"];
+
+    //insight file
+    var insightFilePath = ViewData["insight"];
+
+    //flag
+    var isInsightDone = ViewData["isInsightDone"];
+    var isTaskDone = ViewData["isTaskDone"];
 }
 
 <input id="InitProvinsi" value= "@ViewData["Provinsi"]" class="d-none"/>
@@ -84,7 +91,7 @@
                         </div>
                     </div>
                 }
-                @if(ViewData["isApply"] == "true")
+                @if(ViewData["isApply"] == "true" && isTaskDone == "false")
                 {
                     <div class="form-row">
                         <div class="col-md-12">
@@ -107,6 +114,24 @@
                                 </div>
                                 <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+                @if(ViewData["isApply"] == "true" && isTaskDone == "true")
+                {
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <form enctype="multipart/form-data" asp-action="Insight" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
+                                @if(insightFilePath != null)
+                                {
+                                    <a asp-action="downloadInsight" asp-route-insightFile="@insightFilePath">Insight File</a>
+                                }
+                                <div class="form-label">
+                                    <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control" />
+                                </div>
+                                <br>
+                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Insight</button>
                             </form>
                         </div>
                     </div>

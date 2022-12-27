@@ -29,6 +29,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Img\DraftFile\" />
+    <Folder Include="wwwroot\Img\InsightFile\" />
     <Folder Include="wwwroot\lib\NewFolder\" />
   </ItemGroup>
 

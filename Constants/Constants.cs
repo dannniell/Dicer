@@ -29,12 +29,20 @@
         public const string acceptParticipant = "exec ACCEPT_PARTICIPANT";
         public const string declineParticipant = "exec DECLINE_PARTICIPANT";
         public const string paidCampaign = "exec PAID_CAMPAIGN";
+        //not used
         public const string pay = "exec PAY";
+
         public const string getSaldo = "exec GET_SALDO";
         public const string withdrawlSaldo = "exec WITHDRAWL_SALDO";
         public const string saveChat = "exec SAVE_CHAT";
         public const string uploadDraft = "exec UPLOAD_DRAFT";
         public const string postLink = "exec POST_LINK";
+        public const string uploadInsight = "exec UPLOAD_INSIGHT";
+        //new 
+        //sp for change task to done
+        public const string taskDone = "exec TASK_DONE";
+        //sp for change insight to done and give payment to creator
+        public const string insightDone = "exec INSIGHT_DONE";
         #endregion SP
     }
 }
