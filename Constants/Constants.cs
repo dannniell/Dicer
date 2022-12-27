@@ -41,8 +41,6 @@
         //new 
         //sp for change task to done
         public const string taskDone = "exec TASK_DONE";
-        //sp for change insight to done and give payment to creator
-        public const string insightDone = "exec INSIGHT_DONE";
         #endregion SP
     }
 }
