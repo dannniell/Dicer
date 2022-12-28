@@ -282,8 +282,11 @@ namespace Dicer.Controllers
 
                 if (check.FirstOrDefault() != null)
                 {
-                    ViewData["draftFile"] = check.FirstOrDefault().finalDraft;
+                    ViewData["draftFile"] = check.FirstOrDefault().FinalDraft;
                     ViewData["postLink"] = check.FirstOrDefault().PostLink;
+                    ViewData["insight"] = check.FirstOrDefault().Insight;
+                    ViewData["isTaskDone"] = check.FirstOrDefault().IsTaskDone;
+                    ViewData["isInsightDone"] = check.FirstOrDefault().IsInsightDone;
                 }
             }
 
@@ -457,6 +460,74 @@ namespace Dicer.Controllers
 
             return RedirectToAction("Detail", new { id = campaignId });
         }
+        #endregion
+
+        #region Upload Insight File
+        [Authorize(Roles = Constants.Constants.roleNameCreator)]
+        [HttpPost]
+        public async Task<IActionResult> UploadInsight(IFormFile insightFile, int campaignId, string userId)
+        {
+            string? uniqueFileName = null;
+            if (insightFile == null)
+            {
+                return RedirectToAction("Detail", new { id = campaignId });
+            }
+            var extension = Path.GetExtension(insightFile.FileName);
+            var uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Img", "InsightFile");
+            uniqueFileName = userId + campaignId + extension;
+            string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+            //delete when exist (replace)
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            FileStream fs = new FileStream(filePath, FileMode.Create);
+            insightFile.CopyTo(fs);
+            fs.Close();
+
+            var user = new SqlParameter("@UserId", userId);
+            var campaign = new SqlParameter("@CampaignId", campaignId);
+            var file = new SqlParameter("@InsightPath", uniqueFileName);
+            
+            //upload insight, get payment, campaign done
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.uploadInsight + " @UserId, @CampaignId, @InsightPath", user, campaign, file);
+
+            return RedirectToAction("Detail", new { id = campaignId });
+        }
+        #endregion
+
+        #region Download Inisight File
+        [Route("api/[Controller]/DownloadInsight/{insightFile}")]
+        [HttpGet]
+        public async Task<IActionResult> DownloadInsight(string insightFile)
+        {
+            if (insightFile == null)
+            {
+                return null;
+            }
+            var basePath = Path.Combine(webHostEnvironment.WebRootPath, "Img", "InsightFile");
+            string filePath = Path.Combine(basePath, insightFile);
+
+            //check file
+            if (!System.IO.File.Exists(filePath))
+            {
+                return null;
+            }
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+            var FileName = Path.GetFileName(filePath);
+
+            return File(memory, contentType, FileName);
+        }
+
         #endregion
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

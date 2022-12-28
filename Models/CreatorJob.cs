@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dicer.Models
 {
@@ -18,12 +16,14 @@ namespace Dicer.Models
 
         public bool IsDone { get; set; }
 
-        public string? finalDraft { get; set; }
+        public string? FinalDraft { get; set; }
 
         public string? PostLink { get; set; }
 
         public bool IsTaskDone { get; set; }
 
         public bool IsInsightDone { get; set; }
+
+        public string? Insight { get; set; }
     }
 }
