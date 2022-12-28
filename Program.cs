@@ -29,6 +29,7 @@ builder.Services.AddScoped<IKotaService, KotaRepository>();
 builder.Services.AddScoped<IApiIgService, ApiIgRepository>();
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
 builder.Services.AddScoped<IChatMessageService, ChatMessageRepository>();
+builder.Services.AddScoped<IProgressService, ProgressRepository>();
 
 //singletone
 

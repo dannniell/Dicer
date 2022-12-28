@@ -98,7 +98,6 @@ namespace Dicer.Controllers
             {
                 return RedirectToAction("ErrorView", "Account");
             }
-            ViewData["campaignId"] = id;
 
             var campaignData = check.FirstOrDefault();
             var model = new CampaignViewModel

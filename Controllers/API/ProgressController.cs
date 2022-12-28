@@ -1,0 +1,46 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Dicer.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
+using Dicer.Models;
+
+namespace Dicer.Controllers.API
+{
+    [AllowAnonymous]
+    [ApiController]
+    public class AcceptanceController : ControllerBase
+    {
+        private readonly IAcceptanceService _acceptanceService;
+
+        public AcceptanceController(IAcceptanceService acceptanceService)
+        {
+            this._acceptanceService = acceptanceService;
+        }
+
+        [Route("api/[Controller]/{campaignId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetRegistrant(int campaignId)
+        {
+            var retVals = await _acceptanceService.GetRegistrant(campaignId);
+            return Ok(retVals);
+        }
+
+        [Route("api/[Controller]/{campaignId}")]
+        [HttpPost]
+        public async Task<IActionResult> AcceptParticipant(int campaignId, AcceptParticipant model)
+        {
+            var retVals = await _acceptanceService.AcceptParticipant(campaignId, model);
+            return Ok(retVals);
+        }
+
+        [Route("api/[Controller]/{campaignId}/Completed")]
+        [HttpPost]
+        public async Task<IActionResult> Completed(int campaignId)
+        {
+            var retVals = await _acceptanceService.Completed(campaignId);
+            return Ok(retVals);
+        }
+    }
+}
