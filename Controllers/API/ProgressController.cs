@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Dicer.Interfaces;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Dicer.Models;
 
@@ -10,20 +7,20 @@ namespace Dicer.Controllers.API
 {
     [AllowAnonymous]
     [ApiController]
-    public class AcceptanceController : ControllerBase
+    public class ProgressController : ControllerBase
     {
-        private readonly IAcceptanceService _acceptanceService;
+        private readonly IProgressService _progressService;
 
-        public AcceptanceController(IAcceptanceService acceptanceService)
+        public ProgressController(IProgressService progressService)
         {
-            this._acceptanceService = acceptanceService;
+            this._progressService = progressService;
         }
 
         [Route("api/[Controller]/{campaignId}")]
         [HttpGet]
-        public async Task<IActionResult> GetRegistrant(int campaignId)
+        public async Task<IActionResult> GetProgress(int campaignId)
         {
-            var retVals = await _acceptanceService.GetRegistrant(campaignId);
+            var retVals = await _progressService.GetProgress(campaignId);
             return Ok(retVals);
         }
 
@@ -31,15 +28,7 @@ namespace Dicer.Controllers.API
         [HttpPost]
         public async Task<IActionResult> AcceptParticipant(int campaignId, AcceptParticipant model)
         {
-            var retVals = await _acceptanceService.AcceptParticipant(campaignId, model);
-            return Ok(retVals);
-        }
-
-        [Route("api/[Controller]/{campaignId}/Completed")]
-        [HttpPost]
-        public async Task<IActionResult> Completed(int campaignId)
-        {
-            var retVals = await _acceptanceService.Completed(campaignId);
+            var retVals = await _progressService.AcceptParticipant(campaignId, model);
             return Ok(retVals);
         }
     }

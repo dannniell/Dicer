@@ -32,6 +32,8 @@ namespace Dicer.Models
 
         public DbSet<ChatMessage> ChatMessage { get; set; }
 
+        public DbSet<ProgressCampaign> ProgressCampaigns { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

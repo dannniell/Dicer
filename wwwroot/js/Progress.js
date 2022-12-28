@@ -7,7 +7,7 @@ var Acceptance = function () {
 
     self.PopulateTable = function () {
         var ajaxTypesObj = {
-            url: '/Api/Acceptance/' + initCampaignId,
+            url: '/Api/Progress/' + initCampaignId,
             method: "GET",
             dataType: "json",
             success: function (data) {
@@ -32,40 +32,63 @@ var Acceptance = function () {
                 'zeroRecords': 'No data available.'
             },
             columns: [
-                {
-                    data: null,
-                    className: 'text-center',
-                    title: 'Check',
-                    orderable: false,
-                    render: function (data, type, row, meta) {
-                        return '<input type="checkbox" class="select-checkbox" row-id="' + meta.row + '" >'
-                    }
-                },
                 { data: 'userId', className: 'f-userId', title: 'User Id', visible: false },//0
                 { data: 'name', className: 'f-name', title: 'Name' },//1,
-                { data: 'gender', className: 'f-gender', title: 'Gender' },//2
-                { data: 'age', className: 'f-age', title: 'Age' },//3
-                {
-                    data: 'kota', className: 'f-kotaProvinsi', title: 'Address',
-                    render: function (data, type, row) {
-                        return data + ', ' + row['provinsi'];
-                    },
-                },//4
-                { data: 'followers', className: 'f-followers', title: 'Followers' },//5
+                { data: 'followers', className: 'f-followers', title: 'Followers' },//2
                 {
                     data: 'er', className: 'f-er', title: 'Engagement Rate',
                     render: function (data, type, row, meta) {
                         return data + ' %';
                     }
-                },//6
+                },//3
                 {
                     data: 'linkInstagram', className: 'f-linkInstagram', title: 'Instagram',
                     render: function (data, type, row, meta) {
                         return '<center><a id="linkInstagram' + meta.row + '" href="' + data + '" target="_blank">link</a></center>';
                     }
+                },//4
+                {
+                    data: 'finalDraft', className: 'f-finalDraft', title: 'Final Draft',
+                    render: function (data, type, row, meta) {
+                        if (data === null || data === "") {
+                            return 'No Data';
+                        } else {
+                            return '<center><a href="/Campaign/DownloadDraft/' + data + '">download</a></center>';
+                        }
+                    }
+                },//5
+                {
+                    data: 'postLink', className: 'f-postLink', title: 'Post',
+                    render: function (data, type, row, meta) {
+                        if (data === null || data === "") {
+                            return 'No Data';
+                        } else {
+                            return '<center><a id="postLink' + meta.row + '" href="' + data + '" target="_blank">post link</a></center>';
+                        }
+                    }
+                },//6
+                {
+                    data: 'insight', className: 'f-insight', title: 'Insight',
+                    render: function (data, type, row, meta) {
+                        if (data === null || data === "") {
+                            return 'No Data';
+                        } else {
+                            return '<center><a href="/Campaign/DownloadInsight/' + data + '">download</a></center>';
+                        }
+                    }
                 },//7
                 {
-                    data: 'isAccepted', className: 'f-isAccepted text-center', title: 'Is Accepted', visible: false , render: function (data, type, row, meta) {
+                    data: null, className: 'f-chat', title: 'Chat',
+                    render: function (data, type, row, meta) {
+                        if (data === null || data === "") {
+                            return 'No Data';
+                        } else {
+                            return '<center><a href="/Campaign/DownloadInsight/' + data + '">download</a></center>';
+                        }
+                    }
+                },//7
+                {
+                    data: 'isTaskDone', className: 'f-isAccepted text-center', title: 'Task Done', visible: true , render: function (data, type, row, meta) {
                         if (data) {
                             return '<center><input type="checkbox" class="form-check-input" id="isActiveChk_' + meta.row + '" checked disabled/></center>';
                         }

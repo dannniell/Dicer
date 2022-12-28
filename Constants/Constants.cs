@@ -41,6 +41,8 @@
         //new 
         //sp for change task to done
         public const string taskDone = "exec TASK_DONE";
+        
+        public const string getProgress = "exec GET_PROGRESS";
         #endregion SP
     }
 }

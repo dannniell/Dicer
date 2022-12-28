@@ -14,10 +14,10 @@ namespace Dicer.Repositories
             this._context = context;
         }
        
-        public async Task<List<AcceptanceUser>> GetRegistrant(int campaignId)
+        public async Task<List<ProgressCampaign>> GetProgress(int campaignId)
         {
             var param = new SqlParameter("@CampaignId", campaignId);
-            var data = await _context.AcceptanceUser.FromSqlRaw(Constants.Constants.getAcceptance + " @CampaignId", param).ToListAsync();
+            var data = await _context.ProgressCampaigns.FromSqlRaw(Constants.Constants.getProgress + " @CampaignId", param).ToListAsync();
             return data;
         }
 

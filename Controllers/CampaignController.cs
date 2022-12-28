@@ -417,7 +417,7 @@ namespace Dicer.Controllers
         #endregion
 
         #region Download Draft File
-        [Route("api/[Controller]/DownloadDraft/{draftFile}")]
+        [Route("[Controller]/DownloadDraft/{draftFile}")]
         [HttpGet]
         public async Task<IActionResult> DownloadDraft(string draftFile)
         {
@@ -499,7 +499,7 @@ namespace Dicer.Controllers
         #endregion
 
         #region Download Inisight File
-        [Route("api/[Controller]/DownloadInsight/{insightFile}")]
+        [Route("[Controller]/DownloadInsight/{insightFile}")]
         [HttpGet]
         public async Task<IActionResult> DownloadInsight(string insightFile)
         {
