@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 }
-                @if(ViewData["isApply"] == "true" && isTaskDone == "false")
+                @if(ViewData["isApply"] == "true" && ViewData["isTaskDone"] == "False")
                 {
                     <div class="form-row">
                         <div class="col-md-12">
@@ -117,10 +117,11 @@
                                 <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
                             </form>
+                            <a class="btn btn-sm btn-primary createBtn w-100" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
                         </div>
                     </div>
                 }
-                @if(ViewData["isApply"] == "true" && isTaskDone == "true")
+                @if(ViewData["isApply"] == "true" && ViewData["isTaskDone"] == "True")
                 {
                     <div class="form-row">
                         <div class="col-md-12">

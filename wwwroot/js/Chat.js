@@ -5,20 +5,13 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (message, date, currentEmail) {
-    var client = document.getElementById("clientMail").value;
-    var creator = document.getElementById("creatorMail").value;
+connection.on("ReceiveMessage", function (message, date, senderEmail) {
+    var currentEmail = document.getElementById("currentEmail").value;
 
-    var targetEmail;
-    if (currentEmail === client) {
-        targetEmail = creator;
-    } else {
-        targetEmail = client;
-    };
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you
     // should be aware of possible script injection concerns.
-    if (currentEmail !== targetEmail) {
+    if (senderEmail === currentEmail) {
         $('#discussion').append('<p class="chatSender"><small>' + date + '  </small> : <strong>' + message + '</strong></p><br><br>');
     }
     else {

@@ -226,6 +226,8 @@ namespace Dicer.Controllers
             ViewData["isDone"] = "false";
             ViewData["isAccept"] = "false";
             ViewData["isQualify"] = "false";
+            ViewData["isTaskDone"] = "false";
+            ViewData["isInsightDone"] = "false";
             ViewData["draftFile"] = null;
             ViewData["postLink"] = null;
 
@@ -285,8 +287,8 @@ namespace Dicer.Controllers
                     ViewData["draftFile"] = check.FirstOrDefault().FinalDraft;
                     ViewData["postLink"] = check.FirstOrDefault().PostLink;
                     ViewData["insight"] = check.FirstOrDefault().Insight;
-                    ViewData["isTaskDone"] = check.FirstOrDefault().IsTaskDone;
-                    ViewData["isInsightDone"] = check.FirstOrDefault().IsInsightDone;
+                    ViewData["isTaskDone"] = check.FirstOrDefault().IsTaskDone.ToString();
+                    ViewData["isInsightDone"] = check.FirstOrDefault().IsInsightDone.ToString();
                 }
             }
 
