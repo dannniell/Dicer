@@ -61,7 +61,7 @@ var Progress = function () {
                 {
                     data: 'linkInstagram', className: 'f-linkInstagram', title: 'Instagram',
                     render: function (data, type, row, meta) {
-                        return '<center><a id="linkInstagram' + meta.row + '" href="' + data + '" target="_blank">link</a></center>';
+                        return '<center><a id="linkInstagram' + meta.row + '" href="' + data + '" target="_blank"><span class="fas fa-external-link-alt"></span></a></center>';
                     }
                 },//7
                 {

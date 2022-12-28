@@ -21,31 +21,27 @@ namespace Dicer.Repositories
             return data;
         }
 
-        public async Task<bool> AcceptParticipant(int campaignId, AcceptParticipant model)
+        public async Task<bool> TaskDoneParticipant(int campaignId, string userId)
         {
             var campaign = new SqlParameter("@CampaignId", campaignId);
-            foreach (var item in model.users)
-            {
-                var user = new SqlParameter("@UserId", item.userId);
-                try
-                {
-                    var data = await _context.Database.ExecuteSqlRawAsync(Constants.Constants.acceptParticipant + " @UserId, @CampaignId", user, campaign);
-                }
-                catch (Exception ex)
-                {
-                    var a = ex;
-                }
-            }
-            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.declineParticipant + " @CampaignId", campaign);
-            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.paidCampaign + " @CampaignId", campaign);
+            var user = new SqlParameter("@UserId", userId);
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.taskDone + " @CampaignId, @UserId", campaign, user);
 
             return true;
+        }
+
+        public async Task<List<ClientWithdrawl>> GetWithdrawlAmmount(int campaignId)
+        {
+            var param = new SqlParameter("@CampaignId", campaignId);
+            var data = await _context.ClientWithdrawls.FromSqlRaw(Constants.Constants.clientWithdrawl + " @CampaignId", param).ToListAsync();
+            return data;
         }
 
         public async Task<bool> Completed(int campaignId)
         {
             var campaign = new SqlParameter("@CampaignId", campaignId);
-            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.pay + " @CampaignId", campaign);
+            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.closeCampaign + " @CampaignId", campaign);
+
             return true;
         }
     }

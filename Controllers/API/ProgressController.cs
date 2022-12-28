@@ -24,11 +24,27 @@ namespace Dicer.Controllers.API
             return Ok(retVals);
         }
 
-        [Route("api/[Controller]/{campaignId}")]
+        [Route("api/[Controller]/{campaignId}/TaskDone/{userId}")]
         [HttpPost]
-        public async Task<IActionResult> AcceptParticipant(int campaignId, AcceptParticipant model)
+        public async Task<IActionResult> TaskDoneParticipant(int campaignId, string userId)
         {
-            var retVals = await _progressService.AcceptParticipant(campaignId, model);
+            var retVals = await _progressService.TaskDoneParticipant(campaignId, userId);
+            return Ok(retVals);
+        }
+
+        [Route("api/[Controller]/WithdrawlCheck/{campaignId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetWithdrawlAmmount(int campaignId)
+        {
+            var retVals = await _progressService.GetWithdrawlAmmount(campaignId);
+            return Ok(retVals);
+        }
+
+        [Route("api/[Controller]/{campaignId}/Completed")]
+        [HttpPost]
+        public async Task<IActionResult> Completed(int campaignId)
+        {
+            var retVals = await _progressService.Completed(campaignId);
             return Ok(retVals);
         }
     }

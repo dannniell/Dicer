@@ -22,6 +22,7 @@ var Acceptance = function () {
 
     self.ParticipantTable = function (data) {
         participantTableData = $('#participantTable').DataTable({
+            destroy: true,
             data: data,
             scrollY: true,
             order: [1, 'asc'],
@@ -42,57 +43,57 @@ var Acceptance = function () {
                     }
                 },//3
                 {
-                    data: 'linkInstagram', className: 'f-linkInstagram', title: 'Instagram',
+                    data: 'linkInstagram', className: 'f-linkInstagram', title: 'Instagram', orderable: false,
                     render: function (data, type, row, meta) {
-                        return '<center><a id="linkInstagram' + meta.row + '" href="' + data + '" target="_blank">link</a></center>';
+                        return '<center><a id="linkInstagram' + meta.row + '" href="' + data + '" target="_blank"><span class="fas fa-external-link-alt"></span></a></center>';
                     }
                 },//4
                 {
-                    data: 'finalDraft', className: 'f-finalDraft', title: 'Final Draft',
+                    data: 'finalDraft', className: 'f-finalDraft', title: 'Final Draft', orderable: false,
                     render: function (data, type, row, meta) {
                         if (data === null || data === "") {
                             return 'No Data';
                         } else {
-                            return '<center><a href="/Campaign/DownloadDraft/' + data + '">download</a></center>';
+                            return '<center><a href="/Campaign/DownloadDraft/' + data + '"><span class="fas fa-download"></span></a></center>';
                         }
                     }
                 },//5
                 {
-                    data: 'postLink', className: 'f-postLink', title: 'Post',
+                    data: 'postLink', className: 'f-postLink', title: 'Post', orderable: false,
                     render: function (data, type, row, meta) {
                         if (data === null || data === "") {
                             return 'No Data';
                         } else {
-                            return '<center><a id="postLink' + meta.row + '" href="' + data + '" target="_blank">post link</a></center>';
+                            return '<center><a id="postLink' + meta.row + '" href="' + data + '" target="_blank"><span class="fas fa-external-link-alt"></span></a></center>';
                         }
                     }
                 },//6
                 {
-                    data: 'insight', className: 'f-insight', title: 'Insight',
+                    data: 'insight', className: 'f-insight', title: 'Insight', orderable: false,
                     render: function (data, type, row, meta) {
                         if (data === null || data === "") {
                             return 'No Data';
                         } else {
-                            return '<center><a href="/Campaign/DownloadInsight/' + data + '">download</a></center>';
+                            return '<center><a href="/Campaign/DownloadInsight/' + data + '"><span class="fas fa-download"></span></a></center>';
                         }
                     }
                 },//7
                 {
-                    data: null, className: 'f-chat', title: 'Chat',
+                    data: null, className: 'f-chat', title: 'Chat', orderable: false,
                     render: function (data, type, row, meta) {
-                        return '<center><a href="#" id="chat'+ meta.row +'" class="chatBtn" >open chat</a></center>';
+                        return '<center><a href="#" id="chat' + meta.row +'" class="chatBtn" ><span class="fas fa-comments"></span></a></center>';
                     }
-                },//7
+                },//8
                 {
                     data: 'isTaskDone', className: 'f-isAccepted text-center', title: 'Task Done', visible: true , render: function (data, type, row, meta) {
                         if (data) {
-                            return '<center><input type="checkbox" class="form-check-input" id="isActiveChk_' + meta.row + '" checked disabled/></center>';
+                            return '<center><span class="fas fa-check"></span></center>';
                         }
                         else {
-                            return '<center><input type="checkbox" class="form-check-input" id="isActiveChk_' + meta.row + '" disabled/></center>';
+                            return '<center><button type="button" class="btn btn-default btn-sm"> Close Task </button></center>';
                         }
                     }
-                },//8
+                },//9
             ],
             orderCellsTop: true,
             initComplete: function (settings, json) {
@@ -100,19 +101,14 @@ var Acceptance = function () {
         });
     }
 
-    self.AcceptParticipant = function () {
-        var listData = {};
-        listData['users'] = _globalSelectedItem;
-
+    self.TaskDoneParticipant = function (data) {
         var ajaxTypesObj = {
-            url: '/Api/Acceptance/' + initCampaignId,
+            url: '/Api/Progress/' + initCampaignId + '/TaskDone/' + data.userId,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
-            data: JSON.stringify(listData),
             success: function (data) {
-                alert("Payment Success!!");
-                window.location.href = '/Campaign/Detail?id=' + initCampaignId;
+                self.PopulateTable();
             },
             error: function (e) {
                 alert('Failed to Insert Transaction Detail Data!');
@@ -120,6 +116,42 @@ var Acceptance = function () {
         };
         $.ajax(ajaxTypesObj);
     };
+
+    self.CheckWithdrawl = function () {
+        var ajaxTypesObj = {
+            url: '/Api/Progress/WithdrawlCheck/' + initCampaignId,
+            method: "GET",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                if (data[0].total > 0) {
+                    $("#withdrawl").removeClass('d-none');
+                    document.getElementById("accountBalance").innerHTML = 'Not Used Balance: Rp. ' + String(data[0].total).replace(/(.)(?=(\d{3})+$)/g, '$1,');
+                } else {
+                    $("#withoutWithdrawl").removeClass('d-none');
+                }
+            },
+            error: function (e) {
+                alert('Failed to Insert Transaction Detail Data!');
+            },
+        };
+        $.ajax(ajaxTypesObj);
+    }
+
+    self.CloseCampaign = function () {
+        var ajaxTypesObj = {
+            url: '/Api/Progress/' + initCampaignId + '/Completed',
+            method: "POST",
+            dataType: "json",
+            success: function (data) {
+                window.location.href = '/Mycampaign/Done';
+            },
+            error: function (e) {
+                alert('Failed to Complete Campaign!');
+            },
+        };
+        $.ajax(ajaxTypesObj);
+    }
 };
 
 var _globalAcceptance = new Acceptance();
@@ -130,8 +162,17 @@ $(document).ready(function () {
 });
 
 
-$('#submitForm').on('click', function (e) {
-    _globalAcceptance.AcceptParticipant();
+$('#submitButton').on('click', function (e) {
+    _globalAcceptance.CloseCampaign();
+});
+
+$('#closeButton').on('click', function (e) {
+    $("#withdrawl").addClass('d-none');
+    $("#withoutWithdrawl").addClass('d-none');
+});
+
+$('#btnDone').on('click', function (e) {
+    _globalAcceptance.CheckWithdrawl();
 });
 
 $('#participantTable').on("click", "tbody .chatBtn", function () {
@@ -140,27 +181,8 @@ $('#participantTable').on("click", "tbody .chatBtn", function () {
     window.open(link, '_blank');
 });
 
-$('#participantTable').on("click", "tbody .select-checkbox", function () {
+$('#participantTable').on("click", "tbody .btn", function () {
     var data = participantTableData.row($(this).attr('row-id')).data();
 
-    if ($(this).prop('checked')) {
-        _globalSelectedItem.push({
-            userId: data.userId
-        });
-    }
-    else {
-        for (var i = 0; i < _globalSelectedItem.length; i++) {
-            if (_globalSelectedItem[i].userId == data.userId) {
-                _globalSelectedItem.splice(i, 1);
-            }
-        }
-    }
-
-    var count = _globalSelectedItem.length;
-    document.getElementById("TotalCreator").innerHTML = count;
-
-    var initCommision = document.getElementById("initCommision").value;
-    var total = (initCommision * count) + 3000;
-    document.getElementById("totalPrice").innerHTML = 'Rp ' + String(total).replace(/(.)(?=(\d{3})+$)/g, '$1,');
+    _globalAcceptance.TaskDoneParticipant(data);
 });
-

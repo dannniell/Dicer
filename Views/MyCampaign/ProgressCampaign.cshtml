@@ -11,7 +11,7 @@
 <input id="initCampaignId" class="d-none" value="@Model.CampaignId"/>
 <input id="initCommision" class="d-none" value="@Model.Commission"/>
 <div class="container homeClientContent">
-   <span class="landingTitle d-flex justify-content-center">Pendaftar</span>
+   <span class="landingTitle d-flex justify-content-center">Progress</span>
     <div class="form-row justify-content-center">
         <div class="col-md-12">
             <div id="participantTableContainer" class="overflow-hidden h-100">
@@ -22,27 +22,60 @@
     </div>
     <div class="form-row justify-content-center">
         <div class="col-md-4 mt-4">
-            <button id="btnAccept" name="submit" type="submit" value="submit" data-toggle="modal" data-target="#modalValidationAccept" class="w-100 btn btn-lg btn-primary bgColor">Accept</button>
+            <button id="btnDone" name="submit" type="submit" value="submit" data-toggle="modal" data-target="#modalValidationDone" class="w-100 btn btn-lg btn-primary bgColor">Done / Close Campaign</button>
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalValidationAccept" tabindex="-1" role="dialog" aria-labelledby="modalValidationAccept" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+
+<div class="modal fade" id="modalValidationDone" tabindex="-1" role="dialog" aria-labelledby="modalValidationDone" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are You Sure?</h5>
+                <h5 class="modal-title">Close Campaign</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body d-none" id="withoutWithdrawl">
                 <center>
-                    <label class="font-weight-bold">Acceptance process only occur once</label>
+                    <label class="font-weight-bold">Are You Sure Want to Close the Campaign?</label>
                 </center>
             </div>
+
+            <div class="modal-body d-none" id="withdrawl">
+                <div class="container-fluid">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <h4 id="accountBalance"></h4>
+                            </div>
+                            <hr />
+                            <div class="form-group mb-3">
+                                <h5>Withdraw Method</h5>
+                                <select id="paymentMethod" class="form-control">
+                                    <option value="">BCA</option>
+                                    <option value="">BNI</option>
+                                    <option value="">BRI</option>
+                                    <option value="">BTN</option>
+                                    <option value="">Mandiri</option>
+                                    <option value="">Mega</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <h5>Bank Account Number</h5>
+                                <input id="bankAccountNumber" class="form-control" aria-required="true" type="number" required/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <h5>Withdrawal Amount</h5>
+                                <input id="withdrawalAmount" class="form-control" aria-required="true" type="number" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitButton">Yes</button>
             </div>
         </div>
     </div>

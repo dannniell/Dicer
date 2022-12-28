@@ -41,12 +41,5 @@ namespace Dicer.Repositories
 
             return true;
         }
-
-        public async Task<bool> Completed(int campaignId)
-        {
-            var campaign = new SqlParameter("@CampaignId", campaignId);
-            await _context.Database.ExecuteSqlRawAsync(Constants.Constants.pay + " @CampaignId", campaign);
-            return true;
-        }
     }
 }

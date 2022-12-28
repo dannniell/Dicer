@@ -34,11 +34,14 @@ namespace Dicer.Models
 
         public DbSet<ProgressCampaign> ProgressCampaigns { get; set; }
 
+        public DbSet<ClientWithdrawl> ClientWithdrawls { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AcceptanceUser>().HasNoKey();
             modelBuilder.Entity<SaldoCreator>().HasNoKey();
+            modelBuilder.Entity<ClientWithdrawl>().HasNoKey();
         }
     }
 
