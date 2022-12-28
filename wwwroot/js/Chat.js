@@ -5,43 +5,69 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (message, date, namaSendiri, namaLawanBicara) {
-    var namaSender = namaSendiri;
-    var li = document.createElement("li");
-    var br = document.createElement("br");
-    var br2 = document.createElement("br");
-    // We can assign user-supplied strings to an element's textContent because it
-    // is not interpreted as markup. If you're assigning in any other way, you 
-    // should be aware of possible script injection concerns.
-    if (namaSender !== namaLawanBicara) {
-        li.id = 'sender'
-        li.className = 'chatSender';
-        li.textContent = `${date} ${namaSendiri} says ${message}`;
-    }
-    else if (namaSender == namaLawanBicara) {
-        li.id = 'receiver'
-        li.className = 'chatReceiver';
-        li.textContent = `${date} ${namaLawanBicara} says ${message}`;
-    }
-    document.getElementById("messagesList").appendChild(li);
-    document.getElementById("messagesList").appendChild(br);
-    document.getElementById("messagesList").appendChild(br2);
-});
+connection.on("ReceiveMessage", function (message, date, currentEmail) {
+    var client = document.getElementById("clientMail").value;
+    var creator = document.getElementById("creatorMail").value;
 
-connection.on("InitReceiveMessage", function (data) {
-    var li = document.createElement("li");
-    document.getElementById("messagesList").appendChild(li);
+    var targetEmail;
+    if (currentEmail === client) {
+        targetEmail = creator;
+    } else {
+        targetEmail = client;
+    };
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you
     // should be aware of possible script injection concerns.
-    data.forEach(function (item) {
-        li.textContent = `${item.messageTime} user says ${item.messageData}`;
-    });
+    if (currentEmail !== targetEmail) {
+        $('#discussion').append('<p class="chatSender"><small>' + date + '  </small> : <strong>' + message + '</strong></p><br><br>');
+    }
+    else {
+        $('#discussion').append('<p class="chatReceiver"><small>' + date + '  </small> : <strong>' + message + '</strong></p><br><br>');
+    }
+
+    var elem = document.getElementById('chat');
+    elem.scrollTop = elem.scrollHeight;
+});
+
+connection.on("InitReceiveMessage", function (data) {
+    var currentEmail = document.getElementById("currentEmail").value;
+    var client = document.getElementById("clientMail").value;
+    var creator = document.getElementById("creatorMail").value;
+
+    var targetEmail;
+    if (currentEmail === client) {
+        targetEmail = creator;
+    } else {
+        targetEmail = client;
+    };
+
+    // We can assign user-supplied strings to an element's textContent because it
+    // is not interpreted as markup. If you're assigning in any other way, you
+    // should be aware of possible script injection concerns.
+    for (var item in data) {
+        if (data[item].email !== targetEmail) {
+            $('#discussion').append('<p class="chatSender"><small>' + data[item].messageTime +'  </small> : <strong>' + data[item].messageData + '</strong></p><br><br>');
+            
+        }
+        else {
+            $('#discussion').append('<p class="chatReceiver"><small>' + data[item].messageTime + '  </small> : <strong>' + data[item].messageData + '</strong></p><br><br>');
+            
+        }
+    }
+
+    var elem = document.getElementById('chat');
+    elem.scrollTop = elem.scrollHeight;
 });
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
-    connection.invoke("JoinChatRoom", "1danielalferian71@gmail.comdanielalferian9@gmail.com").catch(function (err) {
+
+    var campaignId = document.getElementById("campaignId").value;
+    var client = document.getElementById("clientMail").value;
+    var creator = document.getElementById("creatorMail").value;
+
+    var groupName = campaignId + client + creator;
+    connection.invoke("JoinChatRoom", groupName).catch(function (err) {
         return console.error(err.toString());
     });
 }).catch(function (err) {
@@ -50,10 +76,18 @@ connection.start().then(function () {
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var message = document.getElementById("messageInput").value;
-    var namaSendiri = document.getElementById("userInput").value;
-    var namaLawanBicara = 'Daniel';
-    connection.invoke("SendMessageToGroup", "1danielalferian71@gmail.comdanielalferian9@gmail.com", message, namaSendiri, namaLawanBicara).catch(function (err) {
+
+    var campaignId = document.getElementById("campaignId").value;
+    var client = document.getElementById("clientMail").value;
+    var creator = document.getElementById("creatorMail").value;
+
+    var groupName = campaignId + client + creator;
+    var currentEmail = document.getElementById("currentEmail").value;
+
+    connection.invoke("SendMessageToGroup", groupName, message, currentEmail).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
+
+    $('#messageInput').val('');
 });

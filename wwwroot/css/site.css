@@ -499,9 +499,9 @@ div.panel-body {
 }
 
 .chatReceiver {
-    float: left;
     /*font-weight: bold;*/
     /*background-color: aliceblue;*/
+    float: left;
     background-color: white;
     border-style: solid;
     border-width: thin;
@@ -511,15 +511,15 @@ div.panel-body {
 }
 
 .chatSender {
-    float: right;
     /*font-weight: bold;*/
     /*background-color: aliceblue;*/
+    float: right;
     background-color: white;
     border-style: solid;
     border-width: thin;
     border-radius: 10px;
     padding: 1px 10px 1px 10px;
-    margin-right: -20px;
+    margin-right: 10px;
 }
 
 

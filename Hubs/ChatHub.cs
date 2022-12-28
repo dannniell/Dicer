@@ -19,11 +19,11 @@ namespace Dicer.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomName).ConfigureAwait(false);
             //TODO
-            /*var RetVals = await _chatMessageService.GetChatMessage(chatRoomName);
+            var RetVals = await _chatMessageService.GetChatMessage(chatRoomName);
             var data = new List<ChatMessageViewModel>();
-            if(RetVals.Count > 0)
+            if (RetVals.Count > 0)
             {
-                foreach(var item in RetVals)
+                foreach (var item in RetVals)
                 {
                     data.Add(new ChatMessageViewModel
                     {
@@ -32,31 +32,24 @@ namespace Dicer.Hubs
                         Email = item.Email
                     });
                 }
-            }*/
-            var data = new List<ChatMessageViewModel>();
-            data.Add(new ChatMessageViewModel
-            {
-                MessageData = "hi bro",
-                MessageTime = DateTime.UtcNow.ToString(),
-                Email = "danielalferian9@gmail.com"
-            });
+            }
             await Clients.Caller.SendAsync("InitReceiveMessage", data);
         }
 
-        public async Task SendMessageToGroup(string group, string message)
+        public async Task SendMessageToGroup(string group, string message, string currentEmail)
         {
             var dateNow = DateTime.UtcNow;
             var data = new ChatMessage
             {
                 MessageData = message,
                 MessageTime = dateNow,
-                Email = Context.User.Identity.Name,
+                Email = currentEmail,
                 GroupName = group
             };
 
             await _chatMessageService.SaveChatMessage(data);
 
-            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString(), Context.User.Identity.Name);
+            await Clients.Group(group).SendAsync("ReceiveMessage", message, dateNow.ToString(), currentEmail);
         }
     }
 }

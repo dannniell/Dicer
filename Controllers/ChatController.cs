@@ -19,10 +19,20 @@ namespace Dicer.Controllers
             this._signInManager = signInManager;
         }
 
+        //for client
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int campaignId, string userId)
         {
+            ViewData["campaignId"] = campaignId;
+            var client = await GetCurrentUserAsync();
+            ViewData["currentEmail"] = client.NormalizedEmail;
+            ViewData["clientMail"] = client.NormalizedEmail;
+            var creator = await _userManager.FindByIdAsync(userId);
+            ViewData["creatorMail"] = creator.NormalizedEmail;
+            ViewData["name"] = creator.Name;
             return View();
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

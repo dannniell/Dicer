@@ -80,11 +80,7 @@ var Acceptance = function () {
                 {
                     data: null, className: 'f-chat', title: 'Chat',
                     render: function (data, type, row, meta) {
-                        if (data === null || data === "") {
-                            return 'No Data';
-                        } else {
-                            return '<center><a href="/Campaign/DownloadInsight/' + data + '">download</a></center>';
-                        }
+                        return '<center><a href="#" id="chat'+ meta.row +'" class="chatBtn" >open chat</a></center>';
                     }
                 },//7
                 {
@@ -133,25 +129,16 @@ $(document).ready(function () {
     _globalAcceptance.PopulateTable();
 });
 
-//todo
-/*$('#btnAccept').on('click', function () {
-    var bsModal = $.fn.modal.noConflict();
-    $('#paymentModal').bsModal("show");
-
-    *//*var j = jQuery.noConflict();*//*
-    
-    *//*jQuery.noConflict();*//*
-    //_globalAcceptance.AcceptParticipant();
-    *//*(function ($) {
-        $('#paymentModal').modal("show");
-    })(j);*//*
-    
-});*/
 
 $('#submitForm').on('click', function (e) {
     _globalAcceptance.AcceptParticipant();
 });
 
+$('#participantTable').on("click", "tbody .chatBtn", function () {
+    var data = participantTableData.row($(this).attr('row-id')).data();
+    var link = "/Chat?campaignId=" + initCampaignId + "&&userId=" + data.userId;
+    window.open(link, '_blank');
+});
 
 $('#participantTable').on("click", "tbody .select-checkbox", function () {
     var data = participantTableData.row($(this).attr('row-id')).data();

@@ -1,16 +1,16 @@
-﻿@page
+﻿<br />
 <br />
 <br />
-<br />
+<input class="d-none" id="campaignId" value="@ViewData["campaignId"]" />
+<input class="d-none" id="clientMail" value="@ViewData["clientMail"]" />
+<input class="d-none" id="creatorMail" value="@ViewData["creatorMail"]" />
+<input class="d-none" id="currentEmail" value="@ViewData["currentEmail"]" />
+
     <div class="container">
         <div class="row">&nbsp;</div>
         <div class="row">
-            <div class="col-2">User</div>
-            <div class="col-4"><input type="text" id="userInput" /></div>
-        </div>
-        <div class="row">
             <div class="col-12">
-                <h2>Daniel</h2>
+                <h2>@ViewData["name"]</h2>
                 <div class="chat-panel panel panel-default">
                     <div class="panel-heading">
                         Welcome to chat function
@@ -18,20 +18,19 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body" id="chat" style="height:500px;">
-                        @*<input type="hidden" id="displayname" />
+@*                        <input type="hidden" id="displayname" />*@
 
-                        <p id="discussion"></p>*@
-                        <div class="row">
+                        <p id="discussion"></p>
+                        @*<div class="row">
                             <div class="col-12">
                                 <ul id="messagesList"></ul>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <!-- /.panel-body -->
                     <div class="panel-footer">
                         <div class="input-group">
                             <input id="messageInput" type="text" name="message" class="form-control input-sm" placeholder="Type your message here..." />
-
                             <span class="input-group-btn">
                                 <input type="button" class="btn btn-warning btn-md" id="sendButton" value="Send">
                             </span>
