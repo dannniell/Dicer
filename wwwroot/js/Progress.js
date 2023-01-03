@@ -90,7 +90,7 @@ var Acceptance = function () {
                             return '<center><span class="fas fa-check"></span></center>';
                         }
                         else {
-                            return '<center><button type="button" class="btn btn-default btn-sm"> Close Task </button></center>';
+                            return '<center><button type="button" class="btn btn-primary btn-sm"> Done </button></center>';
                         }
                     }
                 },//9
@@ -116,6 +116,11 @@ var Acceptance = function () {
         };
         $.ajax(ajaxTypesObj);
     };
+
+    self.ResetDoneModal = function () {
+        $("#withdrawl").addClass('d-none');
+        $("#withoutWithdrawl").addClass('d-none');
+    }
 
     self.CheckWithdrawl = function () {
         var ajaxTypesObj = {
@@ -163,15 +168,16 @@ $(document).ready(function () {
 
 
 $('#submitButton').on('click', function (e) {
-    _globalAcceptance.CloseCampaign();
-});
-
-$('#closeButton').on('click', function (e) {
-    $("#withdrawl").addClass('d-none');
-    $("#withoutWithdrawl").addClass('d-none');
+    var bankAccount = document.getElementById("bankAccountNumber").value;
+    if (bankAccount !== "") {
+        _globalAcceptance.CloseCampaign();
+    } else {
+        alert("Please Enter Valid Bank Account Number!!");
+    }
 });
 
 $('#btnDone').on('click', function (e) {
+    _globalAcceptance.ResetDoneModal();
     _globalAcceptance.CheckWithdrawl();
 });
 
@@ -183,6 +189,10 @@ $('#participantTable').on("click", "tbody .chatBtn", function () {
 
 $('#participantTable').on("click", "tbody .btn", function () {
     var data = participantTableData.row($(this).attr('row-id')).data();
-
-    _globalAcceptance.TaskDoneParticipant(data);
+    let text = "Are You Sure?";
+    if (confirm(text) == true) {
+        _globalAcceptance.TaskDoneParticipant(data);
+    } else {
+        return null;
+    }
 });
