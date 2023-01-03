@@ -26,5 +26,13 @@ namespace Dicer.Controllers.API
             var retVals = await _acceptanceService.GetRegistrant(campaignId);
             return Ok(retVals);
         }
+
+        [Route("api/[Controller]/{campaignId}")]
+        [HttpPost]
+        public async Task<IActionResult> AcceptParticipant(int campaignId, AcceptParticipant model)
+        {
+            var retVals = await _acceptanceService.AcceptParticipant(campaignId, model);
+            return Ok(retVals);
+        }
     }
 }

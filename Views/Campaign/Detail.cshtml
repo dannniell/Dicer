@@ -101,19 +101,17 @@
                                 {
                                     <a asp-action="downloadDraft" asp-route-draftFile="@draftFilePath">Draft File</a>
                                 }
-                                <div class="form-label">
+                                <div class="form-label mb-3">
                                     <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />
                                 </div>
-                                <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Draft</button>
                             </form>
                             <br>
                             <form enctype="multipart/form-data" asp-action="PostLink" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
                                 <a target="_blank" href="@ViewData["postLink"]">Post Campaign</a>
-                                <div class="form-label">
+                                <div class="form-label mb-3">
                                     <input type="text" name="postLink" class="form-control" placeholder="link campaign" maxlength="300" value="@ViewData["postLink"]"/>
                                 </div>
-                                <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
                             </form>
                             <a class="btn btn-sm btn-primary createBtn w-100" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
@@ -132,9 +130,8 @@
                                 @if(insightFilePath == null)
                                 {
                                     <div class="form-label">
-                                    <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control" />
+                                    <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control mb-3" />
                                 </div>
-                                <br>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Insight</button>
                                 }
                             </form>

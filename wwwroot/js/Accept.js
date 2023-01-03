@@ -103,7 +103,7 @@ var Progress = function () {
     };
 };
 
-var _globalProgress = new Progress();
+var _globalAcceptance = new Progress();
 
 $(document).ready(function () {
     initCampaignId = parseInt(document.getElementById("initCampaignId").value);
