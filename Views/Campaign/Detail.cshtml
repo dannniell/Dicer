@@ -73,7 +73,6 @@
                 {
                     <div class="form-row">
                         <div class="col-md-12">
-                            <br>
                              <a asp-action="ProgressCampaign" asp-route-id=@Model.CampaignId asp-controller="MyCampaign" class="btn w-100 btn-sm btn-primary createBtn">View Progress</a>
                         </div>
                     </div>
@@ -97,24 +96,17 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <form enctype="multipart/form-data" asp-action="UploadDraft" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
-                                @if(draftFilePath != null)
-                                {
-                                    <a asp-action="downloadDraft" asp-route-draftFile="@draftFilePath">Draft File</a>
-                                }
                                 <div class="form-label mb-3">
                                     <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />
                                 </div>
-                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Draft</button>
+                                <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100 mb-3">Upload Draft</button>
                             </form>
-                            <br>
                             <form enctype="multipart/form-data" asp-action="PostLink" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
-                                <a target="_blank" href="@ViewData["postLink"]">Post Campaign</a>
                                 <div class="form-label mb-3">
-                                    <input type="text" name="postLink" class="form-control" placeholder="link campaign" maxlength="300" value="@ViewData["postLink"]"/>
+                                    <input type="text" name="postLink" class="form-control" placeholder="Link Post Campaign" maxlength="300" value="@ViewData["postLink"]"/>
                                 </div>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
                             </form>
-                            <a class="btn btn-sm btn-primary createBtn w-100" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
                         </div>
                     </div>
                 }
@@ -122,11 +114,8 @@
                 {
                     <div class="form-row">
                         <div class="col-md-12">
+                            <a class="btn btn-sm btn-primary createBtn w-100 mb-3" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
                             <form enctype="multipart/form-data" asp-action="UploadInsight" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
-                                @if(insightFilePath != null)
-                                {
-                                    <a asp-action="downloadInsight" asp-route-insightFile="@insightFilePath">Insight File</a>
-                                }
                                 @if(insightFilePath == null)
                                 {
                                     <div class="form-label">
@@ -197,6 +186,27 @@
                 <div class="form-group mb-3">
                     <p>@Model.Task</p>
                 </div>
+                 @if(ViewData["isApply"] == "true" && ViewData["isTaskDone"] == "False")
+                {
+                    @if(draftFilePath != null)
+                    {
+                        <div class="form-group mb-3">
+                            <h4 class="font-weight-bold">Draft File: &nbsp; <a class="fas fa-download" asp-action="downloadDraft" asp-route-draftFile="@draftFilePath"></a></h4>
+                        </div>
+                    }
+                    @if(ViewData["postLink"] != null)
+                    {
+                        <div class="form-group mb-3">
+                            <h4 class="font-weight-bold">Campaign Result: &nbsp; <a class="fas fa-external-link-alt" target="_blank" href="@ViewData["postLink"]"></a></h4>
+                        </div>
+                    }
+                    @if(insightFilePath != null)
+                    {
+                        <div class="form-group mb-3">
+                            <h4 class="font-weight-bold">Insight: &nbsp; <a class="fas fa-download" asp-action="downloadInsight" asp-route-insightFile="@insightFilePath">Insight File</a></h4>
+                        </div>
+                    }
+                }
             </div>
         </div>
     </div>

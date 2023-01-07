@@ -129,21 +129,20 @@
             </div>
         }
     </div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a id="BtnPrevious"
+       class="btn btn-primary btn-sm font-weight-bold createBtn mt-3 @prevDisabled">
+        Previous
+    </a>
+    <a id="BtnNext"
+       class="btn btn-primary btn-sm font-weight-bold createBtn mt-3 @nextDisabled">
+        Next
+    </a>
 </div>
-
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-
-<a id="BtnPrevious"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a id="BtnNext"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
 
 @section Scripts {
     <script src="~/js/HomeCreator.js" asp-append-version="true"></script>

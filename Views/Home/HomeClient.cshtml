@@ -83,25 +83,26 @@
             </div>
         }
     </div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="HomeClient"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-searchString="@ViewData["SearchFilter"]"
+       class="btn btn-primary btn-sm font-weight-bold createBtn mt-3 @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="HomeClient"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-searchString="@ViewData["SearchFilter"]"
+       class="btn btn-primary btn-sm font-weight-bold createBtn mt-3 @nextDisabled">
+        Next
+    </a>
 </div>
 
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
 
-<a asp-action="HomeClient"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-searchString="@ViewData["SearchFilter"]"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a asp-action="HomeClient"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-searchString="@ViewData["SearchFilter"]"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
 
     
 @section Scripts {
