@@ -95,6 +95,7 @@
                 {
                     <div class="form-row">
                         <div class="col-md-12">
+                            <a class="btn btn-sm btn-primary createBtn w-100 mb-3" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
                             <form enctype="multipart/form-data" asp-action="UploadDraft" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
                                 <div class="form-label mb-3">
                                     <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />

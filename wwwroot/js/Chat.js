@@ -70,17 +70,19 @@ connection.start().then(function () {
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var message = document.getElementById("messageInput").value;
 
-    var campaignId = document.getElementById("campaignId").value;
-    var client = document.getElementById("clientMail").value;
-    var creator = document.getElementById("creatorMail").value;
+    if (message !== "" && message != undefined && message != null) {
+        var campaignId = document.getElementById("campaignId").value;
+        var client = document.getElementById("clientMail").value;
+        var creator = document.getElementById("creatorMail").value;
 
-    var groupName = campaignId + client + creator;
-    var currentEmail = document.getElementById("currentEmail").value;
+        var groupName = campaignId + client + creator;
+        var currentEmail = document.getElementById("currentEmail").value;
 
-    connection.invoke("SendMessageToGroup", groupName, message, currentEmail).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
+        connection.invoke("SendMessageToGroup", groupName, message, currentEmail).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
 
-    $('#messageInput').val('');
+        $('#messageInput').val('');
+    }
 });
