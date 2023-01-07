@@ -492,7 +492,7 @@ ul {
 
 div.panel-body {
     overflow: scroll;
-    background: url('https://www.toptal.com/designers/subtlepatterns/uploads/vintage-wallpaper.png');
+    background: url('../Img/System/chatWallpaper.webp');
     border-style: solid;
     border-width: thin;
     border-color: lightgrey;

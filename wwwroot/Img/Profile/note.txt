@@ -1,6 +1,0 @@
-﻿namespace Dicer.wwwroot.Img.Profile
-{
-    public class note
-    {
-    }
-}
