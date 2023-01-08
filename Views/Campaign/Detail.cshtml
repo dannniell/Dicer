@@ -10,7 +10,24 @@
     var gender = (Model.Gender ?? "Male or Female");
     var provinsi = (ViewData["Provinsi"] ?? "Any Provinsi");
     var kota = (ViewData["Kota"] ?? "Any Kota");
-    var age = (Model.MinAge.ToString() ?? "All Ages") + " until " + (Model.MaxAge.ToString() ?? "Above");
+    var age = ""; 
+    if(Model.MinAge.ToString() == null || Model.MinAge.ToString() == "")
+    {
+        age = age + "All Ages";
+    }
+    else
+    {
+        age = age + Model.MinAge.ToString();
+    }
+    age = age + " until ";
+    if(Model.MaxAge.ToString() == null || Model.MaxAge.ToString() == "")
+    {
+        age = age + "Above";
+    }
+    else
+    {
+        age = age + Model.MaxAge.ToString();
+    }
     if (Model.MinAge == null && Model.MaxAge == null)
     {
         age = "Not Set";
