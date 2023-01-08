@@ -114,7 +114,7 @@ $('#submitForm').on('click', function (e) {
     if (_globalSelectedItem.length > 0) {
         _globalAcceptance.AcceptParticipant();
     } else {
-        alert('Failed to Insert Transaction Detail Data!');
+        alert('Please Select Participant!');
     }
 });
 
