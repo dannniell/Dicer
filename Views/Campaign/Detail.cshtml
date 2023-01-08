@@ -204,6 +204,9 @@
                             <h4 class="font-weight-bold">Campaign Result: &nbsp; <a class="fas fa-external-link-alt" target="_blank" href="@ViewData["postLink"]"></a></h4>
                         </div>
                     }
+                }
+                @if(ViewData["isApply"] == "true" && ViewData["isTaskDone"] == "True")
+                {
                     @if(insightFilePath != null)
                     {
                         <div class="form-group mb-3">
