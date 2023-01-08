@@ -6,6 +6,7 @@
     ViewData["Title"] = "Create Campaign";
     var photoPath = "~/Img/Campaign/" + (ViewData["Img"] ?? "noimage.jpg");
     string strSpacer = "&nbsp;&nbsp;";
+    var genre = Model.Genre;
     var gender = (Model.Gender ?? "Male or Female");
     var provinsi = (ViewData["Provinsi"] ?? "Any Provinsi");
     var kota = (ViewData["Kota"] ?? "Any Kota");
@@ -177,6 +178,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <ul>
+                        <li>Genre: @genre</li>
                         <li>Gender: @gender</li>
                         <li>Provinsi: @provinsi</li>
                         <li>Kota: @kota</li>
