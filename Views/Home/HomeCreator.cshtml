@@ -101,6 +101,16 @@
              <hr class="@*lineHome*@">
         </div>
     </div>
+    @if(Model.Count == 0)
+    {
+        <div class="form-row justify-content-center" style="height:40vh">
+            <div class="col-md-1 align-self-center">
+                No Data
+            </div>
+        </div>
+    }
+    else
+    {
     <div class="row float-start">
         @foreach (var item in Model)
         {
@@ -120,6 +130,7 @@
             </div>
         }
     </div>
+    }
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
