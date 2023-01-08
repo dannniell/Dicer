@@ -69,7 +69,10 @@ body {
     padding-bottom: 10vh;
 }
 
-
+.container .homeContent {
+    padding-top: 11vh;
+    padding-bottom: 10vh;
+}
 
 
 .row {
@@ -300,7 +303,7 @@ ul {
 }
 
 .carousel-item {
-    height: 300px;
+    height: 400px;
     /*border-radius: 10px;
     overflow: hidden;*/
 }
@@ -309,25 +312,6 @@ ul {
     /*margin-top: -100px;*/
     border-radius: 10px;
     overflow: hidden;
-}
-
-.carousel-item .display-4 {
-    margin-top: -50px;
-}
-
-.carousel-item hr {
-    border-color: white;
-    /*width: 70px;
-    border-width: 3px;*/
-}
-
-.carousel-item .btn {
-    background-color: #001A72;
-    border: none;
-    border-radius: 25px;
-    padding-right: 25px;
-    padding-left: 25px;
-    margin-top: 40px;
 }
 
 .lineHome {

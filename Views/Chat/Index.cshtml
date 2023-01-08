@@ -1,12 +1,12 @@
-﻿<br />
-<br />
-<br />
+﻿@{
+    ViewData["Title"] = "Chat";
+}
 <input class="d-none" id="campaignId" value="@ViewData["campaignId"]" />
 <input class="d-none" id="clientMail" value="@ViewData["clientMail"]" />
 <input class="d-none" id="creatorMail" value="@ViewData["creatorMail"]" />
 <input class="d-none" id="currentEmail" value="@ViewData["currentEmail"]" />
 
-    <div class="container">
+    <div class="container homeClientContent">
         <div class="row">&nbsp;</div>
         <div class="row">
             <div class="col-12">
@@ -18,14 +18,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body" id="chat" style="height:500px;">
-@*                        <input type="hidden" id="displayname" />*@
-
                         <p id="discussion"></p>
-                        @*<div class="row">
-                            <div class="col-12">
-                                <ul id="messagesList"></ul>
-                            </div>
-                        </div>*@
                     </div>
                     <!-- /.panel-body -->
                     <div class="panel-footer">

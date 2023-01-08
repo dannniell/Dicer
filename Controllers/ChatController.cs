@@ -51,32 +51,6 @@ namespace Dicer.Controllers
             return View();
         }
 
-        //for creator
-        [HttpGet]
-        /*public async Task<IActionResult> Index(int cId)
-        {
-            ViewData["campaignId"] = cId;
-            var user = await GetCurrentUserAsync();
-            var campaignData = from a in _context.ClientCampaign
-                               where a.CampaignId == cId
-                               select a;
-
-            var target = await _userManager.FindByIdAsync(campaignData.FirstOrDefault().UserId);
-            ViewData["currentEmail"] = user.NormalizedEmail;
-            if (User.IsInRole("Client"))
-            {
-                ViewData["clientMail"] = user.NormalizedEmail;
-                ViewData["creatorMail"] = target.NormalizedEmail;
-            }
-            else
-            {
-                ViewData["clientMail"] = target.NormalizedEmail;
-                ViewData["creatorMail"] = user.NormalizedEmail;
-            }
-            ViewData["name"] = target.Name;
-            return View();
-        }*/
-
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
