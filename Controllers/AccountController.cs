@@ -66,8 +66,8 @@ namespace Dicer.Controllers
                     var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdClient);
                     await _userManager.AddToRoleAsync(user, role.Name);
 
-                    string body = String.Format("<th><a href={0}>Klik Disini Untuk Konfirmasi Email Anda</a></th>", confirmationLink);
-                    emailService.SendEmail(model.Email, "Dicer Konfirmasi Email", body);
+                    string body = String.Format("<p>Hi {0}, we have received your Dicer account registration.<br>Click the link <a href={1} target=\"_blank\">here</a> to verify your account.</p>", model.Name, confirmationLink);
+                    emailService.SendEmail(model.Email, "Dicer Confirmation Email", body);
 
                     return RedirectToAction("RegistrationSuccess", "Account");
                 }
@@ -121,8 +121,8 @@ namespace Dicer.Controllers
                     var role = await _roleManager.FindByIdAsync(Constants.Constants.roleIdCreator);
                     await _userManager.AddToRoleAsync(user, role.Name);
 
-                    string body = String.Format("<th><a href={0}>Klik Disini Untuk Konfirmasi Email Anda</a></th>", confirmationLink);
-                    emailService.SendEmail(model.Email, "Dicer Konfirmasi Email", body);
+                    string body = String.Format("<p>Hi {0}, we have received your Dicer account registration.<br>Click the link <a href={1} target=\"_blank\">here</a> to verify your account.</p>", model.Name, confirmationLink);
+                    emailService.SendEmail(model.Email, "Dicer Confirmation Email", body);
 
                     return RedirectToAction("RegistrationSuccess", "Account");
                 }
@@ -369,7 +369,7 @@ namespace Dicer.Controllers
                     var passwordResetLink = Url.Action("ResetPassword", "Account",
                             new { email = model.Email, token = token }, Request.Scheme);
 
-                    string body = String.Format("<th><a href={0}>Klik Disini Untuk Reset Password</a></th>", passwordResetLink);
+                    string body = String.Format("<p>We have received your reset password request for your Dicer account.<br>Click the link <a href={0} target=\"_blank\">here</a> to reset your password.</p>", passwordResetLink);
                     emailService.SendEmail(model.Email, "Dicer Reset Password", body);
                     return RedirectToAction("ForgotPasswordSuccess", "Account");
                 }
