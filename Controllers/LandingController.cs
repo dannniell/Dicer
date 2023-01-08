@@ -33,7 +33,7 @@ namespace Dicer.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null && !user.EmailConfirmed && (await _userManager.CheckPasswordAsync(user, model.Password)))
                 {
-                    ModelState.AddModelError(string.Empty, "Konfimasi Email");
+                    ModelState.AddModelError(string.Empty, "Confirmation Email");
                     return View(model);
                 }
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
@@ -52,7 +52,7 @@ namespace Dicer.Controllers
                     }                 
                 }
 
-                ModelState.AddModelError(string.Empty, "Email atau Password Salah");
+                ModelState.AddModelError(string.Empty, "Email or Password is not Valid");
             }
             return View(model);
         }

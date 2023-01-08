@@ -277,6 +277,7 @@ namespace Dicer.Controllers
                         }
                     }
 
+                    user.Name = model.Name;
                     var result = await _userManager.UpdateAsync(user);
 
                     if (result.Succeeded)
