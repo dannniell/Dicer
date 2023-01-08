@@ -30,6 +30,9 @@
     //flag
     var isInsightDone = ViewData["isInsightDone"];
     var isTaskDone = ViewData["isTaskDone"];
+
+    var task = @Model.Task.ToString().Replace(System.Environment.NewLine, "<br/>");
+    var description = @Model.Description.ToString().Replace(System.Environment.NewLine, "<br/>");
 }
 
 <input id="InitProvinsi" value= "@ViewData["Provinsi"]" class="d-none"/>
@@ -167,7 +170,7 @@
                     <h4 class="font-weight-bold">Campaign Description</h4>
                 </div>
                 <div class="form-group mb-3">
-                    <p>@Model.Description</p>
+                    <p>@Html.Raw(description)</p>
                 </div>
                 <div class="form-group mb-3">
                     <h4 class="font-weight-bold">Requirements</h4>
@@ -185,7 +188,7 @@
                     <h4 class="font-weight-bold">Detail Task</h4>
                 </div>
                 <div class="form-group mb-3">
-                    <p>@Model.Task</p>
+                    <p>@Html.Raw(task)</p>
                 </div>
                  @if(ViewData["isApply"] == "true" && ViewData["isTaskDone"] == "False")
                 {
