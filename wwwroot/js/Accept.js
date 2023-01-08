@@ -111,7 +111,11 @@ $(document).ready(function () {
 });
 
 $('#submitForm').on('click', function (e) {
-    _globalAcceptance.AcceptParticipant();
+    if (_globalSelectedItem.length > 0) {
+        _globalAcceptance.AcceptParticipant();
+    } else {
+        alert('Failed to Insert Transaction Detail Data!');
+    }
 });
 
 
