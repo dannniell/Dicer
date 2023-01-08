@@ -507,3 +507,10 @@ div.panel-body {
 }
 
 
+.truncate3 {
+    display: -webkit-box;
+    max-width: 20em;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
