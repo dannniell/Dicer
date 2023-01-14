@@ -119,13 +119,13 @@
                             <a class="btn btn-sm btn-primary createBtn w-100 mb-3" target="_blank" asp-action="Index" asp-controller="chat" asp-route-campaignId="@Model.CampaignId">Open Chat</a>
                             <form enctype="multipart/form-data" asp-action="UploadDraft" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
                                 <div class="form-label mb-3">
-                                    <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" />
+                                    <input type="file" accept="video/*,image/*,.pdf,.word" name="draftFile" class="form-control" required/>
                                 </div>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100 mb-3">Upload Draft</button>
                             </form>
                             <form enctype="multipart/form-data" asp-action="PostLink" asp-route-campaignId="@Model.CampaignId" asp-route-userId="@user.Id" method="post">
                                 <div class="form-label mb-3">
-                                    <input type="text" name="postLink" class="form-control" placeholder="Link Post Campaign" maxlength="300" value="@ViewData["postLink"]"/>
+                                    <input type="text" name="postLink" class="form-control" placeholder="Link Post Campaign" maxlength="300" value="@ViewData["postLink"]" required/>
                                 </div>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Campaign Result</button>
                             </form>
@@ -141,7 +141,7 @@
                                 @if(insightFilePath == null)
                                 {
                                     <div class="form-label">
-                                    <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control mb-3" />
+                                    <input type="file" accept="image/*,.pdf,.word" name="InsightFile" class="form-control mb-3" required/>
                                 </div>
                                 <button name="submit" type="submit" value="submit" class="btn btn-sm btn-primary createBtn w-100">Upload Insight</button>
                                 }

@@ -120,7 +120,8 @@ $('#submitForm').on('click', function (e) {
 
 
 $('#participantTable').on("click", "tbody .select-checkbox", function () {
-    var data = participantTableData.row($(this).attr('row-id')).data();
+    var row = $(this).parents("tr");
+    var data = participantTableData.row(row).data();
 
     if ($(this).prop('checked')) {
         _globalSelectedItem.push({

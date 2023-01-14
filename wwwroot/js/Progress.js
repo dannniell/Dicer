@@ -182,13 +182,15 @@ $('#btnDone').on('click', function (e) {
 });
 
 $('#participantTable').on("click", "tbody .chatBtn", function () {
-    var data = participantTableData.row($(this).attr('row-id')).data();
+    var row = $(this).parents("tr");
+    var data = participantTableData.row(row).data();
     var link = "/Chat?campaignId=" + initCampaignId + "&&userId=" + data.userId;
     window.open(link, '_blank');
 });
 
 $('#participantTable').on("click", "tbody .btn", function () {
-    var data = participantTableData.row($(this).attr('row-id')).data();
+    var row = $(this).parents("tr");
+    var data = participantTableData.row(row).data();
     let text = "Are You Sure?";
     if (confirm(text) == true) {
         _globalAcceptance.TaskDoneParticipant(data);
