@@ -130,10 +130,12 @@ var Acceptance = function () {
             contentType: "application/json",
             success: function (data) {
                 if (data[0].total > 0) {
+                    $("#submitCloseButton").removeClass('d-none');
                     $("#withdrawl").removeClass('d-none');
                     document.getElementById("accountBalance").innerHTML = 'Not Used Balance: Rp. ' + String(data[0].total).replace(/(.)(?=(\d{3})+$)/g, '$1,');
                 } else {
                     $("#withoutWithdrawl").removeClass('d-none');
+                    $("#submitButton").removeClass('d-none');
                 }
             },
             error: function (e) {
@@ -174,6 +176,10 @@ $('#submitButton').on('click', function (e) {
     } else {
         alert("Please Enter Valid Bank Account Number!!");
     }
+});
+
+$('#submitCloseButton').on('click', function (e) {
+    _globalAcceptance.CloseCampaign();
 });
 
 $('#btnDone').on('click', function (e) {
