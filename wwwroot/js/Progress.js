@@ -120,6 +120,8 @@ var Acceptance = function () {
     self.ResetDoneModal = function () {
         $("#withdrawl").addClass('d-none');
         $("#withoutWithdrawl").addClass('d-none');
+        $("#submitCloseButton").removeClass('d-none');
+        $("#submitButton").removeClass('d-none');
     }
 
     self.CheckWithdrawl = function () {
@@ -130,12 +132,12 @@ var Acceptance = function () {
             contentType: "application/json",
             success: function (data) {
                 if (data[0].total > 0) {
-                    $("#submitCloseButton").removeClass('d-none');
+                    $("#submitCloseButton").addClass('d-none');
                     $("#withdrawl").removeClass('d-none');
                     document.getElementById("accountBalance").innerHTML = 'Not Used Balance: Rp. ' + String(data[0].total).replace(/(.)(?=(\d{3})+$)/g, '$1,');
                 } else {
                     $("#withoutWithdrawl").removeClass('d-none');
-                    $("#submitButton").removeClass('d-none');
+                    $("#submitButton").addClass('d-none');
                 }
             },
             error: function (e) {
